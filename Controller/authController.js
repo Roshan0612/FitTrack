@@ -44,7 +44,7 @@ const loginController=async(req,res)=>{
     try{
     const {email,password}=req.body;
     if(!email || !password){
-        res.send("please enter the email and password");
+        return res.send("please enter the email and password");
     }
     const user = await userModel.findOne({email});
     if(!user){
@@ -52,7 +52,7 @@ const loginController=async(req,res)=>{
             message:"user doesnt exist"
         })
     }
-    const comparepasswordMatch= await bcrypt.compare(password,user.hashedpassword);
+    const comparepasswordMatch= await bcrypt.compare(password,user.password);
      if(!comparepasswordMatch){
         return res.send({
             message:"incorrect password or username! try again!"
@@ -83,6 +83,9 @@ const loginController=async(req,res)=>{
       error,
     });
     }
+
+
+
 
 }
 module.exports={
