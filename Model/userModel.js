@@ -19,6 +19,5 @@ const mongoose =require("mongoose");
         default:'user'
     },
     
- 
  },{timestamp:true})
  module.exports=mongoose.model("User",userSchema);
