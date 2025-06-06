@@ -89,7 +89,9 @@ const demoofSignIN = (req, res) => {
     res.send("Protected Routes");
   } catch (error) {
     console.log(error);
-    res.send(error);
+    res.send({
+        message :"something went wrong!"
+    });
   }
 };
 module.exports={
