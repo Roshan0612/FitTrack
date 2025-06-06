@@ -20,10 +20,10 @@ const requireSignIn=async(req,res,next)=>{
 const isAdmin=async(req,res,next)=>{
     try {
         const user =await userModel.findById(req.user._id);
-     if(user !== "admin"){
+     if(user.role !== 'admin'){
         return res.send({
         success: false,
-        message: "UnAuthorized Access",
+        message: "UnAuthorized Access!!",
       });
      }else{
         next();
