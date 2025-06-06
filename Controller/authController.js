@@ -83,12 +83,17 @@ const loginController=async(req,res)=>{
       error,
     });
     }
-
-
-
-
 }
+const demoofSignIN = (req, res) => {
+  try {
+    res.send("Protected Routes");
+  } catch (error) {
+    console.log(error);
+    res.send(error);
+  }
+};
 module.exports={
     registerController,
-    loginController
+    loginController,
+    demoofSignIN
 }
