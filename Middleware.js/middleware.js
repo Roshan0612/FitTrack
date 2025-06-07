@@ -17,27 +17,35 @@ const requireSignIn=async(req,res,next)=>{
     }
     
 }
-const isAdmin=async(req,res,next)=>{
+const isAdmin = async (req, res, next) => {
     try {
-        const user =await userModel.findById(req.user._id);
-     if(user.role !== 'admin'){
-        return res.send({
-        success: false,
-        message: "UnAuthorized Access!!",
-      });
-     }else{
+        const user = await userModel.findById(req.user._id);
+
+        if (!user) {
+            return res.status(404).send({
+                success: false,
+                message: "User not found",
+            });
+        }
+
+        if (user.role !== 'admin') {
+            return res.status(403).send({
+                success: false,
+                message: "Unauthorized Access - Admins only",
+            });
+        }
+
         next();
-     }
     } catch (error) {
         console.log(error);
-      res.send({
-      success: false,
-      error,
-      message: "Error in admin credential!!",
-    });
+        res.status(500).send({
+            success: false,
+            error,
+            message: "Error in admin credential check",
+        });
     }
-     
-}
+};
+
 
 module.exports={
     requireSignIn,
