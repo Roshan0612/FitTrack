@@ -58,7 +58,7 @@ const loginController=async(req,res)=>{
             message:"incorrect password or username! try again!"
          })
      }
-     const token = await jwt.sign({id: user._id}, process.env.SECRET, { expiresIn: '10d' });
+     const token = await jwt.sign({_id: user._id}, process.env.SECRET, { expiresIn: '10d' });
      if(!token){
         return res.send({
             msg:"jwt must be provide,try again"
