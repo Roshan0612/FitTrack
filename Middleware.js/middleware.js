@@ -8,7 +8,9 @@ const requireSignIn=async(req,res,next)=>{
         return res.status(401).send({ message: "Token must be provided" });
     }
     const decoded=await jwt.verify(token, process.env.SECRET);
+    console.log(decoded);
     req.user = decoded;
+    console.log("user:" + req.user);
     next();
         
     } catch (error) {
@@ -19,7 +21,13 @@ const requireSignIn=async(req,res,next)=>{
 }
 const isAdmin=async(req,res,next)=>{
     try {
-        const user =await userModel.findById(req.user._id);
+         const user = await userModel.findById(req.user._id);
+        if (!user) {
+        return res.status(404).send({
+        success: false,
+        message: "User not found",
+    });
+    }
      if(user.role !== 'admin'){
         return res.send({
         success: false,
