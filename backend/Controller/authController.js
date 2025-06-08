@@ -84,6 +84,7 @@ const loginController=async(req,res)=>{
     });
     }
 }
+
 const demoofSignIN = (req, res) => {
   try {
     res.send("Protected Routes");
