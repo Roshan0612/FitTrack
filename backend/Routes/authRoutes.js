@@ -1,6 +1,6 @@
 const express =require("express");
-const {registerController,loginController, demoofSignIN} =require("../backend/Controller/authController");
-const { isAdmin, requireSignIn } = require("../backend/Middleware.js/middleware");
+const {registerController,loginController, demoofSignIN} =require("../Controller/authController");
+const { isAdmin, requireSignIn } = require("../Middleware.js/middleware");
 
 const router=express.Router();
 
