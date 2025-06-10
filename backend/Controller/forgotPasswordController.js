@@ -9,10 +9,6 @@ const forgotPasswordController = async (req, res) => {
   console.log("📧 Email received:", email);
 
   try {
-    console.log("🔔 Forgot password API hit");
-
-  const { email } = req.body;
-  console.log("📧 Email received:", email);
     const user = await userModel.findOne({ email });
     if (!user) {
       console.warn("⚠️ User not found for email:", email);
