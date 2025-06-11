@@ -23,7 +23,7 @@ const Signup = () => {
     }
 
   return (
-    <div>
+    <div className="signup-container">
       <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
         <input
@@ -35,7 +35,7 @@ const Signup = () => {
         <input
         value={password}
         onChange={(e)=> setPassword(e.target.value)} type="password" placeholder="Password" /><br />
-        <button type="submit">Create Account</button>
+        <button type="submit" className="signup-btn ripple-btn">Create Account</button>
       </form>
     </div>
   );

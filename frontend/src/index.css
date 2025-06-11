@@ -1,5 +1,10 @@
 @import "tailwindcss";
-
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+}
 .auth-container {
   max-width: 400px;
   margin: 50px auto;
@@ -50,3 +55,271 @@
   margin-top: 10px;
   color: #ff0000;
 }
+
+
+/* login css */
+
+.login-container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+  width: 320px;
+  margin: 100px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.login-container h2 {
+  margin: 0;
+}
+
+.login-container p {
+  font-size: 14px;
+  color: #666;
+  margin-top: 4px;
+  margin-bottom: 20px;
+}
+
+.login-container form input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.register-btn,
+.login-btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+}
+
+.register-btn {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.login-btn {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Optional: Style the final submit button if you're keeping it */
+form button[type="submit"] {
+  margin-top: 10px;
+  background-color: #000;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Optional: Style the forgot password link */
+.login-container a {
+  font-size: 14px;
+  margin-top: 15px;
+  color: #555;
+  text-decoration: none;
+}
+
+/* signup css */
+.signup-container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+  width: 320px;
+  margin: 100px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.signup-container h2 {
+  margin: 0 0 10px 0;
+  font-size: 24px;
+}
+
+.signup-container form input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.signup-btn {
+  margin-top: 20px;
+  background-color: #000;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+}
+/* forgot pass word css */
+.forgot-container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+  width: 320px;
+  margin: 100px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.forgot-container h2 {
+  margin: 0 0 10px 0;
+  font-size: 24px;
+}
+
+.forgot-container form input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.forgot-btn {
+  margin-top: 20px;
+  background-color: #000;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.forgot-container p {
+  margin-top: 15px;
+  font-size: 14px;
+  color: green; /* or red if you show error messages */
+}
+
+/* ripple button css */
+.ripple-btn {
+  position: relative;
+  overflow: hidden;
+  border: none;
+  background-color: #000;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.ripple-btn:focus {
+  outline: none;
+}
+
+.ripple-btn::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 50%;
+  width: 200%;
+  height: 200%;
+  transition: transform 0.5s, opacity 1s;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ripple-btn:active::after {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  transition: 0s;
+}
+/* wrap background animation */
+/* .background-wrap {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #fff;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Add the animated grid background 
+.background-wrap::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background-image: repeating-linear-gradient(
+      #ccc 0 1px,
+      transparent 1px 20px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      #ccc 0 1px,
+      transparent 1px 20px
+    );
+  animation: zoom 15s linear infinite;
+  transform-origin: center;
+  z-index: 0;
+}
+
+/* Optional gradient corner effects 
+.background-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 45%, rgba(0, 128, 255, 0.2) 50%, transparent 55%),
+              linear-gradient(315deg, transparent 45%, rgba(0, 128, 255, 0.2) 50%, transparent 55%);
+  background-size: 100% 100%;
+  z-index: 0;
+}
+
+/* Main form stays on top 
+.login-container,
+.signup-container,
+.forgot-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Animation 
+@keyframes zoom {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  100% {
+    transform: scale(1.5) rotate(360deg);
+  }
+} */
