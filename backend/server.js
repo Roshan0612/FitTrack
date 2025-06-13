@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const authRoutes = require("./Routes/authRoutes"); // Ensure this path is correct
+const authRoutes = require("./Routes/authRoutes"); 
 
 dotenv.config();
 
@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use("/api/v1/auth", authRoutes); // ✅ versioning is a good practice
+app.use("/api/v1/auth", authRoutes);
 
 // Root route
 app.get("/", (req, res) => {

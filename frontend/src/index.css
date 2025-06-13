@@ -323,3 +323,66 @@ form button[type="submit"] {
     transform: scale(1.5) rotate(360deg);
   }
 } */
+
+
+/* for additional information style*/
+.additional-info-container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+  width: 400px;
+  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.additional-info-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.additional-info-container form label {
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #333;
+  display: block;
+}
+
+.additional-info-container input,
+.additional-info-container select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
+}
+
+.additional-info-container input:focus,
+.additional-info-container select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.additional-info-container button {
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+  padding: 12px;
+  border: none;
+  border-radius: 999px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.additional-info-container button:hover {
+  background-color: #0056b3;
+}

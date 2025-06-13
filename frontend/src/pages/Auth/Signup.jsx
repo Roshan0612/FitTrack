@@ -10,7 +10,7 @@ const Signup = () => {
   const handleSubmit = async(e)=>{
     e.preventDefault();
     try {
-    const res = await axios.post(`${API_URL}/api/auth/register`, { name, email, password });
+    const res = await axios.post(`${API_URL}/api/v1/auth/register`, { name, email, password });
     if (res.data.message) {
       toast.success(res.data.message);
     } else {

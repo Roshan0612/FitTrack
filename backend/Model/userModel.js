@@ -1,27 +1,35 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    role: {
-      type: String,
-      default: "user",
-    },
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
   },
-  { timestamps: true }
-);
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: String,
+    default: "user",
+  },
+  // ✅ Additional fields
+  age: Number,
+  gender: String,
+  height: Number,
+  weight: Number,
+  mobile: String,
+  address: String,
+  fitnessGoal: String,
+  activityLevel: String,
+  medicalConditions: String,
+  profilePicture: String,
+}, { timestamps: true });
 
-// ✅ Safe export: avoid OverwriteModelError
+// ✅ Fix: Only compile the model if it hasn't been compiled yet
 module.exports = mongoose.models.User || mongoose.model("User", userSchema);
