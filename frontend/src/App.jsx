@@ -5,28 +5,32 @@ import AuthLayout from './layouts/AuthLayout';
 import Dashboard from './components/Dashboard';
 import Login from './pages/Auth/Login';
 import Signup from './pages/Auth/Signup';
-import About from './pages/About'
+import About from './pages/About';
 import ForgotPassword from './pages/Auth/ForgotPassword';
-import { ToastContainer, toast } from 'react-toastify';
+import ResetPassword from './pages/Auth/ResetPassword'; // ✅ Import
+
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
     <>
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<Dashboard />} />
-          <Route path="about" element={<About/>} />
-        </Route>
-        <Route path="/auth" element={<AuthLayout />}>
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<Signup />} />
-          <Route path="forgot-password" element={<ForgotPassword />} />
-          <Route path="reset-password/:token" element={<ForgotPassword />} />
-        </Route>
-      </Routes>
-    </Router>
-    <ToastContainer />
+      <Router>
+        <Routes>
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="about" element={<About />} />
+          </Route>
+
+          <Route path="/auth" element={<AuthLayout />}>
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="forgot-password" element={<ForgotPassword />} />
+          </Route>
+
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+        </Routes>
+      </Router>
+      <ToastContainer />
     </>
   );
 }

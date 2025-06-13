@@ -1,24 +1,22 @@
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
-const userModel = require("../Model/userModel");
+const userModel = require("../model/userModel");
 
 const forgotPasswordController = async (req, res) => {
-  console.log("🔔 Forgot password API hit");
-
   const { email } = req.body;
-  console.log("📧 Email received:", email);
 
   try {
+    // 1. Find user
     const user = await userModel.findOne({ email });
-    if (!user) {
-      console.warn("⚠️ User not found for email:", email);
-      return res.status(404).json({ message: "User not found" });
-    }
+    if (!user) return res.status(404).json({ message: "User not found" });
 
+    // 2. Generate reset token
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "10m" });
-    const resetLink = `http://localhost:5173/resetpassword/${token}`;
-    console.log("🔗 Reset link generated:", resetLink);
 
+    // 3. Construct reset link
+    const resetLink = `http://localhost:5173/reset-password/${token}`;
+
+    // 4. Setup mail transport
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -27,20 +25,23 @@ const forgotPasswordController = async (req, res) => {
       },
     });
 
-    console.log("📬 Sending email to:", email);
-
+    // 5. Send email
     await transporter.sendMail({
-      from: process.env.MAIL_USER,
+      from: `"FitTrack Support" <${process.env.MAIL_USER}>`,
       to: email,
-      subject: "Password Reset",
-      html: `<p>Click <a href="${resetLink}">here</a> to reset your password.</p>`,
+      subject: "Password Reset Request",
+      html: `
+        <p>Hello,</p>
+        <p>You requested a password reset. Click the link below to reset your password:</p>
+        <a href="${resetLink}">${resetLink}</a>
+        <p>This link will expire in 10 minutes.</p>
+      `,
     });
 
-    console.log("✅ Email sent successfully");
-    return res.status(200).json({ message: "Reset link sent", resetLink });
+    return res.status(200).json({ message: "Reset link sent to email", resetLink });
   } catch (error) {
-    console.error("❌ Error in forgotPasswordController:", error.message);
-    return res.status(500).json({ message: "Something went wrong", error: error.message });
+    console.error("Forgot Password Error:", error.message);
+    return res.status(500).json({ message: "Internal server error", error: error.message });
   }
 };
 

@@ -9,6 +9,6 @@ const router=express.Router();
 router.post("/register",registerController);
 router.post("/login",loginController);
 router.get("/test", requireSignIn,isAdmin, demoofSignIN);
-router.post("/forgotpassword", forgotPasswordController);
-router.post('/resetpassword/:token', resetPasswordController);
+router.post("/forgot-password", forgotPasswordController);
+router.post('/reset-password/:token', resetPasswordController); 
 module.exports=router;

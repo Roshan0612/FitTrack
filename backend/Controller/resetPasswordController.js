@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const userModel = require("../Model/userModel");
+const userModel = require("../model/userModel");
 
 const resetPasswordController = async (req, res) => {
   const { token } = req.params;
