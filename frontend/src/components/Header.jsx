@@ -28,7 +28,7 @@ const Header = () => {
             ) : (
               <>
                 <Link to="/auth/login" className="login-link" onClick={() => setMenuOpen(false)}>Login</Link>
-                <Link to="/auth/signup" className="signup-btn" onClick={() => setMenuOpen(false)}>Sign up</Link>
+                <Link to="/auth/signup"  onClick={() => setMenuOpen(false)}>Sign up</Link>
               </>
             )}
           </div>

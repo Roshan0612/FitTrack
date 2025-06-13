@@ -11,6 +11,7 @@ import ResetPassword from './pages/Auth/ResetPassword';
 
 import { ToastContainer } from 'react-toastify';
 import Homepages from './components/Homepages';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Homepages />} />
             <Route path="about" element={<About />} />
+            <Route path="profile" element={<Profile/>} />
           </Route>
 
           <Route path="/auth" element={<AuthLayout />}>
