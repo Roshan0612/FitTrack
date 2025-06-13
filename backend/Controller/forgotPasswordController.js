@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
-const userModel = require("../Model/userModel");
+const userModel = require("../model/userModel");
 
 const forgotPasswordController = async (req, res) => {
   const { email } = req.body;
