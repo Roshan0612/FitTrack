@@ -3,7 +3,6 @@ import { useAuth } from '../../context/Auth';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 const API_URL = import.meta.env.VITE_API_URL;
-import { Navigate } from 'react-router-dom';
 import { useState } from 'react';
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -31,17 +30,29 @@ const Login = () => {
     }
   }
   return (
-    <div>
+    <div className="background-wrap">
+    <div className="login-container">
       <h2>Login</h2>
+      <p>Enter your credentials to access your account.</p>
       <form onSubmit={handleSubmit}>
         <input value={email} onChange={(e)=> setEmail(e.target.value)}
         type="email" placeholder="Email" /><br />
 
         <input value={password} onChange={(e)=>setPassword(e.target.value)}
         type="password" placeholder="Password" /><br />
-        <button type="submit">Login</button>
-      </form>
+
+        <div className="button-group">
+
+          <button className="register-btn ripple-btn">
+                <Link to="/auth/signup"></Link>SignUp
+          </button>
+          <button className="login-btn ripple-btn">
+               Login
+          </button>
+        </div>
+      </form> 
       <Link to="/auth/forgot-password">Forgot Password?</Link>
+    </div>
     </div>
   );
 };
