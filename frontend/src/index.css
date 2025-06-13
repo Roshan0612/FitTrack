@@ -1,6 +1,7 @@
 @import "tailwindcss";
 body {
   font-family: Arial, sans-serif;
+  font-family: 'Inter', sans-serif;
   background-color: #fff;
   margin: 0;
   padding: 0;
@@ -179,7 +180,7 @@ form button[type="submit"] {
   cursor: pointer;
   width: 100%;
 }
-/* forgot pass word css */
+/* forgot password css */
 .forgot-container {
   background-color: #fff;
   padding: 30px;
@@ -323,3 +324,222 @@ form button[type="submit"] {
     transform: scale(1.5) rotate(360deg);
   }
 } */
+
+
+/* Reset font and box styles */
+
+/* 
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  background: white;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-circle {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #f472b6, #fb923c);
+  color: white;
+  font-weight: bold;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-text {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.navbar-right a {
+  color: #4b5563;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.navbar-right a:hover {
+  color: #000;
+}
+
+.btn-outline {
+  padding: 6px 14px;
+  border: 1px solid #d1d5db;
+  background: white;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-outline:hover {
+  background: #f3f4f6;
+}
+
+.btn-primary {
+  padding: 6px 14px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-gradient {
+  padding: 6px 14px;
+  background: linear-gradient(to right, #a78bfa, #f472b6);
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.btn-gradient:hover {
+  opacity: 0.9;
+} */
+
+
+/* HEADER css */
+/* Base styles */
+.navbar {
+  background-color: white;
+  border-bottom: 1px solid #eee;
+  padding: 0.75rem 1.25rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+}
+
+.logo span {
+  color: #00bcd4;
+}
+
+.hamburger {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  display: none;
+  cursor: pointer;
+}
+
+/* Links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+}
+
+.auth-links {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.signup-btn {
+  background-color: black;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 999px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  font-weight: 600;
+}
+
+.login-link {
+  height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background-color: white;
+    flex-direction: column;
+    padding: 1rem;
+    display: none;
+    border-bottom: 1px solid #eee;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .auth-links {
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .nav-links a {
+    padding: 0.5rem 0;
+  }
+}
+.profile-icon {
+  color: #333;
+  transition: 0.3s ease;
+}
+
+.profile-icon:hover {
+  color: #00bcd4;
+}

@@ -7,9 +7,10 @@ import Login from './pages/Auth/Login';
 import Signup from './pages/Auth/Signup';
 import About from './pages/About';
 import ForgotPassword from './pages/Auth/ForgotPassword';
-import ResetPassword from './pages/Auth/ResetPassword'; // ✅ Import
+import ResetPassword from './pages/Auth/ResetPassword'; 
 
 import { ToastContainer } from 'react-toastify';
+import Homepages from './components/Homepages';
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<MainLayout />}>
-            <Route index element={<Dashboard />} />
+            <Route index element={<Homepages />} />
             <Route path="about" element={<About />} />
           </Route>
 
