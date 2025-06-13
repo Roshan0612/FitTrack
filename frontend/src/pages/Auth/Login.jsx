@@ -3,6 +3,7 @@ import { useAuth } from '../../context/Auth';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 const API_URL = import.meta.env.VITE_API_URL;
+// import MainLayout from '../../layouts/MainLayout'
 import { useState } from 'react';
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -30,6 +31,7 @@ const Login = () => {
     }
   }
   return (
+    
     <div className="background-wrap">
     <div className="login-container">
       <h2>Login</h2>
@@ -54,6 +56,7 @@ const Login = () => {
       <Link to="/auth/forgot-password">Forgot Password?</Link>
     </div>
     </div>
+    
   );
 };
 

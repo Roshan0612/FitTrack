@@ -18,7 +18,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div>
+    <div className="forgot-container">
       <h2>Forgot Password</h2>
       <form onSubmit={handleForgot}>
         <input
@@ -28,7 +28,7 @@ const ForgotPassword = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <button type="submit">Send Reset Link</button>
+        <button type="submit" className="forgot-btn">Send Reset Link</button>
       </form>
       <p>{message}</p>
     </div>

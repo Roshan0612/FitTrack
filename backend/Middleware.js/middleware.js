@@ -3,6 +3,7 @@ const userMoodel = require("../model/userModel");
 
 const requireSignIn = async (req, res, next) => {
     try {
+        
         const token = req.headers.authorization;
         if (!token) {
             return res.status(401).send({ message: "Token must be provided" });

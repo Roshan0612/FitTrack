@@ -179,7 +179,7 @@ form button[type="submit"] {
   cursor: pointer;
   width: 100%;
 }
-/* forgot pass word css */
+/* forgot password css */
 .forgot-container {
   background-color: #fff;
   padding: 30px;
@@ -236,7 +236,7 @@ form button[type="submit"] {
   border-radius: 999px;
   font-size: 14px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: backgroground 0.3s;
 }
 
 .ripple-btn:focus {
@@ -263,69 +263,7 @@ form button[type="submit"] {
   opacity: 1;
   transition: 0s;
 }
-/* wrap background animation */
-/* .background-wrap {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  background: #fff;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-/* Add the animated grid background 
-.background-wrap::before {
-  content: "";
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  background-image: repeating-linear-gradient(
-      #ccc 0 1px,
-      transparent 1px 20px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      #ccc 0 1px,
-      transparent 1px 20px
-    );
-  animation: zoom 15s linear infinite;
-  transform-origin: center;
-  z-index: 0;
-}
-
-/* Optional gradient corner effects 
-.background-wrap::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, transparent 45%, rgba(0, 128, 255, 0.2) 50%, transparent 55%),
-              linear-gradient(315deg, transparent 45%, rgba(0, 128, 255, 0.2) 50%, transparent 55%);
-  background-size: 100% 100%;
-  z-index: 0;
-}
-
-/* Main form stays on top 
-.login-container,
-.signup-container,
-.forgot-container {
-  position: relative;
-  z-index: 1;
-}
-
-/* Animation 
-@keyframes zoom {
-  0% {
-    transform: scale(1) rotate(0deg);
-  }
-  100% {
-    transform: scale(1.5) rotate(360deg);
-  }
-} */
-
-
-/* for additional information style*/
 .additional-info-container {
   background-color: #fff;
   padding: 30px;
@@ -385,4 +323,105 @@ form button[type="submit"] {
 
 .additional-info-container button:hover {
   background-color: #0056b3;
+}
+
+.navbar {
+  background-color: white;
+  border-bottom: 1px solid #eee;
+  padding: 0.75rem 1.25rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+}
+
+.logo span {
+  color: #00bcd4;
+}
+
+.hamburger {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  display: none;
+  cursor: pointer;
+}
+
+/* Links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+}
+
+.auth-links {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+
+.login-link {
+  height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background-color: white;
+    flex-direction: column;
+    padding: 1rem;
+    display: none;
+    border-bottom: 1px solid #eee;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .auth-links {
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .nav-links a {
+    padding: 0.5rem 0;
+  }
+}
+.profile-icon {
+  color: #333;
+  transition: 0.3s ease;
+}
+
+.profile-icon:hover {
+  color: #00bcd4;
 }
