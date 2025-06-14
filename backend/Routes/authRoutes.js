@@ -15,4 +15,10 @@ router.post("/forgot-password", forgotPasswordController);
 router.post('/reset-password/:token', resetPasswordController); 
 router.put("/user/additional-info", updateAdditionalInfo);
 
+router.get("/user-auth",requireSignIn,(req,res)=>{
+  res.status(200).send({
+    ok:true
+  });
+})
+
 module.exports=router;

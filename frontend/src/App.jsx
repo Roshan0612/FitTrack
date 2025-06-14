@@ -10,7 +10,9 @@ import ResetPassword from './pages/Auth/ResetPassword';
 import AdditionalInfo from './pages/User/AdditionalInfo';
 import { ToastContainer } from 'react-toastify';
 import Homepages from './components/Homepages';
-import Profile from './pages/Profile';
+import Profile from './pages/User/Profile';
+import Userdashboard from './pages/User/Userdashboard';
+import Userprotectedroute from './pages/User/Userprotectedroute';
 
 function App() {
   return (
@@ -21,8 +23,8 @@ function App() {
             <Route index element={<Homepages />} />
             <Route path="about" element={<About />} />
             <Route path="dashboard" element={<Dashboard />} /> {/* ✅ Added dashboard route */}
-            <Route path="user/add-info" element={<AdditionalInfo />} />
-            <Route path="profile" element={<Profile />} />
+            
+            
           </Route>
           <Route path="/auth" element={<AuthLayout />}>
             <Route path="login" element={<Login />} />
@@ -30,6 +32,14 @@ function App() {
             <Route path="forgot-password" element={<ForgotPassword />} />
           </Route>
           <Route path="/reset-password/:token" element={<ResetPassword />} />
+
+
+          <Route path="/dashboard" element={<Userprotectedroute/>}>
+                <Route path="user" element={<Userdashboard/>} />
+                <Route path="user/add-info" element={<AdditionalInfo />} />
+                <Route path="user/profile" element={<Profile/>} />
+          </Route>
+
         </Routes>
       </Router>
       <ToastContainer />
