@@ -450,3 +450,43 @@ form button[type="submit"] {
 .profile-icon:hover {
   color: #00bcd4;
 }
+
+/* css for admin dashboard by rohit*/
+
+/* === Admin Layout Styles === */
+.admin-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ... rest of styles ... */
+
+/* === Responsive Admin Layout === */
+@media (max-width: 768px) {
+  .admin-body {
+    flex-direction: column;
+  }
+
+  .admin-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+    padding: 0.5rem 1rem;
+  }
+
+  .admin-sidebar ul {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  .admin-sidebar li {
+    margin: 0.5rem;
+  }
+
+  .admin-main {
+    padding: 1rem;
+  }
+}
+/* === Admin Dashboard css end === */

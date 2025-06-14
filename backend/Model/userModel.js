@@ -18,6 +18,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "user",
   },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
   // ✅ Additional fields
   age: Number,
   gender: String,
@@ -29,6 +33,10 @@ const userSchema = new mongoose.Schema({
   activityLevel: String,
   medicalConditions: String,
   profilePicture: String,
+  subscriptionTaken: {
+    type: Boolean,
+    default: false,
+  },
 }, { timestamps: true });
 
 // ✅ Fix: Only compile the model if it hasn't been compiled yet
