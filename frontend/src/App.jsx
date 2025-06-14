@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import AuthLayout from './layouts/AuthLayout';
-import Dashboard from './components/Dashboard'; 
+ 
 import Login from './pages/Auth/Login';
 import Signup from './pages/Auth/Signup';
 import About from './pages/About';
@@ -22,7 +22,7 @@ function App() {
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Homepages />} />
             <Route path="about" element={<About />} />
-            <Route path="dashboard" element={<Dashboard />} /> {/* ✅ Added dashboard route */}
+             
             
             
           </Route>

@@ -22,7 +22,7 @@ const Header = () => {
 
           <div className="auth-links">
             {auth.user ? (
-              <Link to="/dashboard/user/profile" className="profile-icon" onClick={() => setMenuOpen(false)}>
+              <Link to="/dashboard/user" className="profile-icon" onClick={() => setMenuOpen(false)}>
                 <FaUserCircle size={28} />
               </Link>
             ) : (

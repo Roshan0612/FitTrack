@@ -2,6 +2,7 @@ const userModel= require("../model/userModel");
 const bcrypt =require("bcrypt");
 const jwt=require("jsonwebtoken");
 const saltRounds=10;
+const path = require('path');
 const registerController=async (req,res)=>{
     try {
         const { name,email,password}=req.body;
@@ -95,8 +96,32 @@ const demoofSignIN = (req, res) => {
     });
   }
 };
+
+const uploadPhoto = (req, res) => {
+  try {
+    console.log("📷 File upload request received");
+
+    if (!req.file) {
+      console.log("⚠️ No file found in request");
+      return res.status(400).json({ message: 'No file uploaded' });
+    }
+
+    console.log("✅ File uploaded:", req.file.filename);
+
+    const filePath = `/uploads/${req.file.filename}`;
+    return res.status(200).json({ filePath });
+  } catch (err) {
+    console.error("❌ Server crash during upload:", err);
+    res.status(500).json({ message: 'Upload failed', error: err.message });
+  }
+};
+
+
+
+
 module.exports={
     registerController,
     loginController,
-    demoofSignIN
+    demoofSignIN,
+    uploadPhoto 
 }
