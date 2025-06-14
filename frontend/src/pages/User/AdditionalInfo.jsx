@@ -52,6 +52,14 @@ const AdditionalInfo = () => {
 
   return (
     <div className="additional-info-container">
+       <div className="profile-picture-circle">
+        <img
+          src={formData.profilePicture || "https://via.placeholder.com/80"}
+          alt="Profile"
+          className="profile-img"
+         />
+      </div> 
+
       <h2>Additional Information</h2>
       <form onSubmit={handleSubmit}>
         <label>Age</label>
