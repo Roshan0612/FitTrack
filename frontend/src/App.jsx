@@ -11,6 +11,7 @@ import AdditionalInfo from './pages/User/AdditionalInfo';
 import { ToastContainer } from 'react-toastify';
 import Homepages from './components/Homepages';
 import Profile from './pages/Profile';
+import AdminDashboard from './pages/Admin/AdminDashboard';
 
 function App() {
   return (
@@ -30,6 +31,8 @@ function App() {
             <Route path="forgot-password" element={<ForgotPassword />} />
           </Route>
           <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          
         </Routes>
       </Router>
       <ToastContainer />
