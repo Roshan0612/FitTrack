@@ -7,21 +7,6 @@ const AdminDashboard = () => {
   return (
     <div style={styles.container}>
       <h1 style={styles.heading}>Admin Dashboard</h1>
-
-      <div style={styles.buttonContainer}>
-        <button style={styles.button} onClick={() => navigate('/admin/create-subscription')}>
-          Create Subscription
-        </button>
-        <button style={styles.button} onClick={() => navigate('/admin/assign-subscription')}>
-          Assign Subscription
-        </button>
-        <button style={styles.button} onClick={() => navigate('/admin/subscribed-users')}>
-          Subscribed Users
-        </button>
-        <button style={styles.button} onClick={() => navigate('/admin/unsubscribed-users')}>
-          Unsubscribed Users
-        </button>
-      </div>
     </div>
   );
 };

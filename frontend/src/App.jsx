@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import AuthLayout from './layouts/AuthLayout';
+import AdminLayout from './layouts/AdminLayout';
 import Dashboard from './components/Dashboard'; 
 import Login from './pages/Auth/Login';
 import Signup from './pages/Auth/Signup';
@@ -14,6 +15,7 @@ import AdminDashboard from './pages/Admin/AdminDashboard';
 import Profile from './pages/User/Profile';
 import Userdashboard from './pages/User/Userdashboard';
 import Userprotectedroute from './pages/User/Userprotectedroute';
+import Users from './pages/Admin/Users';
 
 function App() {
   return (
@@ -33,13 +35,16 @@ function App() {
             <Route path="forgot-password" element={<ForgotPassword />} />
           </Route>
 
-          {/* Reset password */}
+          {/* Reset password route (not inside layout) */}
           <Route path="/reset-password/:token" element={<ResetPassword />} />
 
-          {/* Admin route */}
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          {/* Admin routes inside AdminLayout */}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="users" element={<Users />} />
+          </Route>
 
-          {/* User routes protected */}
+          {/* User protected routes */}
           <Route path="/user" element={<Userprotectedroute />}>
             <Route path="dashboard" element={<Userdashboard />} />
             <Route path="add-info" element={<AdditionalInfo />} />
