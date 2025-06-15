@@ -4,7 +4,7 @@ const {registerController,loginController, demoofSignIN, uploadPhoto} =require("
 const forgotPasswordController = require("../Controller/forgotPasswordController");
 const resetPasswordController  = require("../Controller/resetPasswordController");
 const { isAdmin, requireSignIn } = require("../Middleware.js/middleware");
-const { updateAdditionalInfo } = require("../Controller/updateAdditionalInfo");
+const { updateAdditionalInfo, getUserInfo } = require("../Controller/updateAdditionalInfo");
 const { getAllUsers } = require("../Controller/adminController");
 
 
@@ -32,7 +32,10 @@ router.get("/test", requireSignIn,isAdmin, demoofSignIN);
 router.post("/forgot-password", forgotPasswordController);
 router.post('/reset-password/:token', resetPasswordController); 
 router.put("/user/additional-info", updateAdditionalInfo);
+router.get("/user-info/:id", requireSignIn, getUserInfo);
+
 router.get("/admin/users", requireSignIn, isAdmin, getAllUsers);
+
 
 
 router.get("/user-auth",requireSignIn,(req,res)=>{

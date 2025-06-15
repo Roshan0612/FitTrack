@@ -58,5 +58,29 @@ const updateAdditionalInfo = async (req, res) => {
   }
 };
 
+const getUserInfo = async (req, res) => {
+  const userId = req.params.id;
+
+  try {
+    const user = await User.findById(userId).select("-password"); // exclude password
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    console.error("❌ Error fetching user info:", error.message);
+    res.status(500).json({
+      success: false,
+      message: "Error fetching user info",
+      error: error.message,
+    });
+  }
+};
+
+
 // ✅ Add this line to export the function
-module.exports = { updateAdditionalInfo };
+module.exports = { updateAdditionalInfo,getUserInfo };
