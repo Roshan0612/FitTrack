@@ -11,20 +11,16 @@ const AdminUsersPage = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      if (!token) {
-        console.error("No token found in localStorage.");
-        
-      }
-
       try {
         let url = `${API_URL}/api/v1/auth/admin/users`;
+
         if (filter === "subscribed") url += "?subscribed=true";
         else if (filter === "unsubscribed") url += "?subscribed=false";
-
+        
         const res = await axios.get(url, {
           headers:{
-                        "Authorization" : auth?.token
-                    }
+              "Authorization" : auth?.token
+                  }
         });
 
         const userList = Array.isArray(res.data) ? res.data : res.data.users;
@@ -38,13 +34,11 @@ const AdminUsersPage = () => {
   }, [filter, token]);
 
   const viewUserDetails = async (userId) => {
-    if (!token) return;
-
     try {
-      const res = await axios.get(`/api/v1/auth/admin/users/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      const res = await axios.get(`${API_URL}/api/v1/auth/admin/users/${userId}`, {
+        headers:{
+              "Authorization" : auth?.token
+        }
       });
       setSelectedUser(res.data);
     } catch (error) {
