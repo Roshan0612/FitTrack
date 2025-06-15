@@ -14,15 +14,10 @@ import AdminDashboard from './pages/Admin/AdminDashboard';
 import Profile from './pages/User/Profile';
 import Userdashboard from './pages/User/Userdashboard';
 import Userprotectedroute from './pages/User/Userprotectedroute';
-import Users from './pages/Admin/Users';
-<<<<<<< HEAD
+import AdminUsersPage from './pages/Admin/AdminUsersPage';
 import Webcam from 'react-webcam';
-import AdminLayout from './layouts/AdminLayout';
-=======
 import AdminLayout from './layouts/AdminLayout'
 import AdminProtectedRoute from './pages/Admin/AdminProtectedRoute';
->>>>>>> c8acbc08ed0c1d82bb51b08a72e0776f8ac05b45
-
 function App() {
   return (
     <>
@@ -50,7 +45,8 @@ function App() {
           {/* Admin routes inside AdminLayout */}
           <Route path="/admin" element={<AdminProtectedRoute />}>
             <Route path="dashboard" element={<AdminDashboard />} />
-            <Route path="users" element={<Users />} />
+            <Route path="users" element={<AdminUsersPage />} />
+
           </Route>
 
           {/* User protected routes */}
