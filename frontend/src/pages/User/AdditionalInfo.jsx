@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Webcam from "react-webcam";
 import axios from "axios";
 import { useAuth } from "../../context/Auth";
@@ -7,16 +7,11 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 const AdditionalInfo = () => {
   const webcamRef = useRef(null);
-  
-  
-  
-  const authRaw = useAuth();
-  const auth = Array.isArray(authRaw) ? authRaw[0] : authRaw;
-  const userId = auth?.user?._id;
-  
-console.log("useAuth() returns:", useAuth());
+  const [auth] = useAuth();
+  const user = auth?.user || {};
+  const userId = user?._id;
 
-
+  console.log("Auth context:", auth);
 
   const [formData, setFormData] = useState({
     age: "",
@@ -35,7 +30,29 @@ console.log("useAuth() returns:", useAuth());
   const [file, setFile] = useState(null);
   const [showOptions, setShowOptions] = useState(false);
   const [useWebcam, setUseWebcam] = useState(false);
-  const [editingPhoto, setEditingPhoto] = true; // true = show buttons
+  const [editingPhoto, setEditingPhoto] = useState(true);
+
+  // Populate form data when user is available
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        age: user.age || "",
+        gender: user.gender || "",
+        height: user.height || "",
+        weight: user.weight || "",
+        mobile: user.mobile || "",
+        address: user.address || "",
+        fitnessGoal: user.fitnessGoal || "",
+        activityLevel: user.activityLevel || "",
+        medicalConditions: user.medicalConditions || "",
+        profilePicture: user.profilePicture || "",
+      });
+
+      if (user.profilePicture) {
+        setImgSrc(user.profilePicture);
+      }
+    }
+  }, [user]);
 
   if (!userId) {
     return <p>Please log in again to fill your details.</p>;
@@ -51,7 +68,7 @@ console.log("useAuth() returns:", useAuth());
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
     setImgSrc(null);
-    setUseWebcam(false); // Stop webcam
+    setUseWebcam(false);
     setShowOptions(false);
   };
 
@@ -74,7 +91,7 @@ console.log("useAuth() returns:", useAuth());
       const uploadedPath = response.data.filePath;
       const fullUrl = `${API_URL}/uploads/${uploadedPath}`;
       setFormData((prev) => ({ ...prev, profilePicture: fullUrl }));
-      setEditingPhoto(false); // Hide buttons after upload
+      setEditingPhoto(false);
       alert("Uploaded successfully");
     } catch (error) {
       console.error("Upload failed:", error);
@@ -145,7 +162,7 @@ console.log("useAuth() returns:", useAuth());
                 </button>
                 <button
                   onClick={() => {
-                    setUseWebcam(false); // Stop webcam
+                    setUseWebcam(false);
                     document.getElementById("fileInput").click();
                   }}
                 >
