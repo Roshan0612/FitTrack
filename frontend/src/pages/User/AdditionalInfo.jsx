@@ -7,14 +7,10 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 const AdditionalInfo = () => {
   const webcamRef = useRef(null);
-  
-  
-  
-  const authRaw = useAuth();
-  const auth = Array.isArray(authRaw) ? authRaw[0] : authRaw;
+
+  const [auth] = useAuth(); 
   const userId = auth?.user?._id;
-  
-console.log("useAuth() returns:", useAuth());
+  console.log("useAuth() returns:", auth);
 
 
 
@@ -35,7 +31,9 @@ console.log("useAuth() returns:", useAuth());
   const [file, setFile] = useState(null);
   const [showOptions, setShowOptions] = useState(false);
   const [useWebcam, setUseWebcam] = useState(false);
-  const [editingPhoto, setEditingPhoto] = true; // true = show buttons
+  
+  const [editingPhoto, setEditingPhoto] = useState(true);
+
 
   if (!userId) {
     return <p>Please log in again to fill your details.</p>;

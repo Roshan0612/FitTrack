@@ -15,6 +15,7 @@ import Profile from './pages/User/Profile';
 import Userdashboard from './pages/User/Userdashboard';
 import Userprotectedroute from './pages/User/Userprotectedroute';
 import Users from './pages/Admin/Users';
+import AdminLayout from './layouts/AdminLayout'
 
 function App() {
   return (
@@ -49,8 +50,8 @@ function App() {
           {/* User protected routes */}
           <Route path="/user" element={<Userprotectedroute />}>
             <Route path="dashboard" element={<Userdashboard />} />
-            <Route path="add-info" element={<AdditionalInfo />} />
-            <Route path="profile" element={<Profile />} />
+            <Route path="dashboard/add-info" element={<AdditionalInfo />} />
+            <Route path="dashboard/profile" element={<Profile />} />
           </Route>
         </Routes>
       </Router>
