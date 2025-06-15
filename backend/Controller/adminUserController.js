@@ -5,7 +5,7 @@ const getAllUsers = async (req, res) => {
     const filter = {};
     if (req.query.subscribed === "true") filter.subscriptionTaken = true;
     else if (req.query.subscribed === "false") filter.subscriptionTaken = false;
-
+    
     const users = await userModel.find(filter).select("-password");
     res.status(200).json(users);
   } catch (error) {

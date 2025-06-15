@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import { useAuth } from "../../context/Auth";
+const API_URL = import.meta.env.VITE_API_URL;
 const AdminUsersPage = () => {
+  const [auth]=useAuth();
   const [users, setUsers] = useState([]);
   const [filter, setFilter] = useState("all");
   const [selectedUser, setSelectedUser] = useState(null);
@@ -11,18 +13,18 @@ const AdminUsersPage = () => {
     const fetchUsers = async () => {
       if (!token) {
         console.error("No token found in localStorage.");
-        return;
+        
       }
 
       try {
-        let url = "/api/v1/auth/admin/users";
+        let url = `${API_URL}/api/v1/auth/admin/users`;
         if (filter === "subscribed") url += "?subscribed=true";
         else if (filter === "unsubscribed") url += "?subscribed=false";
 
         const res = await axios.get(url, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers:{
+                        "Authorization" : auth?.token
+                    }
         });
 
         const userList = Array.isArray(res.data) ? res.data : res.data.users;
