@@ -40,7 +40,8 @@ const AdminUsersPage = () => {
               "Authorization" : auth?.token
         }
       });
-      setSelectedUser(res.data);
+      setSelectedUser(res?.data?.user);
+      console.log("user:",res?.data?.user)
     } catch (error) {
       console.error("Error fetching user details:", error.response?.data || error.message);
     }
