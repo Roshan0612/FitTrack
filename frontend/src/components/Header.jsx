@@ -21,11 +21,15 @@ const Header = () => {
           <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
 
           <div className="auth-links">
-            {auth.user ? (
+            {auth?.user?.role == 'admin' ? (
+              <Link to="/admin/dashboard" className="profile-icon" onClick={() => setMenuOpen(false)}>
+                <FaUserCircle size={28} />
+              </Link>
+            ) : auth?.user?.role == 'user' ? (
               <Link to="/user/dashboard" className="profile-icon" onClick={() => setMenuOpen(false)}>
                 <FaUserCircle size={28} />
               </Link>
-            ) : (
+            ) :  (
               <>
                 <Link to="/auth/login" className="login-link" onClick={() => setMenuOpen(false)}>Login</Link>
                 <Link to="/auth/signup"  onClick={() => setMenuOpen(false)}>Sign up</Link>

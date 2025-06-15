@@ -16,6 +16,7 @@ import Userdashboard from './pages/User/Userdashboard';
 import Userprotectedroute from './pages/User/Userprotectedroute';
 import Users from './pages/Admin/Users';
 import AdminLayout from './layouts/AdminLayout'
+import AdminProtectedRoute from './pages/Admin/AdminProtectedRoute';
 
 function App() {
   return (
@@ -42,7 +43,7 @@ function App() {
           <Route path="/reset-password/:token" element={<ResetPassword />} />
 
           {/* Admin routes inside AdminLayout */}
-          <Route path="/admin" element={<AdminLayout />}>
+          <Route path="/admin" element={<AdminProtectedRoute />}>
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="users" element={<Users />} />
           </Route>

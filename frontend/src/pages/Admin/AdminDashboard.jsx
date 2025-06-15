@@ -1,37 +1,41 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import AdminMenu from './AdminMenu';
+import { useAuth } from '../../context/Auth';
 
 const AdminDashboard = () => {
-  const navigate = useNavigate();
+  const [auth] = useAuth();
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.heading}>Admin Dashboard</h1>
+    <div className="flex">
+      <AdminMenu />
+      <div className="flex-1 p-8">
+        <div className="flex items-center mb-6">
+          <img
+            src="/admin.jpg"
+            alt="Admin Profile"
+            className="w-20 h-20 rounded-full object-cover mr-6"
+          />
+          <div>
+            <h1 className="text-3xl font-semibold">
+              Welcome, <span className="text-red-500">{auth?.user?.name || 'Admin'}</span>
+            </h1>
+            <p className="text-sm text-gray-500">You have full access to manage the FitTrack system.</p>
+          </div>
+        </div>
+
+        <div className="bg-white p-6 shadow rounded-lg w-full max-w-lg">
+          <p><strong>Admin Name:</strong> {auth?.user?.name}</p>
+          <p><strong>Email:</strong> {auth?.user?.email}</p>
+          <p><strong>Role:</strong> {auth?.user?.role}</p>
+          <p><strong>Dashboard Access:</strong> All Features Enabled</p>
+
+          <div className="mt-4">
+            <a href="#" className="text-blue-500 hover:underline">Manage Users & Submissions</a>
+          </div>
+        </div>
+      </div>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    padding: '40px',
-    textAlign: 'center',
-  },
-  heading: {
-    fontSize: '2rem',
-    marginBottom: '30px',
-  },
-  buttonContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '15px',
-    maxWidth: '300px',
-    margin: '0 auto',
-  },
-  button: {
-    padding: '10px 20px',
-    fontSize: '16px',
-    cursor: 'pointer',
-  },
 };
 
 export default AdminDashboard;
