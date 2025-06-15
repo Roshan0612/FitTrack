@@ -15,6 +15,8 @@ import Profile from './pages/User/Profile';
 import Userdashboard from './pages/User/Userdashboard';
 import Userprotectedroute from './pages/User/Userprotectedroute';
 import Users from './pages/Admin/Users';
+import Webcam from 'react-webcam';
+import AdminLayout from './layouts/AdminLayout';
 
 function App() {
   return (

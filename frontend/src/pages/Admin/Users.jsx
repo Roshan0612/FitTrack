@@ -1,67 +1,55 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-const Users = () => {
+const AdminUsers = () => {
   const [users, setUsers] = useState([]);
-  const [filter, setFilter] = useState('all');
+  const [filter, setFilter] = useState("all");
+
+  const fetchUsers = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/v1/auth/admin/users");
+      setUsers(res.data);
+    } catch (error) {
+      console.error("Error fetching users", error);
+    }
+  };
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
-  const fetchUsers = async () => {
-    try {
-      const res = await axios.get('http://localhost:5000/api/v1/auth/admin/users', {
-        headers: {
-          Authorization: localStorage.getItem('token') || '', // if using JWT
-        },
-      });
-      setUsers(res.data);
-    } catch (err) {
-      console.error('Failed to fetch users:', err);
-    }
-  };
-
   const filteredUsers = users.filter(user => {
-    if (filter === 'all') return true;
-    if (filter === 'subscribed') return user.subscriptionTaken === true;
-    if (filter === 'not-subscribed') return user.subscriptionTaken === false;
-    return true;
+    if (filter === "all") return true;
+    return filter === "subscribed"
+      ? user.subscriptionTaken
+      : !user.subscriptionTaken;
   });
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">User Management</h2>
-
-      <div className="mb-4">
-        <label className="mr-2">Filter by Subscription:</label>
-        <select
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          className="border px-2 py-1"
-        >
+    <div style={{ padding: "20px" }}>
+      <h2>👥 All Users</h2>
+      <div>
+        <label>Filter: </label>
+        <select onChange={(e) => setFilter(e.target.value)} value={filter}>
           <option value="all">All</option>
           <option value="subscribed">Subscribed</option>
-          <option value="not-subscribed">Not Subscribed</option>
+          <option value="notsubscribed">Not Subscribed</option>
         </select>
       </div>
-
-      <table className="w-full border-collapse border">
+      <table border="1" cellPadding="10" style={{ marginTop: "20px", width: "100%" }}>
         <thead>
-          <tr className="bg-gray-100">
-            <th className="border px-4 py-2">Name</th>
-            <th className="border px-4 py-2">Email</th>
-            <th className="border px-4 py-2">Subscription</th>
+          <tr>
+            <th>Name</th><th>Email</th><th>Age</th><th>Gender</th><th>Subscription</th>
           </tr>
         </thead>
         <tbody>
-          {filteredUsers.map((user) => (
+          {filteredUsers.map(user => (
             <tr key={user._id}>
-              <td className="border px-4 py-2">{user.name}</td>
-              <td className="border px-4 py-2">{user.email}</td>
-              <td className="border px-4 py-2">
-                {user.subscriptionTaken ? 'Yes' : 'No'}
-              </td>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+              <td>{user.age}</td>
+              <td>{user.gender}</td>
+              <td>{user.subscriptionTaken ? "Yes" : "No"}</td>
             </tr>
           ))}
         </tbody>
@@ -70,4 +58,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default AdminUsers;
