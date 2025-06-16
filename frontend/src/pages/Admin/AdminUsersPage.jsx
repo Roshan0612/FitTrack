@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../context/Auth";
+import AdminMenu from "./AdminMenu";
+import "../../styles/AdminUserPageStyles.css";
+
 const API_URL = import.meta.env.VITE_API_URL;
+
 const AdminUsersPage = () => {
-  const [auth]=useAuth();
+  const [auth] = useAuth();
   const [users, setUsers] = useState([]);
   const [filter, setFilter] = useState("all");
-  const [selectedUser, setSelectedUser] = useState(null);
-  const token = localStorage.getItem("token");
+  const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -16,11 +20,11 @@ const AdminUsersPage = () => {
 
         if (filter === "subscribed") url += "?subscribed=true";
         else if (filter === "unsubscribed") url += "?subscribed=false";
-        
+
         const res = await axios.get(url, {
-          headers:{
-              "Authorization" : auth?.token
-                  }
+          headers: {
+            Authorization: auth?.token,
+          },
         });
 
         const userList = Array.isArray(res.data) ? res.data : res.data.users;
@@ -31,71 +35,52 @@ const AdminUsersPage = () => {
     };
 
     fetchUsers();
-  }, [filter, token]);
-
-  const viewUserDetails = async (userId) => {
-    try {
-      const res = await axios.get(`${API_URL}/api/v1/auth/admin/users/${userId}`, {
-        headers:{
-              "Authorization" : auth?.token
-        }
-      });
-      setSelectedUser(res?.data?.user);
-      console.log("user:",res?.data?.user)
-    } catch (error) {
-      console.error("Error fetching user details:", error.response?.data || error.message);
-    }
-  };
+  }, [filter, auth?.token]);
 
   return (
-    <div style={{ display: "flex", padding: 20 }}>
-      <div style={{ width: "50%" }}>
-        <h2>Users</h2>
-        <div>
-          <button onClick={() => setFilter("all")}>All</button>
-          <button onClick={() => setFilter("subscribed")}>Subscribed</button>
-          <button onClick={() => setFilter("unsubscribed")}>Unsubscribed</button>
+    <div className="admin-users-container">
+      <div className="sidebar desktop-only">
+        <AdminMenu />
+      </div>
+
+      <div className="mobile-menu">
+        <button onClick={() => setShowMenu(!showMenu)} className="menu-button">
+          ☰ Menu
+        </button>
+        {showMenu && <AdminMenu />}
+      </div>
+
+      <div className="main-content">
+        <h2 className="page-title">Users</h2>
+
+        <div className="filter-buttons">
+          <button onClick={() => setFilter("all")} className="filter-button">All</button>
+          <button onClick={() => setFilter("subscribed")} className="filter-button subscribed">Subscribed</button>
+          <button onClick={() => setFilter("unsubscribed")} className="filter-button unsubscribed">Unsubscribed</button>
         </div>
 
         {users.length === 0 ? (
           <p>No users found.</p>
         ) : (
-          <ul>
+          <div className="users-grid">
             {users.map((user) => (
-              <li
+              <Link
+                to={`/admin/dashboard/user/${user._id}`}
                 key={user._id}
-                onClick={() => viewUserDetails(user._id)}
-                style={{ cursor: "pointer", margin: "10px 0" }}
+                className="user-card"
               >
-                {user.name} - {user.email}
-              </li>
+                <img
+                  src={user.profilePicture || "https://via.placeholder.com/150"}
+                  alt={user.name}
+                  className="user-image"
+                />
+                <h3 className="user-name">{user.name}</h3>
+                <p className="user-email">{user.email}</p>
+                <p className={`user-status ${user.subscriptionTaken ? "subscribed" : "unsubscribed"}`}>
+                  {user.subscriptionTaken ? "Subscribed" : "Unsubscribed"}
+                </p>
+              </Link>
             ))}
-          </ul>
-        )}
-      </div>
-
-      <div style={{ width: "50%", paddingLeft: 20 }}>
-        {selectedUser && (
-          <div>
-            <h3>{selectedUser.name}'s Details</h3>
-            <img
-              src={selectedUser.profilePicture}
-              alt="Profile"
-              width="150"
-              height="150"
-              style={{ objectFit: "cover", borderRadius: "50%" }}
-            />
-            <p><strong>Email:</strong> {selectedUser.email}</p>
-            <p><strong>Age:</strong> {selectedUser.age}</p>
-            <p><strong>Gender:</strong> {selectedUser.gender}</p>
-            <p><strong>Height:</strong> {selectedUser.height} cm</p>
-            <p><strong>Weight:</strong> {selectedUser.weight} kg</p>
-            <p><strong>Mobile:</strong> {selectedUser.mobile}</p>
-            <p><strong>Address:</strong> {selectedUser.address}</p>
-            <p><strong>Fitness Goal:</strong> {selectedUser.fitnessGoal}</p>
-            <p><strong>Activity Level:</strong> {selectedUser.activityLevel}</p>
-            <p><strong>Medical Conditions:</strong> {selectedUser.medicalConditions}</p>
-            <p><strong>Subscription Taken:</strong> {selectedUser.subscriptionTaken ? "Yes" : "No"}</p>
           </div>
         )}
       </div>

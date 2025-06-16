@@ -18,6 +18,7 @@ import AdminUsersPage from './pages/Admin/AdminUsersPage';
 import Webcam from 'react-webcam';
 import AdminLayout from './layouts/AdminLayout'
 import AdminProtectedRoute from './pages/Admin/AdminProtectedRoute';
+import IndivisualUserDetail from './pages/Admin/IndivisualUserDetail';
 function App() {
   return (
     <>
@@ -45,7 +46,9 @@ function App() {
           {/* Admin routes inside AdminLayout */}
           <Route path="/admin" element={<AdminProtectedRoute />}>
             <Route path="dashboard" element={<AdminDashboard />} />
-            <Route path="users" element={<AdminUsersPage />} />
+            <Route path="dashboard/users" element={<AdminUsersPage />} />
+            <Route path="dashboard/user/:userId" element={<IndivisualUserDetail />} />
+
 
           </Route>
 

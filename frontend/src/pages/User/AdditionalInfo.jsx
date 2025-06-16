@@ -10,7 +10,7 @@ const AdditionalInfo = () => {
   const [auth] = useAuth();
   const user = auth?.user || {};
   const userId = user?._id;
-
+ 
   console.log("Auth context:", auth);
 
   const [formData, setFormData] = useState({

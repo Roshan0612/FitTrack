@@ -27,7 +27,7 @@ const AdminMenu = () => {
     <div className="w-64 bg-gray-100 min-h-screen p-4 shadow-md">
       <h2 className="text-xl font-bold mb-6">FitTrack Admin Panel</h2>
       <ul className="space-y-4">
-        <li><Link to="/admin/users" className="text-gray-700 hover:text-blue-600">All Users</Link></li>
+        <li><Link to="/admin/dashboard/users" className="text-gray-700 hover:text-blue-600">All Users</Link></li>
         <li><Link to="/admin/create-subscription" className="text-gray-700 hover:text-blue-600">Create Subscription</Link></li>
         <li><Link to="/admin/create-diet" className="text-gray-700 hover:text-blue-600">Create Diet</Link></li>
         <li><Link to="/admin/assign-workout" className="text-gray-700 hover:text-blue-600">Assign Workout</Link></li>
