@@ -14,6 +14,7 @@ const AdminProtectedRoute = () => {
                         "Authorization" : auth?.token
                     }
                 });
+                console.log(res.data);
                 if(res.data.ok){
                   setOk(true)
                 }else{
@@ -23,7 +24,7 @@ const AdminProtectedRoute = () => {
             if(auth?.token) authCheck();
             
         },[auth?.token]);
-  return ok ? <Outlet /> : null;
+  return ok ? <Outlet /> : <div>Access Denied</div>;
 }
 
 export default AdminProtectedRoute

@@ -39,11 +39,6 @@ router.get("/user-info/:id", requireSignIn, getUserInfo);
 router.get("/admin/users", requireSignIn, isAdmin, getAllUsers);
 router.get("/admin/users/:id", requireSignIn, isAdmin, getUserById);
 
-// Exercise Routes
-router.post('/add', createExercise); // POST /api/exercises/add
-router.get('/:gender', getExercisesByGender); // GET /api/exercises/male or /female
-
-
 
 
 

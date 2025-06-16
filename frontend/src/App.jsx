@@ -19,7 +19,6 @@ import Webcam from 'react-webcam';
 import AdminLayout from './layouts/AdminLayout'
 import AdminProtectedRoute from './pages/Admin/AdminProtectedRoute';
 import IndivisualUserDetail from './pages/Admin/IndivisualUserDetail';
-import CreateExercisePage from './pages/Admin/CreateExercisePage';
 function App() {
   return (
     <>
@@ -49,7 +48,6 @@ function App() {
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="dashboard/users" element={<AdminUsersPage />} />
             <Route path="dashboard/user/:userId" element={<IndivisualUserDetail />} />
-            <Route path="create-exercise" element={<CreateExercisePage />} />
 
 
           </Route>
