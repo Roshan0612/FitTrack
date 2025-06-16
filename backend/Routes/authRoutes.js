@@ -6,6 +6,7 @@ const resetPasswordController  = require("../Controller/resetPasswordController"
 const { isAdmin, requireSignIn } = require("../Middleware.js/middleware");
 const { updateAdditionalInfo, getUserInfo } = require("../Controller/updateAdditionalInfo");
 const { getUserById , getAllUsers } = require("../Controller/adminUserController");
+const { createExercise, getExercisesByGender } = require('../controller/exerciseController');
 
 
 
@@ -37,6 +38,10 @@ router.get("/user-info/:id", requireSignIn, getUserInfo);
 // Admin Routes
 router.get("/admin/users", requireSignIn, isAdmin, getAllUsers);
 router.get("/admin/users/:id", requireSignIn, isAdmin, getUserById);
+
+// Exercise Routes
+router.post('/add', createExercise); // POST /api/exercises/add
+router.get('/:gender', getExercisesByGender); // GET /api/exercises/male or /female
 
 
 
