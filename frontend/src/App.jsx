@@ -19,6 +19,11 @@ import Webcam from 'react-webcam';
 import AdminLayout from './layouts/AdminLayout'
 import AdminProtectedRoute from './pages/Admin/AdminProtectedRoute';
 import IndivisualUserDetail from './pages/Admin/IndivisualUserDetail';
+import CreateExercisePage from './pages/Admin/CreateExercisePage';
+import MaleExercisesPage from './pages/Admin/MaleExercisesPage';
+import FemaleExercisesPage from './pages/Admin/FemaleExercisesPage';
+import UserExercisePage from './pages/User/UserExercisePage';
+
 function App() {
   return (
     <>
@@ -48,6 +53,11 @@ function App() {
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="dashboard/users" element={<AdminUsersPage />} />
             <Route path="dashboard/user/:userId" element={<IndivisualUserDetail />} />
+            <Route path="dashboard/create-exercise" element={<CreateExercisePage />} />
+            <Route path="/admin/assign-exercise/male/:userId" element={<MaleExercisesPage />} />
+            <Route path="/admin/assign-exercise/female/:userId" element={<FemaleExercisesPage />} />
+
+
 
 
           </Route>
@@ -57,6 +67,7 @@ function App() {
             <Route path="dashboard" element={<Userdashboard />} />
             <Route path="dashboard/add-info" element={<AdditionalInfo />} />
             <Route path="dashboard/profile" element={<Profile />} />
+            <Route path="exercises" element={<UserExercisePage />} />
           </Route>
         </Routes>
       </Router>

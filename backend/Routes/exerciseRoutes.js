@@ -1,14 +1,16 @@
 const express = require('express');
-const router = express.Router();
 const {
   createExercise,
   getExercisesByGender,
+  assignOrUnassignExercise,
+  getAssignedExercises,
 } = require('../controller/exerciseController');
 
-// Create new exercise
-router.post('/add', createExercise);
+const router = express.Router();
 
-// Get exercises by gender
+router.post('/create', createExercise);
 router.get('/:gender', getExercisesByGender);
+router.post('/assign', assignOrUnassignExercise);
+router.get('/assigned/:userId', getAssignedExercises);
 
 module.exports = router;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../context/Auth";
 import AdminMenu from "./AdminMenu";
 import "../../styles/AdminUserPageStyles.css";
@@ -12,6 +12,7 @@ const AdminUsersPage = () => {
   const [users, setUsers] = useState([]);
   const [filter, setFilter] = useState("all");
   const [showMenu, setShowMenu] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -36,6 +37,20 @@ const AdminUsersPage = () => {
 
     fetchUsers();
   }, [filter, auth?.token]);
+
+  const handleAssignTask = (e, user) => {
+    e.stopPropagation(); // Prevent link from triggering
+    if (!user.gender) {
+      alert("Gender not specified for this user.");
+      return;
+    }
+
+    if (user.gender.toLowerCase() === "male") {
+      navigate(`/admin/assign-exercise/male/${user._id}`);
+    } else {
+      navigate(`/admin/assign-exercise/female/${user._id}`);
+    }
+  };
 
   return (
     <div className="admin-users-container">
@@ -64,22 +79,27 @@ const AdminUsersPage = () => {
         ) : (
           <div className="users-grid">
             {users.map((user) => (
-              <Link
-                to={`/admin/dashboard/user/${user._id}`}
-                key={user._id}
-                className="user-card"
-              >
-                <img
-                  src={user.profilePicture || "https://via.placeholder.com/150"}
-                  alt={user.name}
-                  className="user-image"
-                />
-                <h3 className="user-name">{user.name}</h3>
-                <p className="user-email">{user.email}</p>
-                <p className={`user-status ${user.subscriptionTaken ? "subscribed" : "unsubscribed"}`}>
-                  {user.subscriptionTaken ? "Subscribed" : "Unsubscribed"}
-                </p>
-              </Link>
+              <div key={user._id} className="user-card">
+                <Link to={`/admin/dashboard/user/${user._id}`} className="user-card-link">
+                  <img
+                    src={user.profilePicture || "https://via.placeholder.com/150"}
+                    alt={user.name}
+                    className="user-image"
+                  />
+                  <h3 className="user-name">{user.name}</h3>
+                  <p className="user-email">{user.email}</p>
+                  <p className={`user-status ${user.subscriptionTaken ? "subscribed" : "unsubscribed"}`}>
+                    {user.subscriptionTaken ? "Subscribed" : "Unsubscribed"}
+                  </p>
+                </Link>
+
+                <button
+                  className="assign-task-button"
+                  onClick={(e) => handleAssignTask(e, user)}
+                >
+                  Assign Task
+                </button>
+              </div>
             ))}
           </div>
         )}

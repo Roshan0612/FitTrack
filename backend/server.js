@@ -4,6 +4,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const authRoutes = require("./Routes/authRoutes");
 const path = require("path");
+const exerciseRoutes = require("./Routes/exerciseRoutes"); //  NEW: Import exercise routes
 
 dotenv.config();
 
@@ -24,6 +25,8 @@ app.use((req, res, next) => {
 
 // Routes
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/exercises", exerciseRoutes);
+
 
 // Root route
 app.get("/", (req, res) => {

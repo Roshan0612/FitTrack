@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+
+const API_URL = import.meta.env.VITE_API_URL;
+
 const CreateExercisePage = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -19,7 +22,7 @@ const CreateExercisePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/exercises/add', formData);
+      await axios.post(`${API_URL}/api/v1/exercises/add`,formData);
       alert('✅ Exercise created successfully!');
       setFormData({ name: '', description: '', gifUrl: '', targetGender: '' });
     } catch (err) {
