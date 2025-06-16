@@ -39,9 +39,6 @@ router.get("/user-info/:id", requireSignIn, getUserInfo);
 router.get("/admin/users", requireSignIn, isAdmin, getAllUsers);
 router.get("/admin/users/:id", requireSignIn, isAdmin, getUserById);
 
-
-
-
 router.get("/user-auth",requireSignIn,(req,res)=>{
   res.status(200).send({
     ok:true

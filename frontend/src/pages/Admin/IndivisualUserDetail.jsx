@@ -21,7 +21,8 @@ const IndivisualUserDetail = () => {
             Authorization: auth?.token,
           },
         });
-        setUser(res.data);
+        setUser(res.data.user); 
+
       } catch (error) {
         console.error("Error fetching user details:", error.response?.data || error.message);
       }
