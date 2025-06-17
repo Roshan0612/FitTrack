@@ -1,4 +1,3 @@
-
 {
   "name": "fittrack",
   "version": "1.0.0",
@@ -7,9 +6,7 @@
     "server": "cd backend && npm start",
     "client": "cd frontend && npm run dev"
   },
-  
   "devDependencies": {
     "concurrently": "^9.1.2"
   }
-
 }

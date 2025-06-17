@@ -12,5 +12,6 @@ router.post('/create', createExercise);
 router.get('/:gender', getExercisesByGender);
 router.post('/assign', assignOrUnassignExercise);
 router.get('/assigned/:userId', getAssignedExercises);
+router.get("/female", getExercisesByGender);
 
 module.exports = router;
