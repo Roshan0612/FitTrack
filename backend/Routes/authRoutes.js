@@ -6,7 +6,8 @@ const resetPasswordController  = require("../Controller/resetPasswordController"
 const { isAdmin, requireSignIn } = require("../Middleware.js/middleware");
 const { updateAdditionalInfo, getUserInfo } = require("../Controller/updateAdditionalInfo");
 const { getUserById , getAllUsers } = require("../Controller/adminUserController");
-const { createExercise, getExercisesByGender } = require('../controller/exerciseController');
+const userModel = require("../model/userModel");
+
 
 
 
@@ -31,8 +32,10 @@ router.post("/register",registerController);
 router.post("/login",loginController);
 router.get("/test", requireSignIn,isAdmin, demoofSignIN);
 router.post("/forgot-password", forgotPasswordController);
-router.post('/reset-password/:token', resetPasswordController); 
+router.post('/reset-password/:token', resetPasswordController);
+ 
 router.put("/user/additional-info", updateAdditionalInfo);
+
 router.get("/user-info/:id", requireSignIn, getUserInfo);
 
 // Admin Routes
@@ -51,5 +54,21 @@ router.get("/admin-auth",requireSignIn,isAdmin,(req,res)=>{
   });
 
 })
+router.get("/user/:id/profile-picture", async (req, res) => {
+  try {
+    const user = await userModel.findById(req.params.id);
+
+    if (!user || !user.profilePicture || !user.profilePicture.data) {
+      return res.status(404).send("No profile picture found");
+    }
+
+    res.set("Content-Type", user.profilePicture.contentType);
+    res.send(user.profilePicture.data);
+  } catch (err) {
+    console.error("Error fetching image:", err);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 
 module.exports=router;

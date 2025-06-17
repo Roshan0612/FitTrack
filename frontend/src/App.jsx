@@ -23,6 +23,7 @@ import CreateExercisePage from './pages/Admin/CreateExercisePage';
 import MaleExercisesPage from './pages/Admin/MaleExercisesPage';
 import FemaleExercisesPage from './pages/Admin/FemaleExercisesPage';
 import UserExercisePage from './pages/User/UserExercisePage';
+import CalorieCalculator from './pages/User/CalorieCalculator';
 
 function App() {
   return (
@@ -67,7 +68,8 @@ function App() {
             <Route path="dashboard" element={<Userdashboard />} />
             <Route path="dashboard/add-info" element={<AdditionalInfo />} />
             <Route path="dashboard/profile" element={<Profile />} />
-            <Route path="exercises" element={<UserExercisePage />} />
+            <Route path="dashboard/exercises" element={<UserExercisePage />} />
+            <Route path="dashboard/calorie" element={<CalorieCalculator />} />
           </Route>
         </Routes>
       </Router>
