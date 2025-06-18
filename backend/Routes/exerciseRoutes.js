@@ -8,7 +8,7 @@ const {
 
 const router = express.Router();
 
-router.post('/create', createExercise);
+router.post('/add', createExercise);
 router.get('/:gender', getExercisesByGender);
 router.post('/assign', assignOrUnassignExercise);
 router.get('/assigned/:userId', getAssignedExercises);
