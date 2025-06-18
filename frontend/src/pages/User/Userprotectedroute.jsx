@@ -24,7 +24,7 @@ const Userprotectedroute = () => {
         if(auth?.token) authCheck();
     },[auth?.token]);
 
-  return  ok ? <Outlet /> : null; 
+  return  ok ? <Outlet /> : <>null value</>; 
 }
 
 export default Userprotectedroute

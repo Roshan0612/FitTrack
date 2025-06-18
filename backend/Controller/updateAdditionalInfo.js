@@ -1,5 +1,5 @@
 const User = require("../model/userModel");
-
+ const calculateCalories = require("../utils/calculateCalories");
 const updateAdditionalInfo = async (req, res) => {
   const {
     userId,
@@ -13,9 +13,21 @@ const updateAdditionalInfo = async (req, res) => {
     activityLevel,
     medicalConditions,
     profilePicture,
+    
   } = req.body;
 
   console.log("🔍 Incoming update request:", req.body);
+  // ✅ Calculate calories based on goal
+  const calorieRecommendation = calculateCalories({
+    age,
+    gender,
+    height,
+    weight,
+    activityLevel,
+    goal: fitnessGoal, // important: match calculateCalories() param
+  });
+
+  console.log("🔥 Calculated calories:", calorieRecommendation);
 
   try {
     const updatedUser = await User.findByIdAndUpdate(
@@ -32,6 +44,7 @@ const updateAdditionalInfo = async (req, res) => {
           activityLevel,
           medicalConditions,
           profilePicture,
+          calorieRecommendation
         },
       },
       { new: true }
@@ -81,6 +94,19 @@ const getUserInfo = async (req, res) => {
   }
 };
 
+const updateUserInfo = async (req, res) => {
+  const { age, height, weight, gender, activityLevel, goal } = req.body;
+
+  const calorieRecommendation = calculateCalories({ age, height, weight, gender, activityLevel, goal });
+
+  const updatedUser = await User.findByIdAndUpdate(
+    req.user._id,
+    { age, height, weight, gender, activityLevel, goal, calorieRecommendation },
+    { new: true }
+  );
+
+  res.status(200).json(updatedUser);
+};
 
 // ✅ Add this line to export the function
-module.exports = { updateAdditionalInfo,getUserInfo };
+module.exports = { updateAdditionalInfo,getUserInfo,updateUserInfo  };

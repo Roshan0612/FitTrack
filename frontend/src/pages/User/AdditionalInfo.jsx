@@ -1,17 +1,16 @@
-import React, { useState, useRef, useEffect } from "react";
-import Webcam from "react-webcam";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useAuth } from "../../context/Auth";
+import { useNavigate } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const AdditionalInfo = () => {
-  const webcamRef = useRef(null);
   const [auth] = useAuth();
+  const navigate = useNavigate();
+  const fileInputRef = useRef(null);
   const user = auth?.user || {};
   const userId = user?._id;
- 
-  console.log("Auth context:", auth);
 
   const [formData, setFormData] = useState({
     age: "",
@@ -26,100 +25,109 @@ const AdditionalInfo = () => {
     profilePicture: "",
   });
 
-  const [imgSrc, setImgSrc] = useState(null);
   const [file, setFile] = useState(null);
-  const [showOptions, setShowOptions] = useState(false);
-  const [useWebcam, setUseWebcam] = useState(false);
-  const [editingPhoto, setEditingPhoto] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  // Populate form data when user is available
   useEffect(() => {
-    if (user) {
-      setFormData({
-        age: user.age || "",
-        gender: user.gender || "",
-        height: user.height || "",
-        weight: user.weight || "",
-        mobile: user.mobile || "",
-        address: user.address || "",
-        fitnessGoal: user.fitnessGoal || "",
-        activityLevel: user.activityLevel || "",
-        medicalConditions: user.medicalConditions || "",
-        profilePicture: user.profilePicture || "",
-      });
+    const fetchUserInfo = async () => {
+      try {
+        const { data } = await axios.get(`${API_URL}/api/v1/auth/user-info/${userId}`, {
+          headers: { Authorization: auth?.token },
+        });
 
-      if (user.profilePicture) {
-        setImgSrc(user.profilePicture);
+        const user = data.user;
+        setFormData({
+          age: user.age || "",
+          gender: user.gender || "",
+          height: user.height || "",
+          weight: user.weight || "",
+          mobile: user.mobile || "",
+          address: user.address || "",
+          fitnessGoal: user.fitnessGoal || "",
+          activityLevel: user.activityLevel || "",
+          medicalConditions: user.medicalConditions || "",
+          profilePicture: user.profilePicture || "",
+        });
+      } catch (error) {
+        console.error("❌ Failed to fetch user info", error);
       }
+    };
+
+    if (userId) {
+      fetchUserInfo();
     }
-  }, [user]);
+  }, [userId]);
 
-  if (!userId) {
-    return <p>Please log in again to fill your details.</p>;
-  }
+  const handleFileChange = async (e) => {
+    const selectedFile = e.target.files[0];
+    if (!selectedFile) return;
 
-  const capture = () => {
-    const imageSrc = webcamRef.current.getScreenshot();
-    setImgSrc(imageSrc);
-    setFile(null);
-    setShowOptions(false);
-  };
-
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-    setImgSrc(null);
-    setUseWebcam(false);
-    setShowOptions(false);
-  };
-
-  const uploadPhoto = async () => {
-    const formDataUpload = new FormData();
-
-    if (file) {
-      formDataUpload.append("image", file);
-    } else if (imgSrc) {
-      const res = await fetch(imgSrc);
-      const blob = await res.blob();
-      formDataUpload.append("image", blob, "webcam.jpg");
-    } else {
-      alert("No image selected");
+    if (!selectedFile.type.startsWith("image/")) {
+      alert("❌ Please upload a valid image file.");
       return;
     }
 
+    if (selectedFile.size > 2 * 1024 * 1024) {
+      alert("❌ Image size must be less than 2MB.");
+      return;
+    }
+
+    setFile(selectedFile);
+    await handleImageUpload(selectedFile);
+  };
+
+  const handleImageUpload = async (imageFile) => {
+    const formDataUpload = new FormData();
+    setLoading(true);
+
     try {
-      const response = await axios.post(`${API_URL}/api/v1/auth/upload`, formDataUpload);
+      formDataUpload.append("image", imageFile);
+      formDataUpload.append("userId", userId);
+
+      const response = await axios.post(`${API_URL}/api/v1/auth/upload`, formDataUpload, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
       const uploadedPath = response.data.filePath;
-      const fullUrl = `${API_URL}/uploads/${uploadedPath}`;
+      const fullUrl = `${API_URL}${uploadedPath}`;
       setFormData((prev) => ({ ...prev, profilePicture: fullUrl }));
-      setEditingPhoto(false);
-      alert("Uploaded successfully");
+
+      alert("✅ Uploaded successfully");
     } catch (error) {
-      console.error("Upload failed:", error);
-      alert("Upload failed");
+      console.error("❌ Upload failed:", error);
+      alert("Upload failed.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       await axios.put(`${API_URL}/api/v1/auth/user/additional-info`, {
         ...formData,
         userId,
       });
-      alert("✅ Additional info saved successfully!");
+
+      alert("✅ Info saved!");
+      navigate("/user/dashboard");
     } catch (error) {
       console.error("❌ Error saving info:", error);
       alert("Failed to save info.");
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const handleCircleClick = () => {
+    fileInputRef.current.click();
   };
 
   return (
@@ -128,75 +136,38 @@ const AdditionalInfo = () => {
 
       <div className="profile-section">
         <div
-          className="profile-picture-circle"
-          onClick={() => {
-            setShowOptions(!showOptions);
-            setEditingPhoto(true);
+          onClick={handleCircleClick}
+          style={{
+            width: "120px",
+            height: "120px",
+            borderRadius: "50%",
+            backgroundColor: "#eee",
+            cursor: "pointer",
+            overflow: "hidden",
+            margin: "0 auto",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
-          style={{ cursor: "pointer" }}
         >
-          <img
-            src={
-              formData.profilePicture ||
-              imgSrc ||
-              (file && URL.createObjectURL(file)) ||
-              "/default-profile.png"
-            }
-            alt="Profile"
-            className="profile-img"
-            style={{ width: "160px", height: "160px", borderRadius: "50%" }}
-          />
+          {formData.profilePicture ? (
+            <img
+              src={formData.profilePicture}
+              alt="Profile"
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          ) : (
+            <span>+</span>
+          )}
         </div>
 
-        {editingPhoto && (
-          <>
-            {showOptions && (
-              <div className="option-modal" style={{ marginTop: "10px" }}>
-                <button
-                  onClick={() => {
-                    setUseWebcam(true);
-                    setShowOptions(false);
-                  }}
-                >
-                  📸 Take Photo
-                </button>
-                <button
-                  onClick={() => {
-                    setUseWebcam(false);
-                    document.getElementById("fileInput").click();
-                  }}
-                >
-                  📁 Upload Photo
-                </button>
-                <button onClick={() => setShowOptions(false)}>❌ Cancel</button>
-              </div>
-            )}
-
-            {useWebcam && (
-              <>
-                <Webcam
-                  audio={false}
-                  ref={webcamRef}
-                  screenshotFormat="image/jpeg"
-                  width={160}
-                  height={160}
-                  className="webcam-circle"
-                />
-                <button onClick={capture}>Capture Photo</button>
-              </>
-            )}
-
-            <input
-              type="file"
-              id="fileInput"
-              accept="image/*"
-              onChange={handleFileChange}
-              style={{ display: "none" }}
-            />
-
-            <button onClick={uploadPhoto}>Upload</button>
-          </>
-        )}
+        <input
+          type="file"
+          accept="image/*"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+          style={{ display: "none" }}
+        />
       </div>
 
       <form onSubmit={handleSubmit} className="info-form">
@@ -226,26 +197,33 @@ const AdditionalInfo = () => {
         <label>Fitness Goal</label>
         <select name="fitnessGoal" value={formData.fitnessGoal} onChange={handleChange} required>
           <option value="">Select Goal</option>
-          <option value="Slim">Slim</option>
-          <option value="Fit">Fit</option>
-          <option value="Muscular">Muscular</option>
+          <option value="maintain">maintain</option>
+          <option value="mildLoss">mildLoss</option>
+          <option value="extremeLoss">extremeLoss</option>
+          <option value="gain">gain</option>
         </select>
 
         <label>Activity Level</label>
         <select name="activityLevel" value={formData.activityLevel} onChange={handleChange} required>
           <option value="">Select Level</option>
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
+          <option value="sedentary">Sedentary: little or no exercise</option>
+          <option value="light">Light: exercise 1–3 times/week</option>
+          <option value="moderate">Moderate: exercise 4–5 times/week</option>
+          <option value="active">Active: daily exercise or intense exercise 3–4 times/week</option>
+          <option value="veryActive">Very Active: intense exercise 6–7 times/week</option>
         </select>
 
         <label>Medical Conditions</label>
-        <input type="text" name="medicalConditions" value={formData.medicalConditions} onChange={handleChange} />
+        <input
+          type="text"
+          name="medicalConditions"
+          value={formData.medicalConditions}
+          onChange={handleChange}
+        />
 
-        <label>Profile Picture URL</label>
-        <input type="text" name="profilePicture" value={formData.profilePicture} onChange={handleChange} />
-
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Saving..." : "Submit"}
+        </button>
       </form>
     </div>
   );
