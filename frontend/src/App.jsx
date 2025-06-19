@@ -24,6 +24,11 @@ import MaleExercisesPage from './pages/Admin/MaleExercisesPage';
 import FemaleExercisesPage from './pages/Admin/FemaleExercisesPage';
 import UserExercisePage from './pages/User/UserExercisePage';
 import CalorieCalculator from './pages/User/CalorieCalculator';
+import CreateCoupon from './pages/Admin/subscription/CreateCoupon';
+import CreateSubscription from './pages/Admin/subscription/CreateSubscription';
+import SubscriptionList from './pages/Admin/subscription/SubscriptionList';
+import Plan from './pages/User/Plan';
+import Transactions from './pages/Admin/subscription/Transactions';
 
 function App() {
   return (
@@ -34,6 +39,7 @@ function App() {
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Homepages />} />
             <Route path="about" element={<About />} />
+            <Route path="plans" element={<Plan />} />
             <Route path="dashboard" element={<Dashboard />} /> {/* ✅ Added dashboard route */}
             
             
@@ -57,7 +63,10 @@ function App() {
             <Route path="dashboard/create-exercise" element={<CreateExercisePage />} />
             <Route path="/admin/assign-exercise/male/:userId" element={<MaleExercisesPage />} />
             <Route path="/admin/assign-exercise/female/:userId" element={<FemaleExercisesPage />} />
-
+            <Route path="dashboard/createcoupon" element={<CreateCoupon />} />
+            <Route path="dashboard/createsubscription" element={<CreateSubscription />} />
+            <Route path="dashboard/subscriptionlist" element={<SubscriptionList />} />
+            <Route path="dashboard/transactions" element={<Transactions />} />
 
 
 

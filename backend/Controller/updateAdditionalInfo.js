@@ -1,5 +1,6 @@
 const User = require("../model/userModel");
- const calculateCalories = require("../utils/calculateCalories");
+const calculateCalories = require("../utils/calculateCalories");
+
 const updateAdditionalInfo = async (req, res) => {
   const {
     userId,
