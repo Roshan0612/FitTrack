@@ -65,31 +65,38 @@ const IndivisualUserDetail = () => {
       </div>
 
       <div className="admin-menu-mobile">
-        <button onClick={() => setShowMenu(!showMenu)} className="menu-toggle">☰ Menu</button>
+        <button onClick={() => setShowMenu(!showMenu)} className="menu-toggle">
+          ☰ Menu
+        </button>
         {showMenu && <AdminMenu />}
       </div>
 
       <div className="user-detail">
-        <h2>{user.name}'s Details</h2>
-        <img
-          src={user.profilePicture || "https://via.placeholder.com/150"}
-          alt="Profile"
-          className="profile-pic"
-        />
-        <p><strong>Email:</strong> {user.email}</p>
-        <p><strong>Age:</strong> {user.age}</p>
-        <p><strong>Gender:</strong> {user.gender}</p>
-        <p><strong>Height:</strong> {user.height} cm</p>
-        <p><strong>Weight:</strong> {user.weight} kg</p>
-        <p><strong>Mobile:</strong> {user.mobile}</p>
-        <p><strong>Address:</strong> {user.address}</p>
-        <p><strong>Fitness Goal:</strong> {user.fitnessGoal}</p>
-        <p><strong>Activity Level:</strong> {user.activityLevel}</p>
-        <p><strong>Medical Conditions:</strong> {user.medicalConditions}</p>
-        <p><strong>Subscription Taken:</strong> {user.subscriptionTaken ? "Yes" : "No"}</p>
-        {user.subscriptionTaken && user.subscriptionExpiry && (
-          <p><strong>Expires In:</strong> {expiryCountdown}</p>
-        )}
+        <div className="user-detail-container">
+          <h2>{user.name}'s Details</h2>
+          <img
+            src={user.profilePicture || "https://via.placeholder.com/150"}
+            alt="Profile"
+            className="profile-pic"
+          />
+
+          <div className="user-detail-grid">
+            <p><strong>Email:</strong> {user.email}</p>
+            <p><strong>Age:</strong> {user.age}</p>
+            <p><strong>Gender:</strong> {user.gender}</p>
+            <p><strong>Height:</strong> {user.height} cm</p>
+            <p><strong>Weight:</strong> {user.weight} kg</p>
+            <p><strong>Mobile:</strong> {user.mobile}</p>
+            <p><strong>Address:</strong> {user.address}</p>
+            <p><strong>Fitness Goal:</strong> {user.fitnessGoal}</p>
+            <p><strong>Activity Level:</strong> {user.activityLevel}</p>
+            <p><strong>Medical Conditions:</strong> {user.medicalConditions || "None"}</p>
+            <p><strong>Subscription Taken:</strong> {user.subscriptionTaken ? "Yes" : "No"}</p>
+            {user.subscriptionTaken && user.subscriptionExpiry && (
+              <p><strong>Expires In:</strong> {expiryCountdown}</p>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
