@@ -12,24 +12,25 @@ const FemaleExercisesPage = () => {
   useEffect(() => {
     const fetchExercisesAndAssignments = async () => {
       try {
+        // 1. Fetch female exercises
         const exercisesRes = await axios.get(`${API_URL}/api/v1/exercises/female`);
-        const allExercises = exercisesRes.data.exercises || [];
-        setExercises(allExercises);
+        setExercises(exercisesRes.data.exercises || []);
 
+        // 2. Fetch assigned exercises for this user
         const assignedRes = await axios.get(`${API_URL}/api/v1/exercises/assigned/${userId}`);
-        const assignedList = assignedRes.data.exercises || [];
+        const assignments = assignedRes.data.assignments || [];
 
         const assignedMap = {};
-        assignedList.forEach((exercise) => {
-        if (exercise && exercise._id) {
-          assignedMap[exercise._id] = true;
-      }
-  });
-
+        assignments.forEach((item) => {
+          const exId = item.exerciseId?._id || item.exerciseId;
+          if (exId) {
+            assignedMap[exId] = true;
+          }
+        });
 
         setAssignedExercises(assignedMap);
       } catch (err) {
-        console.error("Failed to fetch data:", err);
+        console.error("Failed to fetch exercises or assignments", err);
       }
     };
 
@@ -38,7 +39,6 @@ const FemaleExercisesPage = () => {
 
   const handleToggleAssign = async (exerciseId) => {
     const alreadyAssigned = assignedExercises[exerciseId];
-
     try {
       await axios.post(`${API_URL}/api/v1/exercises/assign`, {
         userId,
@@ -51,7 +51,8 @@ const FemaleExercisesPage = () => {
         [exerciseId]: !alreadyAssigned,
       }));
     } catch (err) {
-      alert(err.response?.data?.message || "Assignment error");
+      console.error("Assignment error", err);
+      alert("Failed to assign/unassign exercise.");
     }
   };
 
@@ -65,12 +66,13 @@ const FemaleExercisesPage = () => {
             <h3>{ex.name}</h3>
             <p>{ex.description}</p>
             <p><strong>Target Gender:</strong> {ex.targetGender}</p>
-
             <button
               onClick={() => handleToggleAssign(ex._id)}
               className={`toggle-btn ${assignedExercises[ex._id] ? "assigned" : "unassigned"}`}
             >
-              {assignedExercises[ex._id] ? "✅ Assigned (Click to Unassign)" : "❌ Not Assigned (Click to Assign)"}
+              {assignedExercises[ex._id]
+                ? "✅ Assigned (Click to Unassign)"
+                : "❌ Not Assigned (Click to Assign)"}
             </button>
           </div>
         ))}

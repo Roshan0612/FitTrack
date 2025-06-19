@@ -28,30 +28,47 @@ const getExercisesByGender = async (req, res) => {
 
 // Assign or Unassign an exercise to a user
 const assignOrUnassignExercise = async (req, res) => {
-  const { userId, exerciseId } = req.body;
+  const { userId, exerciseId, action } = req.body;
 
-  // Validate input
   if (!userId || !exerciseId) {
     return res.status(400).json({ message: "Missing userId or exerciseId" });
   }
 
   try {
-    // Check if already assigned
     const existing = await Assignment.findOne({ userId, exerciseId });
 
+    if (action === "assign") {
+      if (existing) {
+        return res.status(200).json({ message: "Already assigned" });
+      }
+      const newAssignment = new Assignment({ userId, exerciseId });
+      await newAssignment.save();
+      return res.status(201).json({ message: "Exercise assigned", assignment: newAssignment });
+    }
+
+    if (action === "unassign") {
+      if (existing) {
+        await Assignment.deleteOne({ _id: existing._id });
+        return res.status(200).json({ message: "Exercise unassigned" });
+      }
+      return res.status(404).json({ message: "Assignment not found" });
+    }
+
+    // fallback: toggle logic
     if (existing) {
       await Assignment.deleteOne({ _id: existing._id });
-      return res.status(200).json({ message: "Exercise unassigned successfully" });
+      return res.status(200).json({ message: "Exercise unassigned" });
     } else {
       const newAssignment = new Assignment({ userId, exerciseId });
       await newAssignment.save();
-      return res.status(201).json({ message: "Exercise assigned successfully", assignment: newAssignment });
+      return res.status(201).json({ message: "Exercise assigned", assignment: newAssignment });
     }
   } catch (error) {
     console.error("Assignment Error:", error);
     res.status(500).json({ message: "Failed to assign/unassign exercise" });
   }
 };
+
 
 // Get assigned exercises for a user
 const getAssignedExercises = async (req, res) => {

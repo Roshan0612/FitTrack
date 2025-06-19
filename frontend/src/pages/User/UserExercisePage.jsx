@@ -18,7 +18,13 @@ const UserExercisePage = () => {
           }
         );
 
-        const validExercises = res.data.exercises?.filter(Boolean) || [];
+        const assignments = res.data.assignments || [];
+
+        // Extract and filter valid populated exercise data
+        const validExercises = assignments
+          .map((a) => a.exerciseId)
+          .filter((ex) => ex && ex._id); // ensure non-null
+
         setExercises(validExercises);
       } catch (err) {
         console.error("Error fetching assigned exercises", err);
@@ -42,10 +48,10 @@ const UserExercisePage = () => {
                 alt={ex?.name || "Exercise GIF"}
                 className="exercise-gif"
               />
-              <h3>{ex?.name}</h3>
-              <p>{ex?.description}</p>
+              <h3>{ex.name}</h3>
+              <p>{ex.description}</p>
               <p>
-                <strong>Target Gender:</strong> {ex?.targetGender}
+                <strong>Target Gender:</strong> {ex.targetGender}
               </p>
             </div>
           ))}
