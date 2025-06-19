@@ -21,6 +21,7 @@ const UserMenu = () => {
         <li><Link to="/user/dashboard/add-info" className="text-gray-700 hover:text-blue-600">Personal Details</Link>
         <li><Link to="/user/dashboard/exercises" className="text-gray-700 hover:text-blue-600">My exercise</Link></li></li>
         <li><Link to="/user/dashboard/calorie" className="text-gray-700 hover:text-blue-600">My calorie intake</Link></li>
+        <li><Link to="/user/dashboard/diets" className="text-gray-700 hover:text-blue-600">My Diet</Link></li>
         <li>
             <Link className="nav-link  text-red-500 hover:text-red-700" to="/auth/login" onClick={handleLogout}>
                         Logout

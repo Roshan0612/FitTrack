@@ -17,12 +17,15 @@ const FemaleExercisesPage = () => {
         setExercises(allExercises);
 
         const assignedRes = await axios.get(`${API_URL}/api/v1/exercises/assigned/${userId}`);
-        const assignedList = assignedRes.data.assignments || [];
+        const assignedList = assignedRes.data.exercises || [];
 
         const assignedMap = {};
-        assignedList.forEach(({ exerciseId }) => {
-          assignedMap[exerciseId] = true;
-        });
+        assignedList.forEach((exercise) => {
+        if (exercise && exercise._id) {
+          assignedMap[exercise._id] = true;
+      }
+  });
+
 
         setAssignedExercises(assignedMap);
       } catch (err) {

@@ -30,6 +30,9 @@ const Login = () => {
       console.log(error);
     }
   }
+  const handleSignupRedirect = () => {
+    navigate('/auth/signup');
+  };
   return (
     
     <div className="background-wrap">
@@ -45,8 +48,12 @@ const Login = () => {
 
         <div className="button-group">
 
-          <button className="register-btn ripple-btn">
-                <Link to="/auth/signup"></Link>SignUp
+          <button
+              type="button"
+              className="register-btn ripple-btn"
+              onClick={handleSignupRedirect}
+          >
+              SignUp
           </button>
           <button className="login-btn ripple-btn">
                Login
