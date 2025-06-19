@@ -100,50 +100,25 @@ const demoofSignIN = (req, res) => {
 };
 
 
- 
-
-
-
-
-// Make sure path is correct
-
-const uploadPhoto = async (req, res) => {
+ const profilePhotoController = async (req, res) => {
   try {
-    console.log("📷 File upload request received");
+    console.log("📷 req.file:", req.file); // Add this
 
-    if (!req.file) {
-      console.log("⚠️ No file found in request");
-      return res.status(400).json({ message: 'No file uploaded' });
+    if (!req.file || !req.file.path) {
+      return res.status(400).json({ success: false, error: "No file received" });
     }
 
-    const userId = req.body.userId;
-    if (!userId) {
-      console.log("❌ Missing userId");
-      return res.status(400).json({ message: "User ID missing" });
-    }
+    const imageUrl = req.file.path;
 
-    const imageBuffer = fs.readFileSync(req.file.path);
-    const contentType = req.file.mimetype;
+    // Update the user's profile picture
+    await userModel.findByIdAndUpdate(req.user._id, {
+      profilePicture: imageUrl,
+    });
 
-    fs.unlinkSync(req.file.path);
-
-    const updatedUser = await userModel.findByIdAndUpdate(
-      userId,
-      {
-        profilePicture: {
-          data: imageBuffer,
-          contentType: contentType,
-        },
-      },
-      { new: true }
-    );
-
-    console.log("✅ User profile image stored in DB");
-    res.status(200).json({ message: "Image uploaded and stored in DB" });
-
-  } catch (err) {
-    console.error("❌ Upload failed:", err);
-    res.status(500).json({ message: 'Upload failed', error: err.message });
+    res.status(200).json({ success: true, imageUrl });
+  } catch (error) {
+    console.error("❌ Upload failed:", error);
+    res.status(500).json({ success: false, error: "Upload failed" });
   }
 };
 
@@ -153,6 +128,6 @@ module.exports={
     registerController,
     loginController,
     demoofSignIN,
-    uploadPhoto ,
+    profilePhotoController
   
 }

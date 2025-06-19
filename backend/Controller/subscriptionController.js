@@ -45,33 +45,23 @@ const getCoupon = async (req, res) => {
 };
 
 const razorPayApiController = async (req, res) => {
-  const { amount, currency = 'INR', couponCode } = req.body;
+  const { amount, currency = 'INR' } = req.body;
 
   try {
-    let discount = 0;
-    if (couponCode) {
-  const coupon = await Coupon.findOne({ code: couponCode });
-  if (coupon && typeof coupon.discountPercent === 'number') {
-  discount = (coupon.discountPercent / 100) * amount;
-}
-
-}
-
-
-    const finalAmount = Math.round((amount - discount) * 100);
-
+    const finalAmount = Math.round(amount * 100); // use directly
     const options = {
       amount: finalAmount,
       currency,
     };
 
     const order = await razorpayInstance.orders.create(options);
-    res.status(200).json({ ...order, finalAmount, discount });
+    res.status(200).json({ ...order });
   } catch (error) {
     console.error(error);
     res.status(500).send("Error creating RazorPay order");
   }
 };
+
 
 const saveTransactionController = async (req, res) => {
   try {

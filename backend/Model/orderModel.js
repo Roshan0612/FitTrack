@@ -6,8 +6,9 @@ const transactionSchema = new mongoose.Schema({
     ref: "User",
   },plan: {
   type: mongoose.Schema.Types.ObjectId,
-  ref: "Plan"  // Make sure "Plan" is the correct model name
+  ref: "Subscription", // ✅ should match model name exactly
 }
+
 ,
   razorpay_order_id: String,
   razorpay_payment_id: String,

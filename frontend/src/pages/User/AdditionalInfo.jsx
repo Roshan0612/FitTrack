@@ -25,7 +25,7 @@ const AdditionalInfo = () => {
     profilePicture: "",
   });
 
-  const [file, setFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -36,7 +36,8 @@ const AdditionalInfo = () => {
         });
 
         const user = data.user;
-        setFormData({
+        setFormData((prev) => ({
+          ...prev,
           age: user.age || "",
           gender: user.gender || "",
           height: user.height || "",
@@ -47,57 +48,44 @@ const AdditionalInfo = () => {
           activityLevel: user.activityLevel || "",
           medicalConditions: user.medicalConditions || "",
           profilePicture: user.profilePicture || "",
-        });
+        }));
       } catch (error) {
         console.error("❌ Failed to fetch user info", error);
       }
     };
 
-    if (userId) {
-      fetchUserInfo();
-    }
+    if (userId) fetchUserInfo();
   }, [userId]);
 
-  const handleFileChange = async (e) => {
-    const selectedFile = e.target.files[0];
-    if (!selectedFile) return;
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-    if (!selectedFile.type.startsWith("image/")) {
-      alert("❌ Please upload a valid image file.");
-      return;
-    }
-
-    if (selectedFile.size > 2 * 1024 * 1024) {
-      alert("❌ Image size must be less than 2MB.");
-      return;
-    }
-
-    setFile(selectedFile);
-    await handleImageUpload(selectedFile);
-  };
-
-  const handleImageUpload = async (imageFile) => {
-    const formDataUpload = new FormData();
-    setLoading(true);
+    const formDataImage = new FormData();
+    formDataImage.append("image", file);
 
     try {
-      formDataUpload.append("image", imageFile);
-      formDataUpload.append("userId", userId);
-
-      const response = await axios.post(`${API_URL}/api/v1/auth/upload`, formDataUpload, {
-        headers: { "Content-Type": "multipart/form-data" },
+      setUploading(true);
+      const { data } = await axios.post(`${API_URL}/api/v1/auth/upload-profile`, formDataImage, {
+        headers: {
+          Authorization: auth?.token,
+          "Content-Type": "multipart/form-data",
+        },
       });
 
-      const uploadedPath = response.data.filePath;
-      const fullUrl = `${API_URL}${uploadedPath}`;
-      setFormData((prev) => ({ ...prev, profilePicture: fullUrl }));
-
-      alert("✅ Uploaded successfully");
+      if (data.imageUrl) {
+        setFormData((prev) => ({
+          ...prev,
+          profilePicture: data.imageUrl,
+        }));
+      } else {
+        alert("Upload failed");
+      }
     } catch (error) {
-      console.error("❌ Upload failed:", error);
-      alert("Upload failed.");
+      console.error("❌ Image upload error:", error);
+      alert("Image upload failed");
     } finally {
-      setLoading(false);
+      setUploading(false);
     }
   };
 
@@ -109,12 +97,13 @@ const AdditionalInfo = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       await axios.put(`${API_URL}/api/v1/auth/user/additional-info`, {
         ...formData,
         userId,
-      });
+      },{
+          headers: { Authorization: auth?.token },
+        });
 
       alert("✅ Info saved!");
       navigate("/user/dashboard");
@@ -126,17 +115,14 @@ const AdditionalInfo = () => {
     }
   };
 
-  const handleCircleClick = () => {
-    fileInputRef.current.click();
-  };
-
   return (
     <div className="additional-info-container">
       <h2>Additional Information</h2>
 
+      {/* Profile Picture Upload Section */}
       <div className="profile-section">
         <div
-          onClick={handleCircleClick}
+          onClick={() => fileInputRef.current.click()}
           style={{
             width: "120px",
             height: "120px",
@@ -148,6 +134,7 @@ const AdditionalInfo = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            border: "2px solid #ccc",
           }}
         >
           {formData.profilePicture ? (
@@ -156,8 +143,10 @@ const AdditionalInfo = () => {
               alt="Profile"
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
+          ) : uploading ? (
+            <span>Uploading...</span>
           ) : (
-            <span>+</span>
+            <span>Upload</span>
           )}
         </div>
 
@@ -165,8 +154,8 @@ const AdditionalInfo = () => {
           type="file"
           accept="image/*"
           ref={fileInputRef}
-          onChange={handleFileChange}
           style={{ display: "none" }}
+          onChange={handleImageUpload}
         />
       </div>
 

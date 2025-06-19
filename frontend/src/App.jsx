@@ -73,12 +73,9 @@ function App() {
             <Route path="dashboard/createsubscription" element={<CreateSubscription />} />
             <Route path="dashboard/subscriptionlist" element={<SubscriptionList />} />
             <Route path="dashboard/transactions" element={<Transactions />} />
+
             <Route path="dashboard/create-diet" element={<CreateDietPage />} />
             <Route path="/admin/dashboard/assign-diet/:userId" element={<AdminDietPage />} />
-            
-
-
-
           </Route>
 
           {/* User protected routes */}

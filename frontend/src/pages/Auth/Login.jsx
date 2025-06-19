@@ -53,8 +53,9 @@ const Login = () => {
               className="register-btn ripple-btn"
               onClick={handleSignupRedirect}
           >
-              SignUp
+            SignUp
           </button>
+          
           <button className="login-btn ripple-btn">
                Login
           </button>
