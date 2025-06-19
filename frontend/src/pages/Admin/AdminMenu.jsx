@@ -29,7 +29,7 @@ const AdminMenu = () => {
       <ul className="space-y-4">
         <li><Link to="/admin/dashboard/users" className="text-gray-700 hover:text-blue-600">All Users</Link></li>
         <li><Link to="/admin/dashboard/createsubscription" className="text-gray-700 hover:text-blue-600">Create subscription</Link></li>
-        <li><Link to="/admin/create-diet" className="text-gray-700 hover:text-blue-600">Create Diet</Link></li>
+        <li><Link to="/admin/dashboard/create-diet" className="text-gray-700 hover:text-blue-600">Create Diet</Link></li>
         <li><Link to="/admin/dashboard/create-exercise" className="text-gray-700 hover:text-blue-600">Create Workout</Link></li>
         <li><Link to="/admin/dashboard/createcoupon" className="text-gray-700 hover:text-blue-600">Create Coupon</Link></li>
         <li><Link to="/admin/dashboard/transactions" className="text-gray-700 hover:text-blue-600">view All trnsation</Link></li>

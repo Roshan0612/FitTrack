@@ -45,9 +45,7 @@ const Login = () => {
 
         <div className="button-group">
 
-          <button className="register-btn ripple-btn">
-                <Link to="/auth/signup"></Link>SignUp
-          </button>
+          
           <button className="login-btn ripple-btn">
                Login
           </button>
