@@ -18,8 +18,8 @@ const UserMenu = () => {
     <div className="w-64 bg-gray-100 min-h-screen p-4 shadow-md">
       <h2 className="text-xl font-bold mb-6">Custom User Profile</h2>
       <ul className="space-y-4">
-        <li><Link to="/user/dashboard/add-info" className="text-gray-700 hover:text-blue-600">Personal Details</Link>
-        <li><Link to="/user/dashboard/exercises" className="text-gray-700 hover:text-blue-600">My exercise</Link></li></li>
+        <li><Link to="/user/dashboard/add-info" className="text-gray-700 hover:text-blue-600">Personal Details</Link></li>
+        <li><Link to="/user/dashboard/exercises" className="text-gray-700 hover:text-blue-600">My exercise</Link></li>
         <li><Link to="/user/dashboard/calorie" className="text-gray-700 hover:text-blue-600">My calorie intake</Link></li>
         <li><Link to="/user/dashboard/diets" className="text-gray-700 hover:text-blue-600">My Diet</Link></li>
         <li>

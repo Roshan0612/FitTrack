@@ -1,6 +1,15 @@
+/* Layout setup */
 .admin-users-container {
   display: flex;
-  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f3f4f6;
+}
+
+/* Sidebar for desktop */
+.sidebar {
+  width: 240px;
+  background-color: #fff;
+  border-right: 1px solid #e5e7eb;
 }
 
 .desktop-only {
@@ -8,16 +17,8 @@
 }
 
 @media (min-width: 768px) {
-  .admin-users-container {
-    flex-direction: row;
-  }
-
   .desktop-only {
     display: block;
-    width: 250px;
-    background-color: #f3f3f3;
-    min-height: 100vh;
-    padding: 1rem;
   }
 
   .mobile-menu {
@@ -25,111 +26,142 @@
   }
 }
 
+/* Mobile menu */
 .mobile-menu {
-  padding: 1rem;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 50;
 }
 
 .menu-button {
-  padding: 0.5rem 1rem;
-  background-color: #e2e8f0;
+  padding: 10px 16px;
+  background-color: #111827;
+  color: white;
   border: none;
   border-radius: 5px;
-  cursor: pointer;
-  margin-bottom: 1rem;
 }
 
+/* Main content */
 .main-content {
   flex: 1;
-  padding: 1rem;
+  padding: 1rem 2rem;
 }
 
 .page-title {
-  font-size: 1.5rem;
+  font-size: 24px;
+  font-weight: bold;
   margin-bottom: 1rem;
 }
 
+/* Filter Buttons */
 .filter-buttons {
+  display: flex;
+  gap: 10px;
   margin-bottom: 1.5rem;
 }
 
 .filter-button {
-  margin-right: 1rem;
-  padding: 0.5rem 1rem;
+  padding: 8px 14px;
   border: none;
+  background-color: #d1d5db;
+  color: #111827;
   border-radius: 5px;
-  background-color: #e2e2e2;
+  font-weight: 500;
   cursor: pointer;
+  transition: all 0.2s;
 }
 
 .filter-button.subscribed {
-  background-color: #a7f3d0;
+  background-color: #2563eb;
+  color: white;
 }
 
 .filter-button.unsubscribed {
-  background-color: #fecaca;
+  background-color: #f97316;
+  color: white;
 }
 
+.filter-button:hover {
+  opacity: 0.9;
+}
+
+/* User Grid */
 .users-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
 }
 
-@media (min-width: 640px) {
-  .users-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .users-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
+/* User Card */
 .user-card {
-  display: block;
+  background-color: #ffffff;
   padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-decoration: none;
-  color: inherit;
-  transition: box-shadow 0.2s ease;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s;
 }
 
 .user-card:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
 }
 
 .user-image {
   width: 100%;
-  height: 200px;
+  height: 160px;
   object-fit: cover;
-  border-radius: 6px;
-  margin-bottom: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 10px;
 }
 
 .user-name {
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin-bottom: 0.25rem;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #111827;
 }
 
 .user-email {
-  font-size: 0.9rem;
-  color: #666;
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 8px;
 }
 
 .user-status {
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 12px;
 }
 
 .user-status.subscribed {
-  color: green;
+  color: #10b981;
 }
 
 .user-status.unsubscribed {
-  color: red;
+  color: #ef4444;
+}
+
+.user-card-link {
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+
+/* Buttons */
+.assign-task-button,
+.assign-Diet-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.assign-task-button:hover,
+.assign-Diet-button:hover {
+  background-color: #2563eb;
 }
