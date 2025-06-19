@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const userModel = require("../model/userModel");
-
+const Subscription = require("../model/subscriptionModel");
 const requireSignIn = async (req, res, next) => {
     try {
         
@@ -39,8 +39,24 @@ const isAdmin = async (req, res, next) => {
         });
     }
 };
+// middleware/checkSubscription.js
+
+
+const checkSubscription = async (req, res, next)=> {
+  const userId = req.user._id;
+
+  const latest = await Subscription.findOne({ user: userId }).sort({ createdAt: -1 });
+
+  if (!latest || new Date(latest.expiresAt) < new Date()) {
+    return res.status(403).json({ locked: true, message: "Subscription expired or not found" });
+  }
+
+  next();
+};
+
 
 module.exports = {
     requireSignIn,
-    isAdmin
+    isAdmin,
+    checkSubscription
 };

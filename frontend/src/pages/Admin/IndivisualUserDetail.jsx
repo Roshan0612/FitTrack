@@ -12,6 +12,7 @@ const IndivisualUserDetail = () => {
   const [auth] = useAuth();
   const [user, setUser] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
+  const [expiryCountdown, setExpiryCountdown] = useState("");
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -21,8 +22,12 @@ const IndivisualUserDetail = () => {
             Authorization: auth?.token,
           },
         });
-        setUser(res.data.user); 
+        const fetchedUser = res.data.user;
+        setUser(fetchedUser);
 
+        if (fetchedUser.subscriptionExpiry) {
+          updateCountdown(fetchedUser.subscriptionExpiry);
+        }
       } catch (error) {
         console.error("Error fetching user details:", error.response?.data || error.message);
       }
@@ -30,6 +35,26 @@ const IndivisualUserDetail = () => {
 
     fetchUser();
   }, [userId, auth?.token]);
+
+  const updateCountdown = (expiryDate) => {
+    const expiry = new Date(expiryDate);
+    const interval = setInterval(() => {
+      const now = new Date();
+      const distance = expiry - now;
+
+      if (distance < 0) {
+        clearInterval(interval);
+        setExpiryCountdown("Expired");
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+      setExpiryCountdown(`${days}d ${hours}h ${minutes}m left`);
+    }, 1000);
+  };
 
   if (!user) return <p>Loading...</p>;
 
@@ -62,6 +87,9 @@ const IndivisualUserDetail = () => {
         <p><strong>Activity Level:</strong> {user.activityLevel}</p>
         <p><strong>Medical Conditions:</strong> {user.medicalConditions}</p>
         <p><strong>Subscription Taken:</strong> {user.subscriptionTaken ? "Yes" : "No"}</p>
+        {user.subscriptionTaken && user.subscriptionExpiry && (
+          <p><strong>Expires In:</strong> {expiryCountdown}</p>
+        )}
       </div>
     </div>
   );

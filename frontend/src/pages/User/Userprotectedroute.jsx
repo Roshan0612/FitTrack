@@ -1,30 +1,42 @@
-import React from 'react'
-import { useAuth } from '../../context/Auth';
-import { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Outlet } from 'react-router-dom';
+import { useAuth } from '../../context/Auth';
+
 const API_URL = import.meta.env.VITE_API_URL;
 
-const Userprotectedroute = () => {
-    const [ok,setOk]=useState(false);
-    const [auth,setAuth]=useAuth();
-    useEffect(()=>{
-        const  authCheck= async() =>{
-            const res = await axios.get(`${API_URL}/api/v1/auth/user-auth`,{
-                headers:{
-                    "Authorization" : auth?.token
-                }
-            });
-            if(res.data.ok){
-              setOk(true)
-            }else{
-              setOk(false)
-            }
-        } ;
-        if(auth?.token) authCheck();
-    },[auth?.token]);
+const UserProtectedRoute = () => {
+  const [ok, setOk] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [auth] = useAuth();
 
-  return  ok ? <Outlet /> : <>null value</>; 
-}
+  useEffect(() => {
+    const authCheck = async () => {
+      try {
+        const res = await axios.get(`${API_URL}/api/v1/auth/user-auth`, {
+          headers: {
+            "Authorization": auth?.token,
+          },
+        });
+        console.log(res.data);
+        setOk(res.data.ok);
+      } catch (err) {
+        setOk(false);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-export default Userprotectedroute
+    if (auth?.token) {
+      authCheck();
+    } else {
+      setLoading(false);
+    }
+  }, [auth?.token]);
+
+  if (loading) return <div>Loading...</div>;
+
+  return ok ? <Outlet /> : <div>⛔ Unauthorized</div>;
+};
+
+export default UserProtectedRoute;

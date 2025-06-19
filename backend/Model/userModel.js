@@ -40,6 +40,10 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  subscriptionExpiry: {
+  type: Date,
+  }
+
 }, { timestamps: true });
 
 // ✅ Fix: Only compile the model if it hasn't been compiled yet

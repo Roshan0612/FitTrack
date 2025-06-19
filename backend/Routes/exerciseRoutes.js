@@ -4,7 +4,7 @@ const {
   getExercisesByGender,
   assignOrUnassignExercise,
   getAssignedExercises,
-} = require('../controller/exerciseController');
+} = require('../Controller/exerciseController');
 
 const router = express.Router();
 
