@@ -30,6 +30,11 @@ import SubscriptionList from './pages/Admin/subscription/SubscriptionList';
 import Plan from './pages/User/Plan';
 import Transactions from './pages/Admin/subscription/Transactions';
 
+import CreateDietPage from './pages/Admin/CreateDietPage';
+import AdminDietPage from './pages/Admin/AdminDietPage';
+import UserDietPage from './pages/User/userdietpage';
+
+
 function App() {
   return (
     <>
@@ -63,10 +68,14 @@ function App() {
             <Route path="dashboard/create-exercise" element={<CreateExercisePage />} />
             <Route path="/admin/assign-exercise/male/:userId" element={<MaleExercisesPage />} />
             <Route path="/admin/assign-exercise/female/:userId" element={<FemaleExercisesPage />} />
+
             <Route path="dashboard/createcoupon" element={<CreateCoupon />} />
             <Route path="dashboard/createsubscription" element={<CreateSubscription />} />
             <Route path="dashboard/subscriptionlist" element={<SubscriptionList />} />
             <Route path="dashboard/transactions" element={<Transactions />} />
+            <Route path="dashboard/create-diet" element={<CreateDietPage />} />
+            <Route path="/admin/dashboard/assign-diet/:userId" element={<AdminDietPage />} />
+            
 
 
 
@@ -79,6 +88,7 @@ function App() {
             <Route path="dashboard/profile" element={<Profile />} />
             <Route path="dashboard/exercises" element={<UserExercisePage />} />
             <Route path="dashboard/calorie" element={<CalorieCalculator />} />
+            <Route path="dashboard/diets" element={<UserDietPage />} />
           </Route>
         </Routes>
       </Router>

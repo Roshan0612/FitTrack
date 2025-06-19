@@ -39,7 +39,7 @@ const AdminUsersPage = () => {
   }, [filter, auth?.token]);
 
   const handleAssignTask = (e, user) => {
-    e.stopPropagation(); // Prevent link from triggering
+    e.stopPropagation();
     if (!user.gender) {
       alert("Gender not specified for this user.");
       return;
@@ -50,6 +50,11 @@ const AdminUsersPage = () => {
     } else {
       navigate(`/admin/assign-exercise/female/${user._id}`);
     }
+  };
+
+  const handleAssignDiet = (e, user) => {
+    e.stopPropagation();
+    navigate(`/admin/dashboard/assign-diet/${user._id}`);
   };
 
   return (
@@ -97,7 +102,15 @@ const AdminUsersPage = () => {
                   className="assign-task-button"
                   onClick={(e) => handleAssignTask(e, user)}
                 >
-                  Assign Task
+                  Assign Exercise
+                </button>
+
+                <button
+                  className="assign-Diet-button"
+                  onClick={(e) => handleAssignDiet(e, user)}
+                  style={{ marginTop: "8px", backgroundColor: "#4CAF50" }}
+                >
+                  Assign Diet
                 </button>
               </div>
             ))}

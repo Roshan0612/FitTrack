@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const authRoutes = require("./Routes/authRoutes");
 const path = require("path");
 const exerciseRoutes = require("./Routes/exerciseRoutes"); //  NEW: Import exercise routes
+const dietRoutes = require("./Routes/dietRoutes");
 const subscriptionRoutes=require("./Routes/subscriptionRoutes")
 
 dotenv.config();
@@ -27,6 +28,8 @@ app.use((req, res, next) => {
 // Routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/exercises", exerciseRoutes);
+app.use("/api/v1/diet", dietRoutes);
+
 app.use("/api/v1/subscription",subscriptionRoutes)
 
 // Root route
