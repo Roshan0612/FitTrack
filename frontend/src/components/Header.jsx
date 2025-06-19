@@ -1,32 +1,55 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { FaUserCircle } from 'react-icons/fa'; // for profile icon
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { FaUserCircle } from 'react-icons/fa';
 import { useAuth } from '../context/Auth';
-import { useTheme } from '../context/ThemeContext'; //  Import theme context
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [auth, setAuth] = useAuth();
-  const { theme, toggleTheme } = useTheme(); //  Get theme and toggle
+  const [auth] = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Track scroll target when navigating to home
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const target = document.querySelector(hash);
+      if (target) {
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [location]);
+
+  const handleScrollOrNavigate = (id) => {
+    const onHome = location.pathname === '/';
+    if (onHome) {
+      const section = document.getElementById(id);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      navigate(`/#${id}`);
+    }
+    setMenuOpen(false);
+  };
 
   return (
     <header className="navbar">
       <div className="navbar-container">
-        <Link to="/" className="logo">Fit<span>Track</span></Link>
+        <Link to="/" className="logo" onClick={() => setMenuOpen(false)}>
+          Fit<span>Track</span>
+        </Link>
 
         <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
           ☰
         </button>
 
         <nav className={`nav-links ${menuOpen ? 'active' : ''}`}>
-          <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
-          <Link to="/plans" onClick={() => setMenuOpen(false)}>Plans</Link>
-          <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
-
-          {/*  Theme toggle button */}
-          <button onClick={toggleTheme} className="theme-toggle-btn">
-            {theme === 'light' ? '🌙' : '☀️'}
-          </button>
+          <button onClick={() => handleScrollOrNavigate('home')}>Home</button>
+          <button onClick={() => handleScrollOrNavigate('plans')}>Plans</button>
+          <button onClick={() => handleScrollOrNavigate('about')}>About</button>
 
           <div className="auth-links">
             {auth?.user?.role === 'admin' ? (
@@ -39,8 +62,12 @@ const Header = () => {
               </Link>
             ) : (
               <>
-                <Link to="/auth/login" className="login-link" onClick={() => setMenuOpen(false)}>Login</Link>
-                <Link to="/auth/signup" onClick={() => setMenuOpen(false)}>Sign up</Link>
+                <Link to="/auth/login" className="login-link" onClick={() => setMenuOpen(false)}>
+                  Login
+                </Link>
+                <Link to="/auth/signup" onClick={() => setMenuOpen(false)}>
+                  Sign up
+                </Link>
               </>
             )}
           </div>

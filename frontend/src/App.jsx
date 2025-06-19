@@ -33,6 +33,8 @@ import Transactions from './pages/Admin/subscription/Transactions';
 import CreateDietPage from './pages/Admin/CreateDietPage';
 import AdminDietPage from './pages/Admin/AdminDietPage';
 import UserDietPage from './pages/User/userdietpage';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 
 function App() {
