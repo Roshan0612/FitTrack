@@ -14,7 +14,6 @@ const AdminMenu = () => {
     localStorage.removeItem('auth');
   };
 
-  // Protect menu: Only show if role is admin
   if (!auth?.user || auth.user.role !== 'admin') {
     return (
       <div className="p-4 text-red-600">
@@ -24,26 +23,38 @@ const AdminMenu = () => {
   }
 
   return (
-    <div className="w-64 bg-gray-100 min-h-screen p-4 shadow-md">
-      <h2 className="text-xl font-bold mb-6">FitTrack Admin Panel</h2>
-      <ul className="space-y-4">
-        <li><Link to="/admin/dashboard/users" className="text-gray-700 hover:text-blue-600">All Users</Link></li>
-        <li><Link to="/admin/dashboard/createsubscription" className="text-gray-700 hover:text-blue-600">Create subscription</Link></li>
-        <li><Link to="/admin/dashboard/subscriptionlist" className="text-gray-700 hover:text-blue-600">All Subscriptions List</Link></li>
-        <li><Link to="/admin/dashboard/create-diet" className="text-gray-700 hover:text-blue-600">Create Diet</Link></li>
-        <li><Link to="/admin/dashboard/create-exercise" className="text-gray-700 hover:text-blue-600">Create Workout</Link></li>
-        <li><Link to="/admin/dashboard/createcoupon" className="text-gray-700 hover:text-blue-600">Create Coupon</Link></li>
-        <li><Link to="/admin/dashboard/transactions" className="text-gray-700 hover:text-blue-600">View All Transaction</Link></li>
-        <li>
-          <Link
-            className="nav-link text-red-500 hover:text-red-700"
-            to="/auth/login"
-            onClick={handleLogout}
-          >
-            Logout
-          </Link>
-        </li>
-      </ul>
+    <div className="relative w-64 min-h-screen shadow-md overflow-hidden">
+      {/* Background Image Overlay */}
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-20"
+        style={{
+          backgroundImage:
+            "url('https://res.cloudinary.com/dswa5docr/image/upload/v1750358113/pexels-tima-miroshnichenko-5327467_e3ctrx.jpg')",
+        }}
+      ></div>
+
+      {/* Menu Content */}
+      <div className="relative z-10 p-4 text-white">
+        <h2 className="text-xl font-bold mb-6">FitTrack Admin Panel</h2>
+        <ul className="space-y-4">
+          <li><Link to="/admin/dashboard/users" className="hover:text-blue-300">All Users</Link></li>
+          <li><Link to="/admin/dashboard/createsubscription" className="hover:text-blue-300">Create Subscription</Link></li>
+          <li><Link to="/admin/dashboard/subscriptionlist" className="hover:text-blue-300">All Subscriptions List</Link></li>
+          <li><Link to="/admin/dashboard/create-diet" className="hover:text-blue-300">Create Diet</Link></li>
+          <li><Link to="/admin/dashboard/create-exercise" className="hover:text-blue-300">Create Workout</Link></li>
+          <li><Link to="/admin/dashboard/createcoupon" className="hover:text-blue-300">Create Coupon</Link></li>
+          <li><Link to="/admin/dashboard/transactions" className="hover:text-blue-300">View All Transactions</Link></li>
+          <li>
+            <Link
+              className="text-red-300 hover:text-red-500"
+              to="/auth/login"
+              onClick={handleLogout}
+            >
+              Logout
+            </Link>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

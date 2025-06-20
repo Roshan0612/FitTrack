@@ -15,8 +15,6 @@ import Profile from './pages/User/Profile';
 import Userdashboard from './pages/User/Userdashboard';
 import Userprotectedroute from './pages/User/Userprotectedroute';
 import AdminUsersPage from './pages/Admin/AdminUsersPage';
-import Webcam from 'react-webcam';
-import AdminLayout from './layouts/AdminLayout'
 import AdminProtectedRoute from './pages/Admin/AdminProtectedRoute';
 import IndivisualUserDetail from './pages/Admin/IndivisualUserDetail';
 import CreateExercisePage from './pages/Admin/CreateExercisePage';
@@ -32,7 +30,8 @@ import Transactions from './pages/Admin/subscription/Transactions';
 
 import CreateDietPage from './pages/Admin/CreateDietPage';
 import AdminDietPage from './pages/Admin/AdminDietPage';
-import UserDietPage from './pages/User/userdietpage';
+import UserDietPage from './pages/User/UserDietPage';
+
 
 
 function App() {
