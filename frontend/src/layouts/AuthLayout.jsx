@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 const AuthLayout = () => {
   return (
-    <div style={{ padding: '2rem' }}>
+    <div >
       <Outlet />
     </div>
   );

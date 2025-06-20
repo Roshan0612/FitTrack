@@ -10,3 +10,15 @@
   background-color: rgba(0, 0, 0, 0.6); /* Optional: dark overlay for contrast */
   min-height: 100vh;
 }
+/* <<<<<<< HEAD */
+
+
+.transparent-card {
+  background: rgba(255, 255, 255, 0.1); /* Light white overlay */
+  border-radius: 12px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10px); /* 👈 This creates the glass effect */
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+

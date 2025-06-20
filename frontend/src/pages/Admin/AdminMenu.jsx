@@ -34,6 +34,7 @@ const AdminMenu = () => {
       ></div>
 
       {/* Menu Content */}
+{/* <<<<<<< HEAD */}
       <div className="relative z-10 p-4 text-white">
         <h2 className="text-xl font-bold mb-6">FitTrack Admin Panel</h2>
         <ul className="space-y-4">
@@ -55,6 +56,7 @@ const AdminMenu = () => {
           </li>
         </ul>
       </div>
+      
     </div>
   );
 };
