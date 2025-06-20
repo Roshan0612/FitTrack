@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useAuth } from "../../context/Auth";
 import { useNavigate } from "react-router-dom";
+import UserMenu from "./UserMenu";
+import "../../styles/AdditionalInfo.css";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -101,9 +103,9 @@ const AdditionalInfo = () => {
       await axios.put(`${API_URL}/api/v1/auth/user/additional-info`, {
         ...formData,
         userId,
-      },{
-          headers: { Authorization: auth?.token },
-        });
+      }, {
+        headers: { Authorization: auth?.token },
+      });
 
       alert("✅ Info saved!");
       navigate("/user/dashboard");
@@ -116,104 +118,102 @@ const AdditionalInfo = () => {
   };
 
   return (
-    <div className="additional-info-container">
-      <h2>Additional Information</h2>
+    <div className="info-page-container">
+      <div className="info-overlay">
+        <UserMenu />
+        <div className="info-content">
+          <h2 className="info-title">Update Your Details</h2>
 
-      {/* Profile Picture Upload Section */}
-      <div className="profile-section">
-        <div
-          onClick={() => fileInputRef.current.click()}
-          style={{
-            width: "120px",
-            height: "120px",
-            borderRadius: "50%",
-            backgroundColor: "#eee",
-            cursor: "pointer",
-            overflow: "hidden",
-            margin: "0 auto",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            border: "2px solid #ccc",
-          }}
-        >
-          {formData.profilePicture ? (
-            <img
-              src={formData.profilePicture}
-              alt="Profile"
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          <div className="info-card">
+            <div className="profile-upload" onClick={() => fileInputRef.current.click()}>
+              {formData.profilePicture ? (
+                <img src={formData.profilePicture} alt="Profile" className="profile-image" />
+              ) : uploading ? (
+                <span>Uploading...</span>
+              ) : (
+                <span>Upload</span>
+              )}
+            </div>
+
+            <input
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              className="hidden-input"
+              onChange={handleImageUpload}
             />
-          ) : uploading ? (
-            <span>Uploading...</span>
-          ) : (
-            <span>Upload</span>
-          )}
+
+            <form onSubmit={handleSubmit} className="info-form">
+              <div className="form-grid">
+                <div className="form-group">
+                  <label>Age</label>
+                  <input type="number" name="age" value={formData.age} onChange={handleChange} required />
+                </div>
+                <div className="form-group">
+                  <label>Gender</label>
+                  <select name="gender" value={formData.gender} onChange={handleChange} required>
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label>Height (cm)</label>
+                  <input type="number" name="height" value={formData.height} onChange={handleChange} required />
+                </div>
+                <div className="form-group">
+                  <label>Weight (kg)</label>
+                  <input type="number" name="weight" value={formData.weight} onChange={handleChange} required />
+                </div>
+                <div className="form-group">
+                  <label>Mobile</label>
+                  <input type="text" name="mobile" value={formData.mobile} onChange={handleChange} required />
+                </div>
+                <div className="form-group">
+                  <label>Address</label>
+                  <input type="text" name="address" value={formData.address} onChange={handleChange} required />
+                </div>
+                <div className="form-group">
+                  <label>Fitness Goal</label>
+                  <select name="fitnessGoal" value={formData.fitnessGoal} onChange={handleChange} required>
+                    <option value="">Select Goal</option>
+                    <option value="maintain">Maintain</option>
+                    <option value="mildLoss">Mild Loss</option>
+                    <option value="extremeLoss">Extreme Loss</option>
+                    <option value="gain">Gain</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label>Activity Level</label>
+                  <select name="activityLevel" value={formData.activityLevel} onChange={handleChange} required>
+                    <option value="">Select Level</option>
+                    <option value="sedentary">Sedentary</option>
+                    <option value="light">Light</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="active">Active</option>
+                    <option value="veryActive">Very Active</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label>Medical Conditions</label>
+                <input
+                  type="text"
+                  name="medicalConditions"
+                  value={formData.medicalConditions}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <button type="submit" disabled={loading} className="submit-btn">
+                {loading ? "Saving..." : "Submit"}
+              </button>
+            </form>
+          </div>
         </div>
-
-        <input
-          type="file"
-          accept="image/*"
-          ref={fileInputRef}
-          style={{ display: "none" }}
-          onChange={handleImageUpload}
-        />
       </div>
-
-      <form onSubmit={handleSubmit} className="info-form">
-        <label>Age</label>
-        <input type="number" name="age" value={formData.age} onChange={handleChange} required />
-
-        <label>Gender</label>
-        <select name="gender" value={formData.gender} onChange={handleChange} required>
-          <option value="">Select Gender</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="Other">Other</option>
-        </select>
-
-        <label>Height (cm)</label>
-        <input type="number" name="height" value={formData.height} onChange={handleChange} required />
-
-        <label>Weight (kg)</label>
-        <input type="number" name="weight" value={formData.weight} onChange={handleChange} required />
-
-        <label>Mobile</label>
-        <input type="text" name="mobile" value={formData.mobile} onChange={handleChange} required />
-
-        <label>Address</label>
-        <input type="text" name="address" value={formData.address} onChange={handleChange} required />
-
-        <label>Fitness Goal</label>
-        <select name="fitnessGoal" value={formData.fitnessGoal} onChange={handleChange} required>
-          <option value="">Select Goal</option>
-          <option value="maintain">maintain</option>
-          <option value="mildLoss">mildLoss</option>
-          <option value="extremeLoss">extremeLoss</option>
-          <option value="gain">gain</option>
-        </select>
-
-        <label>Activity Level</label>
-        <select name="activityLevel" value={formData.activityLevel} onChange={handleChange} required>
-          <option value="">Select Level</option>
-          <option value="sedentary">Sedentary: little or no exercise</option>
-          <option value="light">Light: exercise 1–3 times/week</option>
-          <option value="moderate">Moderate: exercise 4–5 times/week</option>
-          <option value="active">Active: daily exercise or intense exercise 3–4 times/week</option>
-          <option value="veryActive">Very Active: intense exercise 6–7 times/week</option>
-        </select>
-
-        <label>Medical Conditions</label>
-        <input
-          type="text"
-          name="medicalConditions"
-          value={formData.medicalConditions}
-          onChange={handleChange}
-        />
-
-        <button type="submit" disabled={loading}>
-          {loading ? "Saving..." : "Submit"}
-        </button>
-      </form>
     </div>
   );
 };

@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../context/Auth";
 import UserMenu from "./UserMenu";
-
+import "../../styles/UserExercisePage.css";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const UserExercisePage = () => {
   const [auth] = useAuth();
   const [groupedExercises, setGroupedExercises] = useState({});
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     const fetchAssignedExercises = async () => {
@@ -22,7 +23,6 @@ const UserExercisePage = () => {
 
         const assignments = res.data.assignments || [];
 
-        // Group exercises by day
         const grouped = {};
         assignments.forEach((a) => {
           const day = a.day?.toLowerCase() || "unspecified";
@@ -46,27 +46,32 @@ const UserExercisePage = () => {
   const dayOrder = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 
   return (
-    <div className="exercise-layout">
-      <aside className="sidebar">
-        <UserMenu />
-      </aside>
+    <div className="user-dashboard-bg">
+      <div className="user-overlay">
+        <button className="mobile-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
+          ☰
+        </button>
 
-      <main className="exercise-main">
-        <h2 className="exercise-title">My Assigned Exercises (Day-wise)</h2>
-        {Object.keys(groupedExercises).length === 0 ? (
-          <p>No exercises assigned yet.</p>
-        ) : (
-          <div className="exercise-weekly">
-            {dayOrder.map((day) =>
+        <div className={`sidebar-wrapper ${sidebarOpen ? "open" : ""}`}>
+          <UserMenu />
+        </div>
+
+        <div className="main-content">
+          <h2 className="main-title">My Assigned Exercises</h2>
+
+          {Object.keys(groupedExercises).length === 0 ? (
+            <p>No exercises assigned yet.</p>
+          ) : (
+            dayOrder.map((day) =>
               groupedExercises[day]?.length ? (
-                <div key={day} className="exercise-day-block">
-                  <h3 className="day-heading">📅 {day.toUpperCase()}</h3>
+                <div key={day}>
+                  <h3>{day.charAt(0).toUpperCase() + day.slice(1)}</h3>
                   <div className="exercise-grid">
                     {groupedExercises[day].map((ex) => (
                       <div key={ex._id} className="exercise-card">
                         <img
-                          src={ex.gifUrl || "/placeholder.gif"}
-                          alt={ex.name}
+                          src={ex?.gifUrl || "/placeholder.gif"}
+                          alt={ex?.name || "Exercise GIF"}
                           className="exercise-gif"
                         />
                         <h3 className="exercise-name">{ex.name}</h3>
@@ -77,10 +82,10 @@ const UserExercisePage = () => {
                   </div>
                 </div>
               ) : null
-            )}
-          </div>
-        )}
-      </main>
+            )
+          )}
+        </div>
+      </div>
     </div>
   );
 };

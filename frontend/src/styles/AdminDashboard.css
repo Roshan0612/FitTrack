@@ -1,0 +1,25 @@
+.admin-dashboard-bg {
+  background-image: url('https://res.cloudinary.com/dswa5docr/image/upload/v1750358146/pexels-cottonbro-4752856_ccu5ji.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.bg-overlay {
+  background-color: rgba(0, 0, 0, 0.6); /* Optional: dark overlay for contrast */
+  min-height: 100vh;
+}
+
+.transparent-card {
+  background: rgba(255, 255, 255, 0.1); /* Light white overlay */
+  border-radius: 12px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10px); /* 👈 This creates the glass effect */
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+.transparent-card p,
+.transparent-card a {
+  color: #fff;
+}

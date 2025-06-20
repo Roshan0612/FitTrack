@@ -1,0 +1,111 @@
+.info-page-container {
+  background-image: url('https://res.cloudinary.com/dswa5docr/image/upload/v1750358146/pexels-cottonbro-4752856_ccu5ji.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.info-overlay {
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.6);
+  min-height: 100vh;
+}
+
+.info-content {
+  flex: 1;
+  padding: 2rem;
+  color: white;
+}
+
+.info-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.info-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 800px;
+  margin: 0 auto;
+  color: rgb(255, 255, 255);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.profile-upload {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #eee;
+  border: 2px solid #ccc;
+  margin: 0 auto 1.5rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hidden-input {
+  display: none;
+}
+
+.info-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+}
+
+.submit-btn {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.submit-btn:hover {
+  background-color: #1d4ed8;
+}
