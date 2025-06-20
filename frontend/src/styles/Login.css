@@ -1,0 +1,165 @@
+
+/* ripple button css */
+
+.ripple-btn {
+    
+  position: relative;
+  overflow: hidden;
+  border: none;
+  background-color: #000;
+  /* color: white; */
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: backgroground 0.3s;
+}
+
+.ripple-btn:focus {
+  outline: none;
+}
+
+.ripple-btn::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 50%;
+  width: 200%;
+  height: 200%;
+  transition: transform 0.5s, opacity 1s;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ripple-btn:active::after {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  transition: 0s;
+}
+
+/* Login Page Background */
+.background-wrap {
+  background-image: url('https://res.cloudinary.com/dswa5docr/image/upload/v1750358196/pexels-cottonbro-7690207_mewthi.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 20px;
+}
+
+.background-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* dark overlay */
+  z-index: 0;
+}
+
+/* Login Box */
+.login-container {
+  z-index: 2;
+  max-width: 400px;
+  width: 100%;
+  padding: 32px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow: none; /* <-- removed white glow */
+  color: white;
+  text-align: center;
+  border: none;
+}
+
+/* Headings */
+.login-container h2 {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.login-container p {
+  margin-bottom: 24px;
+  color: #d1d5db;
+}
+
+/* Input Fields */
+.login-container input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+  outline: none !important;   /* <-- removes focus outline */
+  box-shadow: none !important; /* <-- removes focus glow */
+}
+
+.login-container input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Buttons */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ripple-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-btn {
+  background-color: #2563eb;
+  color: white;
+}
+
+.login-btn:hover {
+  background-color: #1e40af;
+}
+
+.register-btn {
+  background-color: #10b981;
+  color: white;
+}
+
+.register-btn:hover {
+  background-color: #059669;
+}
+
+/* Forgot Password Link */
+.login-container a {
+  display: inline-block;
+  margin-top: 16px;
+  color: #60a5fa;
+  text-decoration: none;
+}
+
+.login-container a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 24px 16px;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+}

@@ -3,6 +3,7 @@ import { useAuth } from '../../context/Auth';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 const API_URL = import.meta.env.VITE_API_URL;
+import "../../styles/Login.css"
 // import MainLayout from '../../layouts/MainLayout'
 import { useState } from 'react';
 const Login = () => {

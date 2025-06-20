@@ -1,0 +1,72 @@
+.exercise-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.exercise-card {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  color: #091629;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.exercise-card:hover {
+  transform: translateY(-5px);
+}
+
+.exercise-gif {
+  width: 100%;
+  max-height: 180px;
+  object-fit: contain;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  background: #f0f4f8;
+}
+
+.exercise-card h3 {
+  font-size: 18px;
+  margin: 10px 0 6px;
+  color: #111827;
+}
+
+.exercise-card p {
+  font-size: 14px;
+  color: #130226;
+}
+
+.toggle-btn {
+  margin-top: 12px;
+  padding: 10px 14px;
+  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-btn.assigned {
+  background-color: #16a34a;
+  color: white;
+}
+
+.toggle-btn.unassigned {
+  background-color: #dc2626;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .exercise-card {
+    padding: 16px;
+  }
+
+  .exercise-gif {
+    max-height: 140px;
+  }
+}
