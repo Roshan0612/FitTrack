@@ -15,6 +15,15 @@ const assignmentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+
+   day: {
+    type: String,
+    required: true,
+    enum: [
+      "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday",
+    ],
+  },
+
 });
 
 module.exports = mongoose.model("Assignment", assignmentSchema);

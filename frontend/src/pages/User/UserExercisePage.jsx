@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../context/Auth";
-import UserMenu from "./UserMenu"; // Adjust path if needed
-import "../../styles/UserExercisePage.css";   // Import external CSS
+import UserMenu from "./UserMenu";
+
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const UserExercisePage = () => {
   const [auth] = useAuth();
-  const [exercises, setExercises] = useState([]);
+  const [groupedExercises, setGroupedExercises] = useState({});
 
   useEffect(() => {
     const fetchAssignedExercises = async () => {
@@ -22,11 +22,19 @@ const UserExercisePage = () => {
 
         const assignments = res.data.assignments || [];
 
-        const validExercises = assignments
-          .map((a) => a.exerciseId)
-          .filter((ex) => ex && ex._id);
+        // Group exercises by day
+        const grouped = {};
+        assignments.forEach((a) => {
+          const day = a.day?.toLowerCase() || "unspecified";
+          const ex = a.exerciseId;
 
-        setExercises(validExercises);
+          if (ex && ex._id) {
+            if (!grouped[day]) grouped[day] = [];
+            grouped[day].push(ex);
+          }
+        });
+
+        setGroupedExercises(grouped);
       } catch (err) {
         console.error("Error fetching assigned exercises", err);
       }
@@ -35,6 +43,8 @@ const UserExercisePage = () => {
     fetchAssignedExercises();
   }, [auth]);
 
+  const dayOrder = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+
   return (
     <div className="exercise-layout">
       <aside className="sidebar">
@@ -42,23 +52,32 @@ const UserExercisePage = () => {
       </aside>
 
       <main className="exercise-main">
-        <h2 className="exercise-title">My Assigned Exercises</h2>
-        {exercises.length === 0 ? (
+        <h2 className="exercise-title">My Assigned Exercises (Day-wise)</h2>
+        {Object.keys(groupedExercises).length === 0 ? (
           <p>No exercises assigned yet.</p>
         ) : (
-          <div className="exercise-grid">
-            {exercises.map((ex) => (
-              <div key={ex._id} className="exercise-card">
-                <img
-                  src={ex?.gifUrl || "/placeholder.gif"}
-                  alt={ex?.name || "Exercise GIF"}
-                  className="exercise-gif"
-                />
-                <h3 className="exercise-name">{ex.name}</h3>
-                <p>{ex.description}</p>
-                <p><strong>Target Gender:</strong> {ex.targetGender}</p>
-              </div>
-            ))}
+          <div className="exercise-weekly">
+            {dayOrder.map((day) =>
+              groupedExercises[day]?.length ? (
+                <div key={day} className="exercise-day-block">
+                  <h3 className="day-heading">📅 {day.toUpperCase()}</h3>
+                  <div className="exercise-grid">
+                    {groupedExercises[day].map((ex) => (
+                      <div key={ex._id} className="exercise-card">
+                        <img
+                          src={ex.gifUrl || "/placeholder.gif"}
+                          alt={ex.name}
+                          className="exercise-gif"
+                        />
+                        <h3 className="exercise-name">{ex.name}</h3>
+                        <p>{ex.description}</p>
+                        <p><strong>Target Gender:</strong> {ex.targetGender}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null
+            )}
           </div>
         )}
       </main>

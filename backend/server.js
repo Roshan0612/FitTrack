@@ -34,16 +34,16 @@ app.use("/api/v1/subscription",subscriptionRoutes)
 
 // Root route
 app.get("/", (req, res) => {
-  res.send("✅ API is working!");
+  res.send("API is working!");
 });
 
 // DB + Server
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    console.log("✅ MongoDB connected");
+    console.log(" MongoDB connected");
     app.listen(PORT, () => {
-      console.log(`🚀 Server running on port ${PORT}`);
+      console.log(` Server running on port ${PORT}`);
     });
   })
-  .catch((err) => console.error("❌ MongoDB connection error:", err));
+  .catch((err) => console.error("MongoDB connection error:", err));
