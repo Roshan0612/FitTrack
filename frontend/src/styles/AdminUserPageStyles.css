@@ -211,3 +211,7 @@ body, html, #root {
   color: white;
   margin-left: 8px;
 }
+assign-task-button{
+  background-color: #3b82f6; /* Tailwind blue-500 */
+  color: white;
+}

@@ -5,13 +5,13 @@
 }
 
 .exercise-card {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 253, 253, 0.25);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  color: #091629;
+  color: #ffffff;
   text-align: center;
   transition: transform 0.2s ease;
 }
@@ -30,14 +30,15 @@
 }
 
 .exercise-card h3 {
-  font-size: 18px;
+  
+    font-size: 18px;
   margin: 10px 0 6px;
-  color: #111827;
+  color: #fdfeff;
 }
 
 .exercise-card p {
   font-size: 14px;
-  color: #130226;
+  color: #ffffff;
 }
 
 .toggle-btn {

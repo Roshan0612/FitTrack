@@ -67,7 +67,7 @@
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  color: #091629;
+  color: #f1f1f1;
   text-align: center;
   transition: transform 0.2s ease;
 }
@@ -89,12 +89,12 @@
   font-size: 18px;
   font-weight: 600;
   margin: 10px 0 6px;
-  color: #111827;
+  color: #f1f3f7;
 }
 
 .diet-card p {
   font-size: 14px;
-  color: #130226;
+  color: #fcfbfd;
 }
 
 /* Empty state message */
