@@ -1,498 +1,303 @@
-/* Global container */
-.home-container {
+/* === Global === */
+body, html {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
   font-family: 'Segoe UI', sans-serif;
-  color: #333;
 }
 
-/* Hero Section */
+section {
+  width: 100%;
+  color: white;
+}
+
 .hero-section {
   height: 100vh;
-  background: linear-gradient(to bottom right, rgba(0,0,0,0.6), rgba(0,0,0,0.7));
-  background-image: url('https://res.cloudinary.com/dswa5docr/image/upload/v1750357874/pexels-tima-miroshnichenko-5327534_rn9paw.jpghttps://res.cloudinary.com/dswa5docr/image/upload/v1750357874/pexels-tima-miroshnichenko-5327534_rn9paw.jpg');
+  background-image: url('https://res.cloudinary.com/dswa5docr/image/upload/v1750358169/pexels-tima-miroshnichenko-5327533_jugnmx.jpg');
   background-size: cover;
   background-position: center;
-  color: white;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   text-align: center;
+  position: relative;
 }
 
-.hero-section h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
 }
 
-.hero-section p {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-}
-
-.hero-section .cta-btn {
-  background-color: #2563eb;
+.hero-content {
+  position: relative;
+  z-index: 1;
   color: white;
+  padding: 20px;
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin-bottom: 32px;
+  color: #e0e0e0;
+}
+
+.hero-btn {
+  display: inline-block;
   padding: 12px 24px;
+  background-color: #3b82f6;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
   border-radius: 6px;
   text-decoration: none;
-  font-weight: bold;
   transition: background-color 0.3s ease;
 }
 
-.hero-section .cta-btn:hover {
-  background-color: #1e40af;
+.hero-btn:hover {
+  background-color: #2563eb;
+}
+
+/* === Hero Section === */
+
+/* === Plans Section === */
+.plans-section {
+  min-height: 100vh; /* or use 700px, 1000px, etc. */
+  padding: 80px 20px; /* top/bottom, left/right */
+  background-image: url('https://res.cloudinary.com/dswa5docr/image/upload/v1750358139/pexels-cottonbro-7674488_ao7pr8.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 80px 24px;
+  color: #fff;
+}
+
+.plans-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+}
+
+
+
+.plan-card {
+  background: rgba(255, 255, 255, 0.1); 
+  border: 1px solid rgba(255, 255, 255, 0.2); /* subtle white border */
+  backdrop-filter: blur(12px); /* blur for glass effect */
+  -webkit-backdrop-filter: blur(12px); /* Safari support */
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+.plan-card .price {
+  font-weight: bold;
+  margin: 12px 0;
+  font-size: 1.2rem;
+}
+
+.plan-card button {
+  margin-top: 12px;
+  background-color: #01071a3e;
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 /* Plans Section */
-#plans {
-  padding: 60px 20px;
+.plans-section {
+  position: relative;
   background-size: cover;
   background-position: center;
+  padding: 80px 20px;
+  color: #fff;
 }
 
-#plans .plans-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
-  margin-top: 2rem;
+.plans-section .overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 0;
 }
+
+.section-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.section-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: #fff;
+}
+
+.plan-grid {
+  display: grid;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
 
 .plan-card {
-  background-color: transparent;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: left;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease;
 }
+
+
+
 
 .plan-card:hover {
   transform: translateY(-5px);
 }
 
 .plan-card h3 {
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
-}
-
-.plan-card p {
-  margin-bottom: 0.5rem;
-}
-
-.about-section {
-  padding: 60px 20px;
-  /* background-color: #f9f9f9; */
-  text-align: center;
-}
-
-.about-title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #333;
-}
-
-.about-subtitle {
-  font-size: 1.2rem;
-  color: #777;
-  margin-bottom: 40px;
-}
-
-.about-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-  padding: 0 20px;
-}
-
-.about-card {
-  /* background: #fff; */
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  text-align: left;
-  transition: transform 0.3s ease;
-}
-
-.about-card:hover {
-  transform: translateY(-5px);
-}
-
-.about-card h3 {
-  font-size: 1.3rem;
-  color: #222;
-  margin-bottom: 10px;
-}
-
-.about-card p,
-.about-card ul {
-  color: #555;
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-.about-card ul {
-  padding-left: 20px;
-}
-
-.about-card li {
-  margin-bottom: 6px;
-}
-
-.footer a {
-  transition: color 0.2s ease-in-out;
-}
-
-.footer a:hover {
-  color: #3b82f6; /* Tailwind's blue-500 */
-}
-
-/* General Page Layout */
-.home-container {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
-}
-
-/* Hero Section */
-.hero-section {
-  background-image: url('https://res.cloudinary.com/dswa5docr/image/upload/v1750358100/pexels-tima-miroshnichenko-6389869_nptvoo.jpg');
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: white;
-}
-
-.hero-section .overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-}
-
-.hero-content {
-  position: relative;
-  z-index: 1;
-}
-
-.hero-content h1 {
-  font-size: 3rem;
-  margin-bottom: 10px;
-}
-
-.hero-content .highlight {
-  color: #3b82f6;
-}
-
-.hero-content p {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-}
-
-.btn-primary {
-  background-color: #2563eb;
-  color: white;
-  padding: 10px 24px;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
-
-.btn-primary:hover {
-  background-color: #1d4ed8;
-}
-
-/* About Section */
-.about-section {
-  padding: 80px 20px;
-  background: url('https://res.cloudinary.com/demo/image/upload/v1687361565/about-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  color: white;
-}
-
-.about-section h2 {
-  text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-}
-
-.about-section .subtitle {
-  text-align: center;
-  margin-bottom: 50px;
-  color: #f0f0f0;
-}
-
-.about-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  max-width: 1200px;
-  margin: auto;
-}
-
-.about-card {
-  background: rgba(255, 255, 255, 0.9);
-  color: #333;
-  padding: 24px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Plans Section */
-.plans-section {
-  padding: 80px 20px;
-  background: url('https://res.cloudinary.com/demo/image/upload/v1687361715/plans-gym-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  color: white;
-}
-
-.plans-wrapper {
-  background-color: rgba(255, 255, 255, 0.92);
-  padding: 40px;
-  border-radius: 12px;
-  max-width: 1200px;
-  margin: auto;
-  color: #222;
-}
-
-.plans-wrapper h2 {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 30px;
-}
-
-.plans-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
-}
-
-.plan-card {
-  border: 1px solid #ddd;
-  padding: 20px;
-  border-radius: 8px;
-  background: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
 }
 
 .plan-card .price {
-  color: #1d4ed8;
+  font-size: 18px;
   font-weight: bold;
-  font-size: 1.2rem;
+  margin: 8px 0;
+  color: #4ade80;
 }
 
-/* Testimonials Section */
-.testimonials-section {
-  padding: 80px 20px;
-  background: url('https://res.cloudinary.com/demo/image/upload/v1687361857/testimonial-bg.jpg');
+.plan-card .desc {
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.choose-plan-btn {
+  display: inline-block;
+  margin-top: 12px;
+  background-color: #aebacc;
+  padding: 10px 16px;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.choose-plan-btn:hover {
+  background-color: #2563eb;
+
+}
+
+
+/* === About Section === */
+.about-section {
+  min-height: 90vh; /* or use 700px, 1000px, etc. */
+  padding: 80px 20px; /* top/bottom, left/right */
+  background-image: url('https://res.cloudinary.com/dswa5docr/image/upload/v1750357764/pexels-tima-miroshnichenko-5327533_l97epc.jpg');
   background-size: cover;
   background-position: center;
+  padding: 100px 24px;
   color: white;
 }
 
-.testimonials-section h2 {
+.about-title {
   text-align: center;
-  margin-bottom: 40px;
   font-size: 2.5rem;
+  margin-bottom: 1rem;
 }
 
-.testimonials-grid {
+.about-subtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+}
+
+.about-grid {
+  max-width: 1200px;
+  margin: auto;
   display: grid;
+  gap: 24px;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  max-width: 1200px;
-  margin: auto;
 }
 
-.testimonial-card {
-  background: rgba(255, 255, 255, 0.9);
-  color: #333;
+.about-card {
+  background: rgba(0, 0, 0, 0.6);
   padding: 24px;
-  border-radius: 8px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.4);
 }
 
-.testimonial-card .quote {
-  font-style: italic;
-}
-
-.testimonial-card .author {
-  font-weight: 600;
-  margin-top: 12px;
-  color: #2563eb;
-}
-
-/* Footer Section */
+/* === Footer === */
 .footer {
-  background-color: #111827;
-  color: white;
-  padding: 60px 20px 30px;
+  /* background-image: url('https://res.cloudinary.com/dswa5docr/image/upload/v1750358146/pexels-cottonbro-4752856_ccu5ji.jpg'); */
+  background-color: black;
+  background-size: cover;
+  background-position: center;
+  padding: 60px 24px;
+  color: #f3f3f3;
 }
 
-.footer-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-  max-width: 1200px;
-  margin: auto;
+.footer a {
+  color: #aa3a3a;
+  text-decoration: none;
 }
 
-.footer-content h3,
-.footer-content h4 {
+.footer a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.footer h3, .footer h4 {
+  font-weight: bold;
   margin-bottom: 12px;
 }
 
-.footer-content p,
-.footer-content ul {
+.footer .text-sm {
   font-size: 14px;
-  color: #d1d5db;
+  margin-top: 20px;
+  color: #aaa;
 }
 
-.footer-content ul {
+.footer ul {
   list-style: none;
   padding: 0;
 }
 
-.footer-content ul li a {
-  text-decoration: none;
-  color: #d1d5db;
-  transition: color 0.2s;
+.footer ul li {
+  margin: 6px 0;
 }
 
-.footer-content ul li a:hover {
-  color: white;
-}
-
-.social-links a {
-  color: #9ca3af;
-  font-size: 1.3rem;
+.footer .social-icons i {
+  font-size: 1.2rem;
   margin-right: 12px;
-  transition: color 0.2s;
+  color: #ccc;
+  transition: color 0.3s ease;
 }
 
-.social-links a:hover {
+.footer .social-icons i:hover {
   color: white;
-}
-
-.footer-bottom {
-  text-align: center;
-  font-size: 13px;
-  margin-top: 30px;
-  border-top: 1px solid #374151;
-  padding-top: 10px;
-  color: #9ca3af;
-}
-/* About Section */
-.about-section {
-  padding: 80px 20px;
-  position: relative;
-  background: url('https://res.cloudinary.com/dswa5docr/image/upload/v1750358100/pexels-tima-miroshnichenko-6389869_nptvoo.jpg') no-repeat center center/cover;
-  color: white;
-}
-
-.about-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 0;
-}
-
-.about-section h2,
-.about-section .subtitle,
-.about-card {
-  position: relative;
-  z-index: 1;
-}
-
-.about-card {
-  background: rgba(255, 255, 255, 0.95);
-  color: #111;
-}
-
-/* Plans Section */
-.plans-section {
-  padding: 80px 20px;
-  position: relative;
-  background: url('https://res.cloudinary.com/dswa5docr/image/upload/v1750358100/pexels-tima-miroshnichenko-6389869_nptvoo.jpghttps://res.cloudinary.com/dswa5docr/image/upload/v1750358100/pexels-tima-miroshnichenko-6389869_nptvoo.jpg') no-repeat center center/cover;
-  color: white;
-}
-
-.plans-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 0;
-}
-
-.plans-wrapper {
-  position: relative;
-  z-index: 1;
-  background-color: rgba(255, 255, 255, 0.93);
-  padding: 40px;
-  border-radius: 12px;
-  color: #222;
-}
-
-/* Testimonials Section */
-.testimonials-section {
-  padding: 80px 20px;
-  position: relative;
-  background: url('https://res.cloudinary.com/dswa5docr/image/upload/v1750358100/pexels-tima-miroshnichenko-6389869_nptvoo.jpg') no-repeat center center/cover;
-  color: white;
-}
-
-.testimonials-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 0;
-}
-
-.testimonials-section h2,
-.testimonial-card {
-  position: relative;
-  z-index: 1;
-}
-
-.testimonial-card {
-  background: rgba(255, 255, 255, 0.92);
-  color: #222;
-}
-/* General Transparent Card Style */
-.about-card,
-.plan-card,
-.testimonial-card {
-  background: rgba(255, 255, 255, 0.1); /* Very light white tint */
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  padding: 24px;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Ensure text inside remains readable */
-.about-card h3,
-.plan-card h3,
-.testimonial-card .quote,
-.testimonial-card .author {
-  color: #fff;
-}
-
-/* Adjust specific section overlays */
-.about-section::before,
-.plans-section::before,
-.testimonials-section::before {
-  background: rgba(0, 0, 0, 0.6); /* slightly darker overlay for contrast */
-}
-
-/* If needed, override shadows for lighter backgrounds */
-.plan-card .price {
-  color: #90cdf4; /* light blue for good contrast */
 }
