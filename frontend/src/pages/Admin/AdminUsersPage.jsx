@@ -42,54 +42,42 @@ const AdminUsersPage = () => {
   };
 
   return (
-    <div className="admin-users-container">
-      <div className="sidebar desktop-only">
-        <AdminMenu />
+    <div className="admin-users-bg auc">
+  <div className="flex bg-overlay min-h-screen">
+    <AdminMenu />
+    <div className="flex-1 p-6 text-white">
+      <h2 className="text-3xl font-semibold mb-4">Users</h2>
+
+      <div className="filter-buttons mb-4">
+        <button onClick={() => setFilter("all")} className="filter-button">All</button>
+        <button onClick={() => setFilter("subscribed")} className="filter-button subscribed">Subscribed</button>
+        <button onClick={() => setFilter("unsubscribed")} className="filter-button unsubscribed">Unsubscribed</button>
       </div>
 
-      <div className="mobile-menu">
-        <button onClick={() => setSidebarOpen(!sidebarOpen)} className="menu-button">
-          ☰ Menu
-        </button>
-        {sidebarOpen && <AdminMenu />}
-      </div>
-
-      <div className="main-content">
-        <h2 className="page-title">Users</h2>
-
-        <div className="filter-buttons">
-          <button onClick={() => setFilter("all")} className="filter-button">All</button>
-          <button onClick={() => setFilter("subscribed")} className="filter-button subscribed">Subscribed</button>
-          <button onClick={() => setFilter("unsubscribed")} className="filter-button unsubscribed">Unsubscribed</button>
+      {users.length === 0 ? (
+        <p>No users found.</p>
+      ) : (
+        <div className="users-grid">
+          {users.map((user) => (
+            <div key={user._id} className="transparent-card user-card">
+              <Link to={`/admin/dashboard/user/${user._id}`} className="user-card-link">
+                <img src={user.profilePicture || "https://via.placeholder.com/150"} className="user-image" alt={user.name} />
+                <h3 className="user-name">{user.name}</h3>
+                <p className="user-email">{user.email}</p>
+                <p className={`user-status ${user.subscriptionTaken ? "subscribed" : "unsubscribed"}`}>
+                  {user.subscriptionTaken ? "Subscribed" : "Unsubscribed"}
+                </p>
+              </Link>
+              <button onClick={(e) => handleAssignTask(e, user)} className="assign-task-button">Assign Exercise</button>
+              <button onClick={(e) => handleAssignDiet(e, user)} className="assign-Diet-button">Assign Diet</button>
+            </div>
+          ))}
         </div>
-
-        {users.length === 0 ? (
-          <p className="text-white">No users found.</p>
-        ) : (
-          <div className="users-grid">
-            {users.map((user) => (
-              <div key={user._id} className="user-card">
-                <Link to={`/admin/dashboard/user/${user._id}`} className="user-card-link">
-                  <img src={user.profilePicture || "https://via.placeholder.com/150"} className="user-image" alt={user.name} />
-                  <h3 className="user-name">{user.name}</h3>
-                  <p className="user-email">{user.email}</p>
-                  <p className={`user-status ${user.subscriptionTaken ? "subscribed" : "unsubscribed"}`}>
-                    {user.subscriptionTaken ? "Subscribed" : "Unsubscribed"}
-                  </p>
-                </Link>
-
-                <button onClick={(e) => handleAssignTask(e, user)} className="assign-task-button">
-                  Assign Exercise
-                </button>
-                <button onClick={(e) => handleAssignDiet(e, user)} className="assign-Diet-button">
-                  Assign Diet
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+      )}
     </div>
+  </div>
+</div>
+
   );
 };
 

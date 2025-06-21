@@ -3,11 +3,31 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./HomePage.css";
 import { motion } from "framer-motion";
-
+import { useAuth } from "../context/Auth";
+import handleSubscribe from '../pages/User/HandleSubscribe'
 const API_URL = import.meta.env.VITE_API_URL;
 
 const Homepages = () => {
   const [plans, setPlans] = useState([]);
+  const [auth] = useAuth(); 
+   const [couponCodes, setCouponCodes] = useState({});
+   const [discountedPrices, setDiscountedPrices] = useState({});
+   const [showCouponField, setShowCouponField] = useState({});
+
+   const applyCoupon = async (planId, planPrice) => {
+  try {
+    const res = await axios.post(`${API_URL}/api/v1/subscription/apply-coupon`, {
+      code: couponCodes[planId],
+      amount: planPrice,
+    });
+    const newPrice = res.data.newPrice;
+    setDiscountedPrices((prev) => ({ ...prev, [planId]: newPrice }));
+    setShowCouponField((prev) => ({ ...prev, [planId]: false }));
+  } catch (err) {
+    console.error("❌ Invalid coupon or error applying:", err);
+    setDiscountedPrices((prev) => ({ ...prev, [planId]: planPrice }));
+  }
+};
 
   useEffect(() => {
     const fetchPlans = async () => {
@@ -75,9 +95,80 @@ const Homepages = () => {
       <section id="plans" className="plans-section">
         <div className="plans-wrapper">
           <h2>Our Subscription Plans</h2>
-          {plans.length === 0 ? (
-            <p className="loading-text">Loading plans...</p>
-          ) : (
+          {auth.user ? (
+
+
+      <div className="plans-grid">
+        {plans.map((plan) => (
+          <div key={plan._id} className="plan-card">
+            <h3>{plan.name}</h3>
+            <p>Duration: {plan.duration}</p>
+
+            
+                {discountedPrices[plan._id] && discountedPrices[plan._id] !== plan.price ? (
+                  <div>
+                    <p className="price line-through">₹{plan.price}</p>
+                    <p className="price">Now: ₹{discountedPrices[plan._id]}</p>
+                  </div>
+                ) : (
+                  <p className="price">₹{plan.price}</p>
+                )}
+                <p>{plan.description}</p>
+
+                {!showCouponField[plan._id] && !discountedPrices[plan._id] ? (
+                  <button
+                    className="coupon-button"
+                    onClick={() =>
+                      setShowCouponField((prev) => ({
+                        ...prev,
+                        [plan._id]: true,
+                      }))
+                    }
+                  >
+                    Do you have a coupon code?
+                  </button>
+                ) : showCouponField[plan._id] && !discountedPrices[plan._id] ? (
+                  <>
+                    <input
+                      type="text"
+                      placeholder="Enter coupon code"
+                      value={couponCodes[plan._id] || ''}
+                      onChange={(e) =>
+                        setCouponCodes((prev) => ({
+                          ...prev,
+                          [plan._id]: e.target.value,
+                        }))
+                      }
+                      className="coupon-input"
+                    />
+                    <button
+                      className="apply-button"
+                      onClick={() => applyCoupon(plan._id, plan.price)}
+                    >
+                      Apply Coupon
+                    </button>
+                  </>
+                ) : null}
+
+                <button
+                  className="choose-plan-btn"
+                  onClick={() =>
+                    handleSubscribe(
+                      plan,
+                      auth,
+                      couponCodes[plan._id],
+                      discountedPrices[plan._id] || plan.price
+                    )
+                  }
+                >
+                  Buy Now
+                </button>
+              
+            
+          </div>
+        ))}
+      </div>
+          ):(
             <div className="plans-grid">
               {plans.map((plan) => (
                 <div key={plan._id} className="plan-card">
@@ -85,11 +176,15 @@ const Homepages = () => {
                   <p>Duration: {plan.duration}</p>
                   <p className="price">₹{plan.price}</p>
                   <p>{plan.description}</p>
+                  
                   <a href="/auth/signup" className="btn-primary">Join Now</a>
                 </div>
               ))}
             </div>
+          
           )}
+            
+          
         </div>
       </section>
 

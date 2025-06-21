@@ -6,7 +6,13 @@ body, html, #root {
   height: 100%;
   width: 100%;
 }
-.admin-users-container {
+.auc{
+  
+  min-height: 100vh;
+  background: url('https://res.cloudinary.com/dswa5docr/image/upload/v1750521793/pexels-binyaminmellish-116077_iodbac.jpg') center/cover no-repeat;
+  position: relative;
+}
+/* .admin-users-container {
   display: flex;
   min-height: 100vh;
   background: url('https://res.cloudinary.com/dswa5docr/image/upload/v1750358463/pexels-jonathanborba-3076514_q2b1s3.jpg') center/cover no-repeat;
@@ -18,8 +24,8 @@ body, html, #root {
   inset: 0;
   background-color: rgba(0,0,0,0.6);
   z-index: 0;
-}
-.sidebar {
+} */
+/* .sidebar {
   width: 260px;
   background: rgba(0,0,0,0.5);
   backdrop-filter: blur(14px);
@@ -42,7 +48,7 @@ body, html, #root {
 }
 .sidebar a:hover {
   color: #3b82f6;
-}
+} */
 .desktop-only { display: none; }
 @media(min-width:768px) {
   .desktop-only { display: block; }
@@ -158,4 +164,50 @@ body, html, #root {
 }
 .assign-Diet-button:hover {
   background: #15803d;
+}
+
+
+.user-card {
+  background: rgba(255, 255, 255, 0.1); /* semi-transparent white */
+  border-radius: 16px;
+  padding: 24px;
+  color: white;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.user-card:hover {
+  transform: translateY(-5px);
+}
+
+.user-card h3,
+.user-card p {
+  color: white;
+}
+
+.user-card .status-unsubscribed {
+  color: #ef4444; /* Tailwind red-500 */
+}
+
+.user-card .assign-btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.user-card .assign-exercise {
+  background-color: #3b82f6; /* Tailwind blue-500 */
+  color: white;
+}
+
+.user-card .assign-diet {
+  background-color: #22c55e; /* Tailwind green-500 */
+  color: white;
+  margin-left: 8px;
 }
