@@ -60,6 +60,7 @@
 }
 
 .transparent-card label {
+  color: #fff;
   font-weight: 500;
   margin-bottom: 4px;
 }
