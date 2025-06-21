@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "../../styles/ForgotPassword.css";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -17,7 +18,8 @@ const ForgotPassword = () => {
     }
   };
 
-  return (
+ return (
+  <div className="forgot-background">
     <div className="forgot-container">
       <h2>Forgot Password</h2>
       <form onSubmit={handleForgot}>
@@ -32,7 +34,9 @@ const ForgotPassword = () => {
       </form>
       <p>{message}</p>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default ForgotPassword;

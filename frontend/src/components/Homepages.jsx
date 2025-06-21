@@ -1,3 +1,4 @@
+// Homepages.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./HomePage.css";
@@ -23,7 +24,7 @@ const Homepages = () => {
   return (
     <div className="home-container">
       {/* Hero Section */}
-      <section className="hero-section">
+      <section id="home" className="hero-section">
         <div className="overlay"></div>
         <motion.div
           className="hero-content"
@@ -35,14 +36,11 @@ const Homepages = () => {
             Welcome to <span className="highlight">FitTrack</span>
           </h1>
           <p>Your fitness journey starts here</p>
-          <a href="/auth/signup" className="btn-primary">
-            Get Started
-          </a>
         </motion.div>
       </section>
 
       {/* About Section */}
-      <section className="about-section">
+      <section id="about" className="about-section">
         <h2>About FitTrack</h2>
         <p className="subtitle">Smarter Fitness Starts Here</p>
         <div className="about-grid">
@@ -74,7 +72,7 @@ const Homepages = () => {
       </section>
 
       {/* Plans Section */}
-      <section className="plans-section">
+      <section id="plans" className="plans-section">
         <div className="plans-wrapper">
           <h2>Our Subscription Plans</h2>
           {plans.length === 0 ? (

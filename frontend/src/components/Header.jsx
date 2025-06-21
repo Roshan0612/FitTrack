@@ -9,19 +9,7 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Track scroll target when navigating to home
-  useEffect(() => {
-    const hash = window.location.hash;
-    if (hash) {
-      const target = document.querySelector(hash);
-      if (target) {
-        setTimeout(() => {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
-      }
-    }
-  }, [location]);
-
+  // Smooth scroll if already on homepage
   const handleScrollOrNavigate = (id) => {
     const onHome = location.pathname === '/';
     if (onHome) {
@@ -34,6 +22,19 @@ const Header = () => {
     }
     setMenuOpen(false);
   };
+
+  // Scroll after navigation (e.g. from /login to /#plans)
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const section = document.querySelector(hash);
+      if (section) {
+        setTimeout(() => {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [location]);
 
   return (
     <header className="navbar">
