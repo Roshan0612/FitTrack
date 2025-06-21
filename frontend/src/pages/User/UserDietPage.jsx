@@ -11,6 +11,8 @@ const UserDietPage = () => {
   const [auth] = useAuth();
   const userId = auth?.user?._id;
   const [diets, setDiets] = useState([]);
+  const [user, setUser] = useState(null);
+
 
   useEffect(() => {
     if (!userId) return;
@@ -26,6 +28,29 @@ const UserDietPage = () => {
 
     fetchAssignedDiets();
   }, [userId]);
+  
+
+  const fetchUserInfo = async () => {
+    try {
+      const { data } = await axios.get(
+        `${API_URL}/api/v1/auth/user-info/${auth?.user?._id}`,
+        {
+          headers: {
+            Authorization: auth?.token,
+          },
+        }
+      );
+      setUser(data.user); // Assuming backend returns { user: { name, calorieRecommendation, ... } }
+    } catch (error) {
+      console.error('❌ Failed to fetch user info:', error.response?.data || error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (auth?.user?._id) {
+      fetchUserInfo();
+    }
+  }, [auth]);
 
   return (
     <div className="user-diet-bg">
@@ -36,7 +61,11 @@ const UserDietPage = () => {
 
         <main className="diet-main-content">
           <h2 className="diet-title">My Assigned Diets</h2>
-
+          <p className="flex  justify-center min-h-screen text-yellow-500 ">
+        <span ><strong>Calorie Recommendation :  </strong>{'   '}
+        {user?.calorieRecommendation ?? 'Not available'} kcal/day
+        </span>
+      </p>
           <div className="diet-grid">
             {diets.length === 0 ? (
               <p className="no-diet-msg">No diets assigned yet.</p>
