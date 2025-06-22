@@ -92,7 +92,7 @@ const FemaleExercisesPage = () => {
         <div className="flex-1 p-4 md:p-10">
           <h2 className="text-3xl font-bold mb-6 text-white text-center">Assign Female Exercises</h2>
 
-          <div className="exercise-grid">
+          <div className="exercise-grid  text-black">
             {exercises.map((ex) => {
               const selectedDay = selectedDays[ex._id] || "";
               const assignedKey = `${ex._id}|${selectedDay}`;
@@ -114,14 +114,14 @@ const FemaleExercisesPage = () => {
                       }))
                     }
                   >
-                    <option value="">Select Day</option>
-                    <option value="monday">Monday</option>
-                    <option value="tuesday">Tuesday</option>
-                    <option value="wednesday">Wednesday</option>
-                    <option value="thursday">Thursday</option>
-                    <option value="friday">Friday</option>
-                    <option value="saturday">Saturday</option>
-                    <option value="sunday">Sunday</option>
+                    <option value="" className=" text-black">Select Day</option>
+                    <option value="monday" className=" text-black">Monday</option>
+                    <option value="tuesday" className=" text-black">Tuesday</option>
+                    <option value="wednesday" className=" text-black">Wednesday</option>
+                    <option value="thursday" className=" text-black">Thursday</option>
+                    <option value="friday" className=" text-black">Friday</option>
+                    <option value="saturday" className=" text-black">Saturday</option>
+                    <option value="sunday" className=" text-black">Sunday</option>
                   </select>
 
                   <button
