@@ -21,7 +21,7 @@ router.put("/user/additional-info", updateAdditionalInfo);
 
 router.get("/user-info/:id", requireSignIn, getUserInfo);
 
-// Admin Routes
+
 router.get("/admin/users", requireSignIn, isAdmin, getAllUsers);
 router.get("/admin/users/:id", requireSignIn, isAdmin, getUserById);
 

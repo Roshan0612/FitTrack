@@ -6,17 +6,17 @@ const forgotPasswordController = async (req, res) => {
   const { email } = req.body;
 
   try {
-    // 1. Find user
+    
     const user = await userModel.findOne({ email });
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    // 2. Generate reset token
+    
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "10m" });
 
-    // 3. Construct reset link
+    
     const resetLink = `http://localhost:5173/reset-password/${token}`;
 
-    // 4. Setup mail transport
+    
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -25,7 +25,7 @@ const forgotPasswordController = async (req, res) => {
       },
     });
 
-    // 5. Send email
+    
     await transporter.sendMail({
       from: `"FitTrack Support" <${process.env.MAIL_USER}>`,
       to: email,

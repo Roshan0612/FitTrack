@@ -1,4 +1,4 @@
-// Homepages.jsx
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./HomePage.css";
@@ -24,7 +24,7 @@ const Homepages = () => {
     setDiscountedPrices((prev) => ({ ...prev, [planId]: newPrice }));
     setShowCouponField((prev) => ({ ...prev, [planId]: false }));
   } catch (err) {
-    console.error("❌ Invalid coupon or error applying:", err);
+    console.error("Invalid coupon or error applying:", err);
     setDiscountedPrices((prev) => ({ ...prev, [planId]: planPrice }));
   }
 };
@@ -43,7 +43,7 @@ const Homepages = () => {
 
   return (
     <div className="home-container">
-      {/* Hero Section */}
+      
       <section id="home" className="hero-section">
         <div className="overlay"></div>
         <motion.div
@@ -59,7 +59,7 @@ const Homepages = () => {
         </motion.div>
       </section>
 
-      {/* About Section */}
+      
       <section id="about" className="about-section">
         <h2>About FitTrack</h2>
         <p className="subtitle">Smarter Fitness Starts Here</p>
@@ -91,7 +91,7 @@ const Homepages = () => {
         </div>
       </section>
 
-      {/* Plans Section */}
+     
       <section id="plans" className="plans-section">
         <div className="plans-wrapper">
           <h2>Our Subscription Plans</h2>
@@ -188,7 +188,7 @@ const Homepages = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
+      
       <div className="testimonials-section">
         <h2>What Our Users Say</h2>
         <div className="testimonials-grid">
@@ -231,7 +231,7 @@ const Homepages = () => {
         </div>
       </div>
 
-      {/* Footer */}
+      
       <footer className="footer">
         <div className="footer-content">
           <div>

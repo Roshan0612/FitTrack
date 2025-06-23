@@ -1,7 +1,7 @@
 const Exercise = require('../model/exerciseModel');
 const Assignment = require('../model/assignmentModel');
 
-// Create new exercise
+
 const createExercise = async (req, res) => {
   try {
     const { name, description, gifUrl, targetGender } = req.body;
@@ -14,7 +14,6 @@ const createExercise = async (req, res) => {
   }
 };
 
-// Get exercises by gender
 const getExercisesByGender = async (req, res) => {
   try {
     const { gender } = req.params;
@@ -26,8 +25,7 @@ const getExercisesByGender = async (req, res) => {
   }
 };
 
-// Assign or Unassign an exercise to a user
-// Assign or Unassign an exercise to a user for a specific day
+
 const assignOrUnassignExercise = async (req, res) => {
   const { userId, exerciseId, day, action } = req.body;
 
@@ -55,7 +53,7 @@ const assignOrUnassignExercise = async (req, res) => {
       return res.status(200).json({ message: "Exercise unassigned for day" });
     }
 
-    // fallback toggle logic if `action` is not provided
+    
     if (existing) {
       await Assignment.deleteOne({ _id: existing._id });
       return res.status(200).json({ message: "Exercise unassigned for day (toggle)" });
@@ -73,13 +71,13 @@ const assignOrUnassignExercise = async (req, res) => {
 
 
 
-// Get assigned exercises for a user
+
 const getAssignedExercises = async (req, res) => {
   try {
     const { userId } = req.params;
     const assignments = await Assignment.find({ userId }).populate("exerciseId");
 
-    res.json({ assignments }); //  not "exercises"
+    res.json({ assignments }); 
   } catch (err) {
     res.status(500).json({ message: "Failed to fetch assigned exercises" });
   }

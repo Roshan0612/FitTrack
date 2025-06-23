@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useAuth } from '../../../context/Auth';
 import AdminMenu from '../AdminMenu';
 import '../../../styles/SubscriptionList.css';
-import '../../../styles/AdminDashboard.css'; // ensures glass effect & layout
+import '../../../styles/AdminDashboard.css'; 
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -21,7 +21,7 @@ const SubscriptionList = () => {
       });
       setSubscriptions(res.data);
     } catch (err) {
-      console.error('❌ Error fetching subscriptions:', err);
+      console.error(' Error fetching subscriptions:', err);
       alert('Failed to load subscriptions');
     }
   };
@@ -33,7 +33,7 @@ const SubscriptionList = () => {
   return (
     <div className="admin-dashboard-bg">
       <div className="flex bg-overlay min-h-screen relative">
-        {/* Mobile hamburger toggle */}
+        
         <button
           className="absolute top-4 left-4 z-20 md:hidden bg-white bg-opacity-20 text-white px-3 py-2 rounded backdrop-blur-sm"
           onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -41,7 +41,7 @@ const SubscriptionList = () => {
           ☰
         </button>
 
-        {/* Sidebar */}
+        
         <div
           className={`fixed md:static z-10 transition-transform duration-300 ${
             sidebarOpen ? 'translate-x-0' : '-translate-x-full'
@@ -50,7 +50,7 @@ const SubscriptionList = () => {
           <AdminMenu />
         </div>
 
-        {/* Main Content */}
+        
         <div className="flex-1 p-6 md:p-10 text-white">
           <h2 className="text-3xl font-semibold mb-6">📦 Subscription Plans</h2>
 

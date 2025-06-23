@@ -52,7 +52,7 @@ const AdditionalInfo = () => {
           profilePicture: user.profilePicture || "",
         }));
       } catch (error) {
-        console.error("❌ Failed to fetch user info", error);
+        console.error("Failed to fetch user info", error);
       }
     };
 
@@ -84,7 +84,7 @@ const AdditionalInfo = () => {
         alert("Upload failed");
       }
     } catch (error) {
-      console.error("❌ Image upload error:", error);
+      console.error("Image upload error:", error);
       alert("Image upload failed");
     } finally {
       setUploading(false);
@@ -107,10 +107,10 @@ const AdditionalInfo = () => {
         headers: { Authorization: auth?.token },
       });
 
-      alert("✅ Info saved!");
+      alert("Info saved!");
       navigate("/user/dashboard");
     } catch (error) {
-      console.error("❌ Error saving info:", error);
+      console.error("Error saving info:", error);
       alert("Failed to save info.");
     } finally {
       setLoading(false);

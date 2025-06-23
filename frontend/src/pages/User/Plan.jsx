@@ -19,7 +19,7 @@ const Plan = () => {
         });
         setPlans(res.data);
       } catch (err) {
-        console.error("❌ Failed to load plans:", err);
+        console.error("Failed to load plans:", err);
       }
     };
     fetchPlans();
@@ -33,9 +33,9 @@ const Plan = () => {
       });
       const newPrice = res.data.newPrice;
       setDiscountedPrices(prev => ({ ...prev, [planId]: newPrice }));
-      setShowCouponField(prev => ({ ...prev, [planId]: false })); // Hide input after applying
+      setShowCouponField(prev => ({ ...prev, [planId]: false })); 
     } catch (err) {
-      console.error("❌ Invalid coupon or error applying:", err);
+      console.error("Invalid coupon or error applying:", err);
       setDiscountedPrices(prev => ({ ...prev, [planId]: planPrice }));
     }
   };
@@ -94,7 +94,7 @@ const Plan = () => {
     plan,
     auth,
     couponCodes[plan._id],
-    discountedPrices[plan._id] || plan.price // 👈 use discount if available
+    discountedPrices[plan._id] || plan.price 
   )
 }
 

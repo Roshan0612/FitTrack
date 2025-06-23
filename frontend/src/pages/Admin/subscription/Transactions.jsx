@@ -3,8 +3,7 @@ import axios from "axios";
 import { useAuth } from "../../../context/Auth";
 import AdminMenu from "../AdminMenu";
 import "../../../styles/Transactions.css";
-import "../../../styles/AdminDashboard.css"; // reuse background & card styles
-
+import "../../../styles/AdminDashboard.css"; 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const Transactions = () => {
@@ -20,7 +19,7 @@ const Transactions = () => {
         });
         setTransactions(res.data.transactions);
       } catch (err) {
-        console.error("❌ Error fetching transactions:", err);
+        console.error("Error fetching transactions:", err);
       }
     };
 
@@ -30,7 +29,7 @@ const Transactions = () => {
   return (
     <div className="admin-dashboard-bg">
       <div className="flex bg-overlay min-h-screen relative">
-        {/* Mobile Sidebar Toggle */}
+        
         <button
           className="absolute top-4 left-4 z-20 md:hidden bg-white bg-opacity-20 text-white px-3 py-2 rounded backdrop-blur-sm"
           onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -38,7 +37,7 @@ const Transactions = () => {
           ☰
         </button>
 
-        {/* Sidebar */}
+       
         <div
           className={`fixed md:static z-10 transition-transform duration-300 ${
             sidebarOpen ? "translate-x-0" : "-translate-x-full"
@@ -47,7 +46,7 @@ const Transactions = () => {
           <AdminMenu />
         </div>
 
-        {/* Main Content */}
+        
         <div className="flex-1 p-4 md:p-10 text-white">
           <div className="mb-6">
             <h2 className="text-3xl font-semibold">💳 All Transactions</h2>

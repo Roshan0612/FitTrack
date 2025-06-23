@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import AdminMenu from "./AdminMenu";
 import "../../styles/CreateDietPage.css";
-import "../../styles/AdminDashboard.css"; // ensure this imports glass bg styles
+import "../../styles/AdminDashboard.css"; 
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -26,7 +26,7 @@ const CreateDietPage = () => {
     e.preventDefault();
     try {
       await axios.post(`${API_URL}/api/v1/diet/add`, form);
-      alert("✅ Diet created successfully!");
+      alert("Diet created successfully!");
       setForm({
         name: "",
         gifUrl: "",
@@ -37,7 +37,7 @@ const CreateDietPage = () => {
         calories: "",
       });
     } catch (err) {
-      alert("❌ Error creating diet.");
+      alert("Error creating diet.");
       console.error(err);
     }
   };
@@ -45,7 +45,7 @@ const CreateDietPage = () => {
   return (
     <div className="admin-dashboard-bg">
       <div className="flex bg-overlay min-h-screen relative">
-        {/* Mobile Toggle Button */}
+        
         <button
           className="absolute top-4 left-4 z-20 md:hidden bg-white bg-opacity-20 text-white px-3 py-2 rounded backdrop-blur-sm"
           onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -53,7 +53,7 @@ const CreateDietPage = () => {
           ☰
         </button>
 
-        {/* Sidebar */}
+        
         <div
           className={`fixed md:static z-10 transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
             } md:translate-x-0`}
@@ -61,7 +61,7 @@ const CreateDietPage = () => {
           <AdminMenu />
         </div>
 
-        {/* Main Form */}
+        
         <div className="flex-1 p-6 md:p-10 flex flex-col justify-center items-center text-white">
           <div className="mb-6 text-center">
             <h1 className="text-3xl font-semibold">🥗 Create New Diet</h1>
@@ -83,7 +83,7 @@ const CreateDietPage = () => {
               </div>
 
               <div>
-                <label className="block font-medium mb-1">GIF URL</label>
+                <label className="block font-medium mb-1">Image/GIF URL</label>
                 <input
                   type="text"
                   name="gifUrl"

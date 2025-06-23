@@ -6,12 +6,12 @@ const User = require('../model/userModel');
 
 const createsubscriptionController = async (req, res) => {
   try {
-    console.log("📥 Subscription body:", req.body);
+    console.log("Subscription body:", req.body);
     const sub = new Subscription(req.body);
     await sub.save();
     res.status(201).json({ success: true, subscription: sub });
   } catch (err) {
-    console.error("❌ Error creating subscription:", err.message);
+    console.error("Error creating subscription:", err.message);
     res.status(500).json({ success: false, error: err.message });
   }
 };
@@ -48,7 +48,7 @@ const razorPayApiController = async (req, res) => {
   const { amount, currency = 'INR' } = req.body;
 
   try {
-    const finalAmount = Math.round(amount * 100); // use directly
+    const finalAmount = Math.round(amount * 100);
     const options = {
       amount: finalAmount,
       currency,
@@ -110,7 +110,7 @@ const saveTransactionController = async (req, res) => {
 
     res.status(201).json({ success: true, txn });
   } catch (err) {
-    console.error("❌ Error saving transaction:", err);
+    console.error("Error saving transaction:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 };
@@ -151,7 +151,7 @@ const applyCouponController = async (req, res) => {
 
     return res.status(200).json({ success: true, newPrice });
   } catch (err) {
-    console.error("❌ Error applying coupon:", err);
+    console.error("Error applying coupon:", err);
     return res.status(500).json({ success: false, message: "Server error" });
   }
 };

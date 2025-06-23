@@ -18,9 +18,9 @@ const CalorieCalculator = () => {
           },
         }
       );
-      setUser(data.user); // Assuming backend returns { user: { name, calorieRecommendation, ... } }
+      setUser(data.user); 
     } catch (error) {
-      console.error('❌ Failed to fetch user info:', error.response?.data || error.message);
+      console.error('Failed to fetch user info:', error.response?.data || error.message);
     }
   };
 

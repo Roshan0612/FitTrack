@@ -1,7 +1,7 @@
 const Diet = require("../model/DietModel");
 const DietAssignment = require("../model/DietAssignmentModel");
 
-// Create a new diet
+
 const createDiet = async (req, res) => {
   try {
     const { name, category, gifUrl, protein, fat, carbs, calories } = req.body;
@@ -13,7 +13,7 @@ const createDiet = async (req, res) => {
   }
 };
 
-// Get diets by category
+
 const getDietsByCategory = async (req, res) => {
   try {
     const { category } = req.params;
@@ -24,7 +24,7 @@ const getDietsByCategory = async (req, res) => {
   }
 };
 
-// Assign or unassign diet
+
 const assignOrUnassignDiet = async (req, res) => {
   try {
     const { userId, dietId } = req.body;
@@ -43,19 +43,35 @@ const assignOrUnassignDiet = async (req, res) => {
   }
 };
 
-// Get assigned diets
+
 const getAssignedDiets = async (req, res) => {
   try {
     const { userId } = req.params;
+    console.log("Fetching diets for userId:", userId);
+
     const assignments = await DietAssignment.find({ userId }).populate("dietId");
-    const diets = assignments.map((a) => a.dietId);
+    console.log("Assignments found:", assignments);
+
+    const diets = assignments
+      .map((a) => {
+        if (!a.dietId) {
+          console.warn("dietId not populated for assignment:", a);
+          return null;
+        }
+        return a.dietId;
+      })
+      .filter(Boolean);
+
+    console.log("Diets extracted:", diets);
     res.json(diets);
   } catch (error) {
+    console.error("Failed to fetch assigned diets:", error);
     res.status(500).json({ error: "Failed to fetch assigned diets" });
   }
 };
 
-// ✅ Export all controllers
+
+
 module.exports = {
   createDiet,
   getDietsByCategory,

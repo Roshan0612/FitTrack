@@ -17,14 +17,14 @@ const AdminMenu = () => {
   if (!auth?.user || auth.user.role !== 'admin') {
     return (
       <div className="p-4 text-red-600">
-        <p>⛔ Access Denied. Admins only.</p>
+        <p>Access Denied. Admins only.</p>
       </div>
     );
   }
 
   return (
     <div className="relative w-64 min-h-screen shadow-md overflow-hidden">
-      {/* Background Image Overlay */}
+      
       <div
         className="absolute inset-0 bg-cover bg-center opacity-20"
         style={{
@@ -33,7 +33,7 @@ const AdminMenu = () => {
         }}
       ></div>
 
-      {/* Menu Content */}
+      
       <div className="admin-sidebar-glass">
   <h2 className="text-xl font-bold mb-6 text-white">FitTrack Admin Panel</h2>
   <ul className="space-y-4 text-white">

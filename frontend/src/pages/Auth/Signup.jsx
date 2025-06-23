@@ -36,7 +36,7 @@ const Signup = () => {
 
   return (
     <div className="signup-container">
-      {/* 💡 This is the missing wrapper that makes the glass card effect work */}
+      
       <div>
         <h2>Signup</h2>
         <form onSubmit={handleSubmit}>

@@ -1,4 +1,4 @@
-// controllers/userController.js
+
 const calculateCalories = require("../utils/calculateCalories");
 const user =require("../model/userModel");
 exports.updateUserInfo = async (req, res) => {
