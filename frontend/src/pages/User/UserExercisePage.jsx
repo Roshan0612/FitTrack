@@ -69,11 +69,24 @@ const UserExercisePage = () => {
                   <div className="exercise-grid">
                     {groupedExercises[day].map((ex) => (
                       <div key={ex._id} className="exercise-card">
-                        <img
-                          src={ex?.gifUrl || "/placeholder.gif"}
-                          alt={ex?.name || "Exercise GIF"}
-                          className="exercise-gif"
-                        />
+                        {ex?.gifUrl?.endsWith(".mp4") ? (
+                          <video
+                            className="exercise-gif"
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                          >
+                            <source src={ex.gifUrl} type="video/mp4" />
+                            Your browser does not support the video tag.
+                          </video>
+                        ) : (
+                          <img
+                            src={ex?.gifUrl || "/placeholder.gif"}
+                            alt={ex?.name || "Exercise"}
+                            className="exercise-gif"
+                          />
+                        )}
                         <h3 className="exercise-name">{ex.name}</h3>
                         <p>{ex.description}</p>
                         <p><strong>Target Gender:</strong> {ex.targetGender}</p>

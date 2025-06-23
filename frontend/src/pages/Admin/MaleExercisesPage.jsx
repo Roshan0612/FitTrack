@@ -72,7 +72,6 @@ const MaleExercisesPage = () => {
   return (
     <div className="admin-dashboard-bg">
       <div className="flex bg-overlay min-h-screen relative">
-        
         <button
           className="absolute top-4 left-4 z-20 md:hidden bg-white bg-opacity-20 text-white px-3 py-2 rounded backdrop-blur-sm"
           onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -80,7 +79,6 @@ const MaleExercisesPage = () => {
           ☰
         </button>
 
-        
         <div
           className={`fixed md:static z-10 transition-transform duration-300 ${
             sidebarOpen ? "translate-x-0" : "-translate-x-full"
@@ -89,7 +87,6 @@ const MaleExercisesPage = () => {
           <AdminMenu />
         </div>
 
-        
         <div className="flex-1 p-4 md:p-10">
           <h2 className="text-3xl font-bold mb-6 text-white text-center">Assign Male Exercises</h2>
 
@@ -101,7 +98,21 @@ const MaleExercisesPage = () => {
 
               return (
                 <div key={ex._id} className="exercise-card">
-                  <img src={ex.gifUrl} alt={ex.name} className="exercise-gif" />
+                  {ex?.gifUrl?.endsWith(".mp4") ? (
+                    <video
+                      className="exercise-gif"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                    >
+                      <source src={ex.gifUrl} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : (
+                    <img src={ex.gifUrl} alt={ex.name} className="exercise-gif" />
+                  )}
+
                   <h3>{ex.name}</h3>
                   <p>{ex.description}</p>
                   <p><strong>Target Gender:</strong> {ex.targetGender}</p>
@@ -115,14 +126,14 @@ const MaleExercisesPage = () => {
                       }))
                     }
                   >
-                    <option value="" className=" text-black">Select Day</option>
-                    <option value="monday" className=" text-black">Monday</option>
-                    <option value="tuesday" className=" text-black">Tuesday</option>
-                    <option value="wednesday" className=" text-black">Wednesday</option>
-                    <option value="thursday" className=" text-black">Thursday</option>
-                    <option value="friday" className=" text-black">Friday</option>
-                    <option value="saturday" className=" text-black">Saturday</option>
-                    <option value="sunday" className=" text-black">Sunday</option>
+                    <option value="" className="text-black">Select Day</option>
+                    <option value="monday" className="text-black">Monday</option>
+                    <option value="tuesday" className="text-black">Tuesday</option>
+                    <option value="wednesday" className="text-black">Wednesday</option>
+                    <option value="thursday" className="text-black">Thursday</option>
+                    <option value="friday" className="text-black">Friday</option>
+                    <option value="saturday" className="text-black">Saturday</option>
+                    <option value="sunday" className="text-black">Sunday</option>
                   </select>
 
                   <button
