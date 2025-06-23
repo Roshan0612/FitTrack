@@ -18,7 +18,7 @@ const AdminDashboard = () => {
             You have full access to manage the FitTrack system.
           </p>
 
-          <div className="transparent-card p-6 shadow rounded-lg w-full max-w-lg">
+          <div className=" float-left transparent-card p-6 shadow rounded-lg w-full max-w-lg">
             <p><strong>Admin Name:</strong> {auth?.user?.name}</p>
             <p><strong>Email:</strong> {auth?.user?.email}</p>
             <p><strong>Role:</strong> {auth?.user?.role}</p>
