@@ -55,9 +55,8 @@ const CreateDietPage = () => {
 
         
         <div
-          className={`fixed md:static z-10 transition-transform duration-300 ${
-            sidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } md:translate-x-0`}
+          className={`fixed md:static z-10 transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
+            } md:translate-x-0`}
         >
           <AdminMenu />
         </div>
@@ -98,8 +97,8 @@ const CreateDietPage = () => {
               <div>
                 <label className="block font-medium mb-1">Category</label>
                 <select name="category" value={form.category} onChange={handleChange} required>
-                  <option value="veg">Veg</option>
-                  <option value="non-veg">Non-Veg</option>
+                  <option value="veg" >Veg</option>
+                  <option value="non-veg" >Non-Veg</option>
                 </select>
               </div>
 
