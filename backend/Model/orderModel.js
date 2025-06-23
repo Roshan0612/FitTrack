@@ -6,7 +6,7 @@ const transactionSchema = new mongoose.Schema({
     ref: "User",
   },plan: {
   type: mongoose.Schema.Types.ObjectId,
-  ref: "Subscription", // ✅ should match model name exactly
+  ref: "Subscription", 
 }
 
 ,

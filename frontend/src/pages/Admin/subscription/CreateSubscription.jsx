@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useAuth } from '../../../context/Auth';
 import { useNavigate } from 'react-router-dom';
 import AdminMenu from '../AdminMenu';
-import '../../../styles/CreateSubscription.css'; // your updated CSS with glass effect
+import '../../../styles/CreateSubscription.css'; 
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -29,14 +29,14 @@ const CreateSubscription = () => {
           },
         }
       );
-      alert('✅ Subscription created successfully');
+      alert('Subscription created successfully');
       setName('');
       setPrice('');
       setDuration('');
       setDescription('');
       navigate('/admin/dashboard/subscriptionlist');
     } catch (error) {
-      console.error('❌ Error creating subscription:', error);
+      console.error('Error creating subscription:', error);
       alert('Failed to create subscription');
     }
   };
@@ -44,7 +44,7 @@ const CreateSubscription = () => {
   return (
     <div className="admin-dashboard-bg">
       <div className="flex bg-overlay min-h-screen relative">
-        {/* Mobile hamburger toggle */}
+        
         <button
           className="absolute top-4 left-4 z-20 md:hidden bg-white bg-opacity-20 text-white px-3 py-2 rounded backdrop-blur-sm"
           onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -52,7 +52,7 @@ const CreateSubscription = () => {
           ☰
         </button>
 
-        {/* Sidebar */}
+        
         <div
           className={`fixed md:static z-10 transition-transform duration-300 ${
             sidebarOpen ? 'translate-x-0' : '-translate-x-full'
@@ -61,7 +61,7 @@ const CreateSubscription = () => {
           <AdminMenu />
         </div>
 
-        {/* Main Content */}
+        
         <div className="flex-1 p-6 md:p-10 text-white flex flex-col justify-center items-center">
           <div className="mb-6 text-center">
             <h1 className="text-3xl font-semibold mb-2">Create New Subscription</h1>

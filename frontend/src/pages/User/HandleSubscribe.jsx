@@ -6,8 +6,8 @@ const handleSubscribe = async (plan, auth, couponCode, finalAmount) => {
     const res = await axios.post(
       `${API_URL}/api/v1/subscription/create-order`,
       {
-        amount: finalAmount,     // Use discounted price
-        couponCode,              // Include coupon code for backend tracking
+        amount: finalAmount,     
+        couponCode,              
       },
       {
         headers: {
@@ -59,7 +59,7 @@ const handleSubscribe = async (plan, auth, couponCode, finalAmount) => {
     const razor = new window.Razorpay(options);
     razor.open();
   } catch (err) {
-    console.error("❌ Error in subscription:", err);
+    console.error("Error in subscription:", err);
     alert("Payment initiation failed.");
   }
 };

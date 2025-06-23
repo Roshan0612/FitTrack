@@ -71,7 +71,7 @@ const FemaleExercisesPage = () => {
   return (
     <div className="admin-dashboard-bg">
       <div className="flex bg-overlay min-h-screen relative">
-        {/* Mobile toggle */}
+        
         <button
           className="absolute top-4 left-4 z-20 md:hidden bg-white bg-opacity-20 text-white px-3 py-2 rounded backdrop-blur-sm"
           onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -79,7 +79,7 @@ const FemaleExercisesPage = () => {
           ☰
         </button>
 
-        {/* Sidebar */}
+        
         <div
           className={`fixed md:static z-10 transition-transform duration-300 ${
             sidebarOpen ? "translate-x-0" : "-translate-x-full"
@@ -88,7 +88,7 @@ const FemaleExercisesPage = () => {
           <AdminMenu />
         </div>
 
-        {/* Main content */}
+       
         <div className="flex-1 p-4 md:p-10">
           <h2 className="text-3xl font-bold mb-6 text-white text-center">Assign Female Exercises</h2>
 
@@ -129,8 +129,8 @@ const FemaleExercisesPage = () => {
                     className={`toggle-btn ${isAssigned ? "assigned" : "unassigned"}`}
                   >
                     {isAssigned
-                      ? `✅ Assigned to ${selectedDay} (Click to Unassign)`
-                      : `❌ Assign to ${selectedDay || "?"}`}
+                      ? `Assigned to ${selectedDay} (Click to Unassign)`
+                      : `Assign to ${selectedDay || "?"}`}
                   </button>
                 </div>
               );

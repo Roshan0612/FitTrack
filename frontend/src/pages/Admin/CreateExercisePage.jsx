@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../../styles/CreateExercisePage.css'; // Keep for additional form styling
-import '../../styles/AdminDashboard.css'; // Reuse global glass/bg styles
+import '../../styles/CreateExercisePage.css'; 
+import '../../styles/AdminDashboard.css'; 
 import AdminMenu from './AdminMenu';
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -26,18 +26,18 @@ const CreateExercisePage = () => {
     e.preventDefault();
     try {
       await axios.post(`${API_URL}/api/v1/exercises/add`, formData);
-      alert('✅ Exercise created successfully!');
+      alert('Exercise created successfully!');
       setFormData({ name: '', description: '', gifUrl: '', targetGender: '' });
     } catch (err) {
       console.error(err);
-      alert('❌ Failed to create exercise');
+      alert('Failed to create exercise');
     }
   };
 
   return (
     <div className="admin-dashboard-bg">
       <div className="flex bg-overlay min-h-screen relative">
-        {/* Mobile Sidebar Toggle */}
+        
         <button
           className="absolute top-4 left-4 z-20 md:hidden bg-white bg-opacity-20 text-white px-3 py-2 rounded backdrop-blur-sm"
           onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -45,12 +45,12 @@ const CreateExercisePage = () => {
           ☰
         </button>
 
-        {/* Sidebar */}
+        
         <div className={`fixed md:static z-10 transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
           <AdminMenu />
         </div>
 
-        {/* Form Content */}
+        
         <div className="flex-1 p-6 md:p-10 flex flex-col justify-center items-center text-white">
           <div className="mb-6 text-center">
             <h1 className="text-3xl font-semibold">🏋️ Create New Exercise</h1>

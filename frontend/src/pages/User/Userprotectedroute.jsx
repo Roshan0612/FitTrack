@@ -36,7 +36,7 @@ const UserProtectedRoute = () => {
 
   if (loading) return <div>Loading...</div>;
 
-  return ok ? <Outlet /> : <div>⛔ Unauthorized</div>;
+  return ok ? <Outlet /> : <div> Unauthorized</div>;
 };
 
 export default UserProtectedRoute;

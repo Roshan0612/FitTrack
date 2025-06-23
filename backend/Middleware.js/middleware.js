@@ -39,7 +39,6 @@ const isAdmin = async (req, res, next) => {
         });
     }
 };
-// middleware/checkSubscription.js
 
 
 const checkSubscription = async (req, res, next)=> {

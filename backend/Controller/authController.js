@@ -102,7 +102,7 @@ const demoofSignIN = (req, res) => {
 
  const profilePhotoController = async (req, res) => {
   try {
-    console.log("📷 req.file:", req.file); // Add this
+    console.log("📷 req.file:", req.file); 
 
     if (!req.file || !req.file.path) {
       return res.status(400).json({ success: false, error: "No file received" });
@@ -110,14 +110,14 @@ const demoofSignIN = (req, res) => {
 
     const imageUrl = req.file.path;
 
-    // Update the user's profile picture
+    
     await userModel.findByIdAndUpdate(req.user._id, {
       profilePicture: imageUrl,
     });
 
     res.status(200).json({ success: true, imageUrl });
   } catch (error) {
-    console.error("❌ Upload failed:", error);
+    console.error("Upload failed:", error);
     res.status(500).json({ success: false, error: "Upload failed" });
   }
 };

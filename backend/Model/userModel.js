@@ -47,5 +47,5 @@ const userSchema = new mongoose.Schema({
 
 }, { timestamps: true });
 
-// ✅ Fix: Only compile the model if it hasn't been compiled yet
+
 module.exports = mongoose.models.User || mongoose.model("User", userSchema);

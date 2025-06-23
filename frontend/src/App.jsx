@@ -31,7 +31,7 @@ import Transactions from './pages/Admin/subscription/Transactions';
 import CreateDietPage from './pages/Admin/CreateDietPage';
 import AdminDietPage from './pages/Admin/AdminDietPage';
 
-import UserDietPage from './pages/User/userdietpage';
+import UserDietPage from './pages/User/UserDietPage';
 
 
 
@@ -48,7 +48,7 @@ function App() {
             <Route index element={<Homepages />} />
             <Route path="about" element={<About />} />
             <Route path="plans" element={<Plan />} />
-            <Route path="dashboard" element={<Dashboard />} /> {/* ✅ Added dashboard route */}
+            <Route path="dashboard" element={<Dashboard />} /> 
             
             
           </Route>

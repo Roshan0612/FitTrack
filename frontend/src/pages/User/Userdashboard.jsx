@@ -21,7 +21,7 @@ const Userdashboard = () => {
         });
         setUserData(data.user);
       } catch (error) {
-        console.error("❌ Failed to fetch user info", error);
+        console.error("Failed to fetch user info", error);
       }
     };
 

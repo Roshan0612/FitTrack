@@ -18,17 +18,17 @@ const updateAdditionalInfo = async (req, res) => {
   } = req.body;
 
   console.log("🔍 Incoming update request:", req.body);
-  // ✅ Calculate calories based on goal
+  
   const calorieRecommendation = calculateCalories({
     age,
     gender,
     height,
     weight,
     activityLevel,
-    goal: fitnessGoal, // important: match calculateCalories() param
+    goal: fitnessGoal, 
   });
 
-  console.log("🔥 Calculated calories:", calorieRecommendation);
+  console.log("Calculated calories:", calorieRecommendation);
 
   try {
     const updatedUser = await User.findByIdAndUpdate(
@@ -51,7 +51,7 @@ const updateAdditionalInfo = async (req, res) => {
       { new: true }
     );
 
-    console.log("✅ Updated user:", updatedUser);
+    console.log("Updated user:", updatedUser);
 
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
@@ -63,7 +63,7 @@ const updateAdditionalInfo = async (req, res) => {
       user: updatedUser,
     });
   } catch (error) {
-    console.error("❌ Error updating user info:", error.message);
+    console.error("Error updating user info:", error.message);
     res.status(500).json({
       success: false,
       message: "Error updating user info",
@@ -76,7 +76,7 @@ const getUserInfo = async (req, res) => {
   const userId = req.params.id;
 
   try {
-    const user = await User.findById(userId).select("-password"); // exclude password
+    const user = await User.findById(userId).select("-password"); 
     if (!user) {
       return res.status(404).json({ success: false, message: "User not found" });
     }
@@ -86,7 +86,7 @@ const getUserInfo = async (req, res) => {
       user,
     });
   } catch (error) {
-    console.error("❌ Error fetching user info:", error.message);
+    console.error("Error fetching user info:", error.message);
     res.status(500).json({
       success: false,
       message: "Error fetching user info",
@@ -109,5 +109,5 @@ const updateUserInfo = async (req, res) => {
   res.status(200).json(updatedUser);
 };
 
-// ✅ Add this line to export the function
+
 module.exports = { updateAdditionalInfo,getUserInfo,updateUserInfo  };
