@@ -36,7 +36,10 @@ const Login = () => {
   return (
     
     <div className="background-wrap">
+      <Link to="/" className="back-button">← Back</Link>
     <div className="login-container">
+      
+
       <h2>Login</h2>
       <p>Enter your credentials to access your account.</p>
       <form onSubmit={handleSubmit}>

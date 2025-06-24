@@ -52,10 +52,22 @@ const Homepages = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          <h1>
-            Welcome to <span className="highlight">FitTrack</span>
-          </h1>
-          <p>Your fitness journey starts here</p>
+          <div className="hero-animated">
+  <div className="hero-animated">
+  <h1 className="gym-title">
+    <h1 className="gym-title">
+  <span className="text-mask" data-text="Welcome to">Welcome to</span>
+  <span style={{ marginLeft: "10px" }}></span>
+  <span className="text-mask brand" data-text="FitTrack">FitTrack</span>
+</h1>
+
+  </h1>
+  <p className="hero-subtext">Discipline • Strength • Transformation</p>
+  <a href="/auth/signup" className="hero-join-button">Join Now</a>
+</div>
+
+</div>
+
         </motion.div>
       </section>
 
@@ -65,7 +77,7 @@ const Homepages = () => {
         <p className="subtitle">Smarter Fitness Starts Here</p>
         <div className="about-grid">
           <div className="about-card">
-            <h3>🏋️ Who We Are</h3>
+            <h3 className="gold">🏋️ Who We Are</h3>
             <p>
               FitTrack is a modern gym management system designed to help gym owners,
               trainers, and members stay connected. Whether you're managing clients or
@@ -73,14 +85,14 @@ const Homepages = () => {
             </p>
           </div>
           <div className="about-card">
-            <h3>🎯 Our Mission</h3>
+            <h3 className="gold">🎯 Our Mission</h3>
             <p>
               We empower people to lead healthier lives by simplifying fitness routines,
               diet planning, and progress monitoring — all in one seamless platform.
             </p>
           </div>
           <div className="about-card">
-            <h3>🚀 Why FitTrack?</h3>
+            <h3 className="gold">🚀 Why FitTrack?</h3>
             <ul>
               <li>✔ Personalized Workouts & Diets</li>
               <li>✔ Admin Panel for Trainers</li>

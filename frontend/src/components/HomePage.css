@@ -85,14 +85,17 @@
 
 .about-card h3 {
   font-size: 1.3rem;
-  color: #ffffff;
+  color:gold;
   margin-bottom: 10px;
 }
 
 .about-card p,
 .about-card ul {
   color: #ffffff;
+  font-size: large;
   font-size: 0.95rem;
+   font-size: large;
+  
   line-height: 1.6;
 }
 
@@ -387,7 +390,7 @@
 .plan-card h3,
 .testimonial-card .quote,
 .testimonial-card .author {
-  color: #fff;
+  color: gold;
 }
 
 /* Adjust specific section overlays */
@@ -547,3 +550,92 @@
 }
 
 
+.gold{
+  color: gold;
+  font-weight:1000 ;
+}
+.hero-animated {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  color: white;
+  text-align: center;
+  position: relative;
+}
+
+.gym-title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.2;
+  position: relative;
+  z-index: 2;
+}
+
+.text-mask {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+
+.text-mask::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 100%;
+  color: #3b82f6;
+  font-weight: 800;
+  animation: slideReveal 1.5s ease-in-out forwards;
+}
+
+.brand::after {
+  animation-delay: 1s;
+}
+
+@keyframes slideReveal {
+  0% {
+    top: 100%;
+    transform: skewY(10deg);
+  }
+  100% {
+    top: 0%;
+    transform: skewY(0deg);
+  }
+}
+
+/* Subtext animation */
+.hero-subtext {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  color: #facc15;
+  opacity: 0;
+  animation: subFade 2s ease 2s forwards;
+}
+
+@keyframes subFade {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.hero-join-button {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 0.3s ease, background 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.hero-join-button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #ef4444, #f59e0b);
+}

@@ -110,3 +110,15 @@
     padding: 24px 16px;
   }
 }
+.plan-description {
+  white-space: pre-line;  /* <--- This is key */
+  color: #fff;
+  line-height: 1.6;
+  font-size: 14px;
+}
+.preview-line {
+  white-space: pre-line;
+  line-height: 1.6;
+  font-size: 14px;
+}
+

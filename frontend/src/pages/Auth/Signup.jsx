@@ -36,7 +36,8 @@ const Signup = () => {
 
   return (
     <div className="signup-container">
-      
+      <Link to="/" className="back-button">← Back</Link>
+
       <div>
         <h2>Signup</h2>
         <form onSubmit={handleSubmit}>

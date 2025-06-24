@@ -22,6 +22,7 @@ const UserMenu = () => {
         <li><Link to="/user/dashboard/exercises"><i className="fas fa-dumbbell mr-2"></i> My Exercise</Link></li>
         {/* <li><Link to="/user/dashboard/calorie"><i className="fas fa-utensils mr-2"></i> My Calorie Intake</Link></li> */}
         <li><Link to="/user/dashboard/diets"><i className="fas fa-apple-alt mr-2"></i> My Diet</Link></li>
+        <li><Link to="/"><i className="fas fa-home"></i> Go To Home</Link></li>
         <li>
           <Link to="/auth/login" onClick={handleLogout} className="text-red-300 hover:text-red-500">
             <i className="fas fa-sign-out-alt mr-2"></i> Logout
