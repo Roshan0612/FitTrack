@@ -149,38 +149,22 @@ body {
 }
 
 
-/* Base Navbar Styles - works for all screen sizes */
 .navbar {
-  height: 60px;                     /* Fixed height for consistency */
+  height: 64px;
   background-color: white;
   border-bottom: 1px solid #eee;
   padding: 0.75rem 1.25rem;
   position: sticky;
   top: 0;
-  z-index: 10;
-  box-sizing: border-box;
-  overflow: hidden;
-  width: 100%;
+  z-index: 999;
 }
 
 .navbar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 100%;
-  width: 100%;
+  position: relative;
 }
-
-/* Optional: Make sure inner text or logo doesn’t overflow */
-.navbar-container h1,
-.navbar-container a,
-.navbar-container p {
-  margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 
 .logo {
   font-size: 1.5rem;
@@ -197,11 +181,10 @@ body {
   font-size: 1.5rem;
   background: none;
   border: none;
-  display: none;
   cursor: pointer;
+  display: none;
 }
 
-/* Links */
 .nav-links {
   display: flex;
   align-items: center;
@@ -209,9 +192,9 @@ body {
 }
 
 .nav-links a {
-  text-decoration: none;
+  cursor: pointer;
   color: black;
-  /* font-weight: 500; */
+  text-decoration: none;
 }
 
 .auth-links {
@@ -220,30 +203,23 @@ body {
   align-items: center;
 }
 
-
-.login-link {
-  height: 36px;
-  display: flex;
-  align-items: center;
-}
-
-/* Mobile styles */
 @media (max-width: 768px) {
   .hamburger {
     display: block;
+    z-index: 1001;
   }
 
   .nav-links {
-    /* font-size: 1.5rem; */
+    display: none;
     position: absolute;
     top: 64px;
     left: 0;
     right: 0;
-    background-color: rgb(255, 254, 254);
+    background: white;
     flex-direction: column;
     padding: 1rem;
-    display: none;
     border-bottom: 1px solid #eee;
+    z-index: 1000;
   }
 
   .nav-links.active {
@@ -258,8 +234,12 @@ body {
 
   .nav-links a {
     padding: 0.5rem 0;
+    width: 100%;
   }
 }
+
+
+
 .profile-icon {
   color: #333;
   transition: 0.3s ease;

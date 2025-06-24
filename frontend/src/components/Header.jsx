@@ -16,13 +16,12 @@ const Header = () => {
       if (section) {
         section.scrollIntoView({ behavior: 'smooth' });
       }
-    } else {s
+    } else {
       navigate(`/#${id}`);
     }
     setMenuOpen(false);
   };
 
-  
   useEffect(() => {
     const hash = window.location.hash;
     if (hash) {
@@ -47,29 +46,41 @@ const Header = () => {
         </button>
 
         <nav className={`nav-links ${menuOpen ? 'active' : ''}`}>
-          <button onClick={() => handleScrollOrNavigate('home')}>Home</button>
-          <button onClick={() => handleScrollOrNavigate('plans')}>Plans</button>
-          <button onClick={() => handleScrollOrNavigate('about')}>About</button>
+          <a onClick={() => handleScrollOrNavigate('home')}>Home</a>
+          <a onClick={() => handleScrollOrNavigate('plans')}>Plans</a>
+          <a onClick={() => handleScrollOrNavigate('about')}>About</a>
 
           <div className="auth-links">
-             {auth?.user?.role === 'admin' ? ( 
-              <Link to="/admin/dashboard" className="profile-icon" onClick={() => setMenuOpen(false)}>
+            {auth?.user?.role === 'admin' ? (
+              <Link
+                to="/admin/dashboard"
+                className="profile-icon"
+                onClick={() => setMenuOpen(false)}
+              >
                 <FaUserCircle size={28} />
               </Link>
-            ) : auth?.user?.role === 'user' ? ( 
-              <Link to="/user/dashboard" className="profile-icon" onClick={() => setMenuOpen(false)}>
+            ) : auth?.user?.role === 'user' ? (
+              <Link
+                to="/user/dashboard"
+                className="profile-icon"
+                onClick={() => setMenuOpen(false)}
+              >
                 <FaUserCircle size={28} />
               </Link>
-             ) : ( 
+            ) : (
               <>
-                <Link to="/auth/login" className="login-link" onClick={() => setMenuOpen(false)}>
+                <Link
+                  to="/auth/login"
+                  className="login-link"
+                  onClick={() => setMenuOpen(false)}
+                >
                   Login
                 </Link>
                 <Link to="/auth/signup" onClick={() => setMenuOpen(false)}>
                   Sign up
                 </Link>
               </>
-             )} 
+            )}
           </div>
         </nav>
       </div>
