@@ -43,7 +43,7 @@ const AdminUsersPage = () => {
 
   return (
     <div className="admin-users-bg auc">
-  <div className="flex bg-overlay min-h-screen">
+    <div className="flex bg-overlay min-h-screen">
     <AdminMenu />
     <div className="flex-1 p-6 text-white">
       <h2 className="text-3xl font-semibold mb-4">Users</h2>
@@ -58,7 +58,9 @@ const AdminUsersPage = () => {
         <p>No users found.</p>
       ) : (
         <div className="users-grid">
+          
           {users.map((user) => (
+            user.role !== "admin" && (
             <div key={user._id} className="transparent-card user-card">
               <Link to={`/admin/dashboard/user/${user._id}`} className="user-card-link">
                 <img src={user.profilePicture || "https://via.placeholder.com/150"} className="user-image" alt={user.name} />
@@ -71,7 +73,9 @@ const AdminUsersPage = () => {
               <button onClick={(e) => handleAssignTask(e, user)} className="assign-task-button">Assign Exercise</button>
               <button onClick={(e) => handleAssignDiet(e, user)} className="assign-Diet-button">Assign Diet</button>
             </div>
+            )
           ))}
+          
         </div>
       )}
     </div>
