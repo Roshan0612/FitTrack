@@ -5,6 +5,7 @@ import "./HomePage.css";
 import { motion } from "framer-motion";
 import { useAuth } from "../context/Auth";
 import handleSubscribe from '../pages/User/HandleSubscribe'
+import { Link } from "react-router-dom";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const Homepages = () => {
@@ -63,7 +64,7 @@ const Homepages = () => {
 
   </h1>
   <p className="hero-subtext">Discipline • Strength • Transformation</p>
-  <a href="/auth/signup" className="hero-join-button">Join Now</a>
+  <Link to="/auth/signup" className="hero-join-button">Join Now</Link>
 </div>
 
 </div>
@@ -189,7 +190,7 @@ const Homepages = () => {
                   <p className="price">₹{plan.price}</p>
                   <p>{plan.description}</p>
                   
-                  <a href="/auth/signup" className="btn-primary">Join Now</a>
+                  <Link to="/auth/signup" className="btn-primary">Join Now</Link>
                 </div>
               ))}
             </div>
