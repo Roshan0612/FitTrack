@@ -149,21 +149,38 @@ body {
 }
 
 
+/* Base Navbar Styles - works for all screen sizes */
 .navbar {
-  height: 10vh;
+  height: 60px;                     /* Fixed height for consistency */
   background-color: white;
   border-bottom: 1px solid #eee;
   padding: 0.75rem 1.25rem;
   position: sticky;
   top: 0;
   z-index: 10;
+  box-sizing: border-box;
+  overflow: hidden;
+  width: 100%;
 }
 
 .navbar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 100%;
+  width: 100%;
 }
+
+/* Optional: Make sure inner text or logo doesn’t overflow */
+.navbar-container h1,
+.navbar-container a,
+.navbar-container p {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 
 .logo {
   font-size: 1.5rem;
