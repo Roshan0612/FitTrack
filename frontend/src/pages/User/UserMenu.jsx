@@ -20,7 +20,7 @@ const UserMenu = () => {
       <ul className="space-y-4 text-white">
         <li><Link to="/user/dashboard/add-info"><i className="fas fa-id-card mr-2"></i> Personal Details</Link></li>
         <li><Link to="/user/dashboard/exercises"><i className="fas fa-dumbbell mr-2"></i> My Exercise</Link></li>
-        <li><Link to="/user/dashboard/calorie"><i className="fas fa-utensils mr-2"></i> My Calorie Intake</Link></li>
+        {/* <li><Link to="/user/dashboard/calorie"><i className="fas fa-utensils mr-2"></i> My Calorie Intake</Link></li> */}
         <li><Link to="/user/dashboard/diets"><i className="fas fa-apple-alt mr-2"></i> My Diet</Link></li>
         <li>
           <Link to="/auth/login" onClick={handleLogout} className="text-red-300 hover:text-red-500">

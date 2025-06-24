@@ -53,15 +53,15 @@ const Header = () => {
           <button onClick={() => handleScrollOrNavigate('about')}>About</button>
 
           <div className="auth-links">
-            {auth?.user?.role === 'admin' ? (
+             {auth?.user?.role === 'admin' ? ( 
               <Link to="/admin/dashboard" className="profile-icon" onClick={() => setMenuOpen(false)}>
                 <FaUserCircle size={28} />
               </Link>
-            ) : auth?.user?.role === 'user' ? (
+            ) : auth?.user?.role === 'user' ? ( 
               <Link to="/user/dashboard" className="profile-icon" onClick={() => setMenuOpen(false)}>
                 <FaUserCircle size={28} />
               </Link>
-            ) : (
+             ) : ( 
               <>
                 <Link to="/auth/login" className="login-link" onClick={() => setMenuOpen(false)}>
                   Login
@@ -70,7 +70,7 @@ const Header = () => {
                   Sign up
                 </Link>
               </>
-            )}
+             )} 
           </div>
         </nav>
       </div>

@@ -4,6 +4,7 @@ import { useAuth } from "../../context/Auth";
 import { useNavigate } from "react-router-dom";
 import UserMenu from "./UserMenu";
 import "../../styles/AdditionalInfo.css";
+import { toast } from "react-toastify";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -107,7 +108,9 @@ const AdditionalInfo = () => {
         headers: { Authorization: auth?.token },
       });
 
-      alert("Info saved!");
+      
+      toast.success("Info saved!");
+
       navigate("/user/dashboard");
     } catch (error) {
       console.error("Error saving info:", error);
