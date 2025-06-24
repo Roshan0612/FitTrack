@@ -9,7 +9,6 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Smooth scroll if already on homepage
   const handleScrollOrNavigate = (id) => {
     const onHome = location.pathname === '/';
     if (onHome) {
@@ -17,13 +16,13 @@ const Header = () => {
       if (section) {
         section.scrollIntoView({ behavior: 'smooth' });
       }
-    } else {
+    } else {s
       navigate(`/#${id}`);
     }
     setMenuOpen(false);
   };
 
-  // Scroll after navigation (e.g. from /login to /#plans)
+  
   useEffect(() => {
     const hash = window.location.hash;
     if (hash) {
