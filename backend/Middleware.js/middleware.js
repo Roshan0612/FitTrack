@@ -8,7 +8,7 @@ const requireSignIn = async (req, res, next) => {
         if (!token) {
             return res.status(401).send({ message: "Token must be provided" });
         }
-        const decoded = await jwt.verify(token, process.env.SECRET);
+        const decoded = await jwt.verify(token, process.env.JWT_SECRET);
         console.log(decoded);
         req.user = decoded;
         console.log("user:" + req.user);
