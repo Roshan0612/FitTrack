@@ -61,7 +61,7 @@ const loginController=async(req,res)=>{
             message:"incorrect password or username! try again!"
          })
      }
-     const token = await jwt.sign({_id: user._id}, process.env.SECRET, { expiresIn: '10d' });
+     const token = await jwt.sign({_id: user._id}, process.env.JWT_SECRET, { expiresIn: '10d' });
      if(!token){
         return res.send({
             msg:"jwt must be provide,try again"
@@ -79,13 +79,13 @@ const loginController=async(req,res)=>{
       token,
     });
     } catch (error) {
-    console.log(error);
-    res.status(500).send({
-      success: false,
-      message: "something went wrong while logging in",
-      error,
-    });
-    }
+  console.error("Login error:", error); 
+  res.status(500).send({
+    success: false,
+    message: "something went wrong while logging in",
+    error: error.message || error,
+  });
+}
 }
 
 const demoofSignIN = (req, res) => {
