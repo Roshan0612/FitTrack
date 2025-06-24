@@ -11,6 +11,7 @@ const UserDietPage = () => {
   const userId = auth?.user?._id;
   const [diets, setDiets] = useState([]);
   const [user, setUser] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (!userId) return;
@@ -33,10 +34,17 @@ const UserDietPage = () => {
   return (
     <div className="user-diet-bg">
       <div className="user-diet-overlay">
-        <aside className="sidebar-wrapper">
+        {/* Hamburger for mobile */}
+        <button className="mobile-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
+          ☰
+        </button>
+
+        {/* Sidebar */}
+        <aside className={`sidebar-wrapper ${sidebarOpen ? "open" : ""}`}>
           <UserMenu />
         </aside>
 
+        {/* Main Content */}
         <main className="diet-main-content">
           <h2 className="diet-title">My Assigned Diets</h2>
           <p className="text-center text-yellow-500 mb-4">

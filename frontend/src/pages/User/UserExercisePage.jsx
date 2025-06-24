@@ -14,16 +14,13 @@ const UserExercisePage = () => {
   useEffect(() => {
     const fetchAssignedExercises = async () => {
       try {
-        const res = await axios.get(
-          `${API_URL}/api/v1/exercises/assigned/${auth.user._id}`,
-          {
-            headers: { Authorization: auth.token },
-          }
-        );
+        const res = await axios.get(`${API_URL}/api/v1/exercises/assigned/${auth.user._id}`, {
+          headers: { Authorization: auth.token },
+        });
 
         const assignments = res.data.assignments || [];
-
         const grouped = {};
+
         assignments.forEach((a) => {
           const day = a.day?.toLowerCase() || "unspecified";
           const ex = a.exerciseId;
@@ -48,19 +45,22 @@ const UserExercisePage = () => {
   return (
     <div className="user-dashboard-bg">
       <div className="user-overlay">
+        {/* Hamburger Button */}
         <button className="mobile-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
           ☰
         </button>
 
+        {/* Sidebar */}
         <div className={`sidebar-wrapper ${sidebarOpen ? "open" : ""}`}>
           <UserMenu />
         </div>
 
+        {/* Main Content */}
         <div className="main-content">
           <h2 className="main-title">My Assigned Exercises</h2>
 
           {Object.keys(groupedExercises).length === 0 ? (
-            <p>No exercises assigned yet.</p>
+            <p className="no-exercise">No exercises assigned yet.</p>
           ) : (
             dayOrder.map((day) =>
               groupedExercises[day]?.length ? (

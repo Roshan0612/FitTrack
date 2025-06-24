@@ -10,6 +10,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 const Userdashboard = () => {
   const [auth] = useAuth();
   const [userData, setUserData] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false); // New toggle state
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -32,9 +33,21 @@ const Userdashboard = () => {
 
   return (
     <div className="admin-dashboard-bg">
-      <div className="flex bg-overlay">
-        <UserMenu />
-        <div className="flex-1 p-8 text-white">
+      <div className="flex bg-overlay relative">
+        
+        {/* Mobile Hamburger */}
+        <button className="user-hamburger md:hidden absolute top-4 left-4 text-white text-2xl z-50"
+          onClick={() => setSidebarOpen(!sidebarOpen)}>
+          ☰
+        </button>
+
+        {/* Sidebar */}
+        <div className={`transition-transform duration-300 ease-in-out z-40 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 fixed md:static top-0 left-0 h-full`}>
+          <UserMenu />
+        </div>
+
+        {/* Main Content */}
+        <div className="flex-1 p-8 text-white md:ml-0 ml-0">
           <div className="flex items-center mb-6">
             <div>
               <h1 className="text-3xl font-semibold">

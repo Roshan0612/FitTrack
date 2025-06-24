@@ -14,19 +14,49 @@
   position: relative;
 }
 
+/* Mobile toggle button */
+.mobile-toggle {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 30;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+  border: none;
+  cursor: pointer;
+  display: block;
+}
+
 /* Sidebar styling */
 .sidebar-wrapper {
   width: 250px;
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(6px);
   border-right: 1px solid rgba(255, 255, 255, 0.2);
-  z-index: 10;
+  z-index: 20;
   position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebar-wrapper.open {
+  transform: translateX(0);
 }
 
 @media (min-width: 768px) {
   .sidebar-wrapper {
+    transform: translateX(0);
     position: static;
+  }
+
+  .mobile-toggle {
+    display: none;
   }
 }
 
@@ -85,7 +115,7 @@
   background: #f0f4f8;
 }
 
-.diet-name {
+.diet-card h3 {
   font-size: 18px;
   font-weight: 600;
   margin: 10px 0 6px;
@@ -95,12 +125,4 @@
 .diet-card p {
   font-size: 14px;
   color: #fcfbfd;
-}
-
-/* Empty state message */
-.no-diet-msg {
-  text-align: center;
-  font-size: 1rem;
-  color: #fff;
-  margin-top: 2rem;
 }

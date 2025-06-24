@@ -14,6 +14,7 @@ const AdditionalInfo = () => {
   const fileInputRef = useRef(null);
   const user = auth?.user || {};
   const userId = user?._id;
+  const [sidebarOpen, setSidebarOpen] = useState(false); // <-- For mobile toggle
 
   const [formData, setFormData] = useState({
     age: "",
@@ -108,9 +109,7 @@ const AdditionalInfo = () => {
         headers: { Authorization: auth?.token },
       });
 
-      
       toast.success("Info saved!");
-
       navigate("/user/dashboard");
     } catch (error) {
       console.error("Error saving info:", error);
@@ -122,8 +121,22 @@ const AdditionalInfo = () => {
 
   return (
     <div className="info-page-container">
-      <div className="info-overlay">
-        <UserMenu />
+      <div className="info-overlay relative">
+
+        {/* Hamburger for Mobile */}
+        <button
+          className="user-hamburger md:hidden absolute top-4 left-4 text-white text-2xl z-50"
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+        >
+          ☰
+        </button>
+
+        {/* Sidebar */}
+        <div className={`transition-transform duration-300 ease-in-out z-40 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 fixed md:static top-0 left-0 h-full`}>
+          <UserMenu />
+        </div>
+
+        {/* Main content */}
         <div className="info-content">
           <h2 className="info-title">Update Your Details</h2>
 
