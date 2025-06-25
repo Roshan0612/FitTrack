@@ -60,15 +60,15 @@ const AdminDietPage = () => {
         <div className="flex-1 p-4 md:p-10">
           <h2 className="text-3xl font-bold mb-6 text-white text-center">Assign Diet Plans</h2>
 
-          <div className="flex justify-center gap-3 mb-6">
-            {["veg", "non-veg", "vegan"].map((cat) => (
+          <div className="flex justify-center gap-3 mb-6 ">
+            {["veg", "non-veg", ].map((cat) => (
               <button
                 key={cat}
                 onClick={() => setCategory(cat)}
                 className={`px-4 py-2 rounded-md font-semibold text-sm transition ${
                   category === cat
                     ? "bg-green-600 text-white"
-                    : "bg-white bg-opacity-20 text-white hover:bg-opacity-40"
+                    : "bg-white bg-opacity-20 text-black hover:bg-opacity-40"
                 }`}
               >
                 {cat.toUpperCase()}
