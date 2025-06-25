@@ -116,8 +116,6 @@ const Homepages = () => {
           <div key={plan._id} className="plan-card">
             <h3>{plan.name}</h3>
             <p>Duration: {plan.duration}</p>
-
-            
                 {discountedPrices[plan._id] && discountedPrices[plan._id] !== plan.price ? (
                   <div>
                     <p className="price line-through">₹{plan.price}</p>
