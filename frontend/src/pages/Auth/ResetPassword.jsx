@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import "../../styles/ForgotPassword.css";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -22,19 +23,21 @@ const ResetPassword = () => {
   };
 
   return (
-    <div>
-      <h2>Reset Password</h2>
-      <form onSubmit={handleReset}>
-        <input
-          type="password"
-          placeholder="Enter new password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit">Reset Password</button>
-      </form>
-      <p>{message}</p>
+    <div className="forgot-background">
+      <div className="forgot-container">
+        <h2>Reset Password</h2>
+        <form onSubmit={handleReset}>
+          <input
+            type="password"
+            placeholder="Enter new password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button type="submit" className="forgot-btn">Reset Password</button>
+        </form>
+        <p>{message}</p>
+      </div>
     </div>
   );
 };

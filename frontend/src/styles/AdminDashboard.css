@@ -1,25 +1,101 @@
 .admin-dashboard-bg {
-  background-image: url('https://res.cloudinary.com/dswa5docr/image/upload/v1750358146/pexels-cottonbro-4752856_ccu5ji.jpg');
-  background-size: cover;
-  background-position: center;
   min-height: 100vh;
   width: 100%;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(16, 185, 129, 0.14), transparent 24%),
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.06), transparent 20%),
+    #05070b;
 }
 
 .bg-overlay {
-  background-color: rgba(0, 0, 0, 0.6); /* Optional: dark overlay for contrast */
   min-height: 100vh;
+  background: linear-gradient(180deg, rgba(5, 7, 11, 0.7) 0%, rgba(5, 7, 11, 0.96) 100%);
+  backdrop-filter: blur(8px);
 }
 
 .transparent-card {
-  background: rgba(255, 255, 255, 0.1); /* Light white overlay */
-  border-radius: 12px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(10px); /* 👈 This creates the glass effect */
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
+
 .transparent-card p,
 .transparent-card a {
-  color: #fff;
+  color: inherit;
+}
+
+.admin-sidebar-shell {
+  width: 290px;
+  min-height: 100vh;
+  padding: 16px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  background: rgba(5, 7, 11, 0.76);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.admin-sidebar-shell__inner {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 32px);
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.03) 100%);
+  padding: 20px;
+  backdrop-filter: blur(20px);
+}
+
+.admin-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 18px;
+  padding: 12px 14px;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.admin-nav-link:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  transform: translateX(2px);
+}
+
+.admin-logout-link {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 18px;
+  padding: 12px 14px;
+  color: #fda4af;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background 180ms ease, color 180ms ease;
+}
+
+.admin-logout-link:hover {
+  background: rgba(244, 63, 94, 0.12);
+  color: #fecdd3;
+}
+
+@media (max-width: 768px) {
+  .admin-sidebar-shell {
+    width: 100%;
+    min-height: auto;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .admin-sidebar-shell__inner {
+    min-height: auto;
+  }
 }

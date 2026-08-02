@@ -41,26 +41,34 @@ const Plan = () => {
   };
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Available Plans</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    <div className="min-h-screen bg-[#05070b] px-4 py-10 text-white sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="max-w-2xl">
+          <p className="text-xs uppercase tracking-[0.34em] text-emerald-300/80">Membership plans</p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-[-0.05em] sm:text-4xl">Available Plans</h2>
+          <p className="mt-3 max-w-xl text-sm leading-7 text-white/62">Choose a subscription without changing the payment or coupon workflow.</p>
+        </div>
+
+        <div className="mt-10 grid gap-6 lg:grid-cols-3">
         {plans.map((plan) => (
-          <div key={plan._id} className="border rounded p-4 shadow">
-            <h3 className="text-xl font-semibold">{plan.name}</h3>
-            <p className="text-sm text-gray-600">Duration: {plan.duration}</p>
+          <div key={plan._id} className="flex h-full flex-col rounded-[1.8rem] border border-white/10 bg-white/5 p-6 shadow-[0_20px_70px_rgba(0,0,0,0.28)] backdrop-blur-xl">
+            <div className="inline-flex items-center self-start rounded-full border border-white/10 bg-white/8 px-3 py-1 text-[11px] uppercase tracking-[0.24em] text-white/75">
+              {plan.duration}
+            </div>
+            <h3 className="mt-4 text-2xl font-semibold tracking-[-0.04em] text-white">{plan.name}</h3>
             {discountedPrices[plan._id] && discountedPrices[plan._id] !== plan.price ? (
-              <div className="mt-2">
-                <p className="text-sm text-gray-500 line-through">₹{plan.price}</p>
-                <p className="text-lg font-bold text-green-600">Now: ₹{discountedPrices[plan._id]}</p>
+              <div className="mt-6">
+                <p className="text-sm text-white/40 line-through">₹{plan.price}</p>
+                <p className="mt-1 text-4xl font-semibold tracking-[-0.05em] text-white">₹{discountedPrices[plan._id]}</p>
               </div>
             ) : (
-              <p className="text-lg font-bold mt-2">₹{plan.price}</p>
+              <p className="mt-6 text-4xl font-semibold tracking-[-0.05em] text-white">₹{plan.price}</p>
             )}
-            <p className="text-sm mt-2 text-gray-700">{plan.description}</p>
+            <p className="mt-3 min-h-14 text-sm leading-7 text-white/60">{plan.description}</p>
 
             {!showCouponField[plan._id] && !discountedPrices[plan._id] ? (
               <button
-                className="mt-2 text-sm text-blue-500 underline"
+                className="mt-6 flex h-11 w-full items-center justify-center rounded-2xl border border-white/10 bg-white/6 px-4 text-sm font-semibold text-white/80 transition duration-300 hover:-translate-y-0.5 hover:bg-white/10 hover:text-white"
                 onClick={() =>
                   setShowCouponField((prev) => ({ ...prev, [plan._id]: true }))
                 }
@@ -76,11 +84,11 @@ const Plan = () => {
                   onChange={(e) =>
                     setCouponCodes(prev => ({ ...prev, [plan._id]: e.target.value }))
                   }
-                  className="border p-1 mt-2 w-full rounded"
+                  className="mt-2 h-11 w-full rounded-2xl border border-white/10 bg-white/5 px-4 text-sm text-white outline-none placeholder:text-white/35 focus:border-emerald-400/50"
                 />
                 <button
                   onClick={() => applyCoupon(plan._id, plan.price)}
-                  className="mt-2 text-sm text-blue-500 underline"
+                  className="mt-3 flex h-11 w-full items-center justify-center rounded-2xl border border-emerald-300/20 bg-gradient-to-r from-emerald-300 via-emerald-400 to-lime-300 px-4 text-sm font-semibold !text-zinc-950 transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_rgba(16,185,129,0.24)]"
                 >
                   Apply Coupon
                 </button>
@@ -88,7 +96,7 @@ const Plan = () => {
             ) : null}
 
             <button
-              className="mt-4 bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+              className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-2xl border border-white/12 bg-white/6 px-4 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-white/10"
               onClick={() =>
   handleSubscribe(
     plan,
@@ -103,6 +111,7 @@ const Plan = () => {
             </button>
           </div>
         ))}
+        </div>
       </div>
     </div>
   );

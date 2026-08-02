@@ -98,22 +98,34 @@
 }
 
 .submit-btn {
-  background-color: #2563eb;
-  color: white;
-  padding: 0.6rem 1.5rem;
-  border: none;
-  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.7rem 1.5rem;
+  border-radius: 14px;
+  border: 1px solid rgba(110, 231, 183, 0.2);
+  background: linear-gradient(90deg, #6ee7b7 0%, #34d399 55%, #bef264 100%);
+  color: #0f172a;
+  font-weight: 700;
   cursor: pointer;
   margin-top: 1rem;
+  box-shadow: 0 18px 40px rgba(16, 185, 129, 0.22);
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
 }
 
 .submit-btn:hover {
-  background-color: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 24px 55px rgba(16, 185, 129, 0.3);
+  filter: brightness(1.03);
 }
 
 .user-hamburger {
-  background: none;
-  border: none;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(18px);
+  border-radius: 16px;
   position: fixed;
   top: 1rem;
   left: 1rem;
@@ -121,6 +133,8 @@
   z-index: 999;
   color: white;
   cursor: pointer;
+  width: 48px;
+  height: 48px;
 }
 
 @media (min-width: 768px) {
