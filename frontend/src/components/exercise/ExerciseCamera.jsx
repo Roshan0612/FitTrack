@@ -21,15 +21,9 @@ import {
   updateMovement,
 } from "../../utils/movementEngine";
 
-// ==========================================
-// CSS
-// ==========================================
-
 import "../../styles/ExerciseCamera.css";
 
-
 const ExerciseCamera = () => {
-
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
 
@@ -40,9 +34,7 @@ const ExerciseCamera = () => {
   // CURRENT EXERCISE
   // ==========================================
 
-  const exercise =
-    EXERCISES.bicepCurl;
-
+  const exercise = EXERCISES.bicepCurl;
 
   // ==========================================
   // MOVEMENT ENGINE
@@ -52,197 +44,155 @@ const ExerciseCamera = () => {
     createMovementState()
   );
 
-
   // ==========================================
   // GENERAL STATE
   // ==========================================
 
-  const [loading, setLoading] =
-    useState(true);
-
-  const [error, setError] =
-    useState("");
-
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   // ==========================================
   // ANGLES
   // ==========================================
 
-  const [angles, setAngles] =
-    useState({
-      LEFT_ELBOW: null,
-      RIGHT_ELBOW: null,
-      LEFT_KNEE: null,
-      RIGHT_KNEE: null,
-      LEFT_HIP: null,
-      RIGHT_HIP: null,
-    });
-
+  const [angles, setAngles] = useState({
+    LEFT_ELBOW: null,
+    RIGHT_ELBOW: null,
+    LEFT_KNEE: null,
+    RIGHT_KNEE: null,
+    LEFT_HIP: null,
+    RIGHT_HIP: null,
+  });
 
   // ==========================================
   // REP / MOVEMENT STATE
   // ==========================================
 
-  const [reps, setReps] =
-    useState(0);
-
+  const [reps, setReps] = useState(0);
   const [movementState, setMovementState] =
     useState("START");
-
 
   // ==========================================
   // INITIALIZE MEDIAPIPE
   // ==========================================
 
   useEffect(() => {
+    const initializePoseLandmarker = async () => {
+      try {
+        setLoading(true);
+        setError("");
 
-    const initializePoseLandmarker =
-      async () => {
-
-        try {
-
-          setLoading(true);
-          setError("");
-
-
-          const vision =
-            await FilesetResolver.forVisionTasks(
-              "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/wasm"
-            );
-
-
-          const poseLandmarker =
-            await PoseLandmarker.createFromOptions(
-              vision,
-              {
-                baseOptions: {
-                  modelAssetPath:
-                    "/models/pose_landmarker_lite.task",
-                },
-
-                runningMode: "VIDEO",
-
-                numPoses: 1,
-
-                minPoseDetectionConfidence: 0.5,
-
-                minPosePresenceConfidence: 0.5,
-
-                minTrackingConfidence: 0.5,
-              }
-            );
-
-
-          poseLandmarkerRef.current =
-            poseLandmarker;
-
-
-          console.log(
-            "MediaPipe Pose Landmarker loaded successfully"
+        const vision =
+          await FilesetResolver.forVisionTasks(
+            "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/wasm"
           );
 
+        const poseLandmarker =
+          await PoseLandmarker.createFromOptions(
+            vision,
+            {
+              baseOptions: {
+                modelAssetPath:
+                  "/models/pose_landmarker_lite.task",
+              },
 
-          setLoading(false);
+              runningMode: "VIDEO",
 
+              numPoses: 1,
 
-          startCamera();
+              minPoseDetectionConfidence: 0.5,
 
-        } catch (err) {
+              minPosePresenceConfidence: 0.5,
 
-          console.error(
-            "MediaPipe initialization error:",
-            err
+              minTrackingConfidence: 0.5,
+            }
           );
 
+        poseLandmarkerRef.current =
+          poseLandmarker;
 
-          setError(
-            err?.message ||
-              "Failed to load pose detection."
-          );
+        console.log(
+          "MediaPipe Pose Landmarker loaded successfully"
+        );
 
+        setLoading(false);
 
-          setLoading(false);
-        }
-      };
+        startCamera();
+      } catch (err) {
+        console.error(
+          "MediaPipe initialization error:",
+          err
+        );
 
+        setError(
+          err?.message ||
+            "Failed to load pose detection."
+        );
+
+        setLoading(false);
+      }
+    };
 
     initializePoseLandmarker();
-
 
     // ========================================
     // CLEANUP
     // ========================================
 
     return () => {
-
       if (animationFrameRef.current) {
-
         cancelAnimationFrame(
           animationFrameRef.current
         );
       }
 
-
       if (poseLandmarkerRef.current) {
-
         poseLandmarkerRef.current.close();
 
-        poseLandmarkerRef.current =
-          null;
+        poseLandmarkerRef.current = null;
       }
-
 
       stopCamera();
     };
-
   }, []);
-
 
   // ==========================================
   // START CAMERA
   // ==========================================
 
   const startCamera = async () => {
-
     try {
-
       const stream =
         await navigator.mediaDevices.getUserMedia({
-
           video: {
-            width: 1280,
-            height: 720,
+            width: {
+              ideal: 1280,
+            },
+
+            height: {
+              ideal: 720,
+            },
+
             facingMode: "user",
           },
 
           audio: false,
-
         });
 
-
       if (videoRef.current) {
+        videoRef.current.srcObject = stream;
 
-        videoRef.current.srcObject =
-          stream;
+        videoRef.current.onloadeddata = () => {
+          videoRef.current.play();
 
-
-        videoRef.current.onloadeddata =
-          () => {
-
-            videoRef.current.play();
-
-            detectPose();
-
-          };
+          detectPose();
+        };
       }
-
     } catch (err) {
-
       console.error(
         "Camera error:",
         err
       );
-
 
       setError(
         "Camera permission denied or camera is not available."
@@ -250,55 +200,38 @@ const ExerciseCamera = () => {
     }
   };
 
-
   // ==========================================
   // STOP CAMERA
   // ==========================================
 
   const stopCamera = () => {
-
-    if (
-      videoRef.current?.srcObject
-    ) {
-
+    if (videoRef.current?.srcObject) {
       const tracks =
         videoRef.current.srcObject.getTracks();
 
-
       tracks.forEach((track) => {
-
         track.stop();
-
       });
 
-
-      videoRef.current.srcObject =
-        null;
+      videoRef.current.srcObject = null;
     }
   };
-
 
   // ==========================================
   // DETECT POSE
   // ==========================================
 
   const detectPose = () => {
-
     if (
       !videoRef.current ||
       !poseLandmarkerRef.current
     ) {
-
       return;
     }
 
-
-    const video =
-      videoRef.current;
-
+    const video = videoRef.current;
 
     if (video.readyState < 2) {
-
       animationFrameRef.current =
         requestAnimationFrame(
           detectPose
@@ -307,26 +240,20 @@ const ExerciseCamera = () => {
       return;
     }
 
-
     try {
-
       const result =
         poseLandmarkerRef.current.detectForVideo(
           video,
           performance.now()
         );
 
-
       drawPose(result);
-
     } catch (err) {
-
       console.error(
         "Pose detection error:",
         err
       );
     }
-
 
     animationFrameRef.current =
       requestAnimationFrame(
@@ -334,36 +261,29 @@ const ExerciseCamera = () => {
       );
   };
 
-
   // ==========================================
   // DRAW POSE
   // ==========================================
 
   const drawPose = (result) => {
-
-    const canvas =
-      canvasRef.current;
-
-    const video =
-      videoRef.current;
-
+    const canvas = canvasRef.current;
+    const video = videoRef.current;
 
     if (!canvas || !video) {
-
       return;
     }
 
+    const ctx = canvas.getContext("2d");
 
-    const ctx =
-      canvas.getContext("2d");
+    if (
+      video.videoWidth === 0 ||
+      video.videoHeight === 0
+    ) {
+      return;
+    }
 
-
-    canvas.width =
-      video.videoWidth;
-
-    canvas.height =
-      video.videoHeight;
-
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
 
     ctx.clearRect(
       0,
@@ -371,7 +291,6 @@ const ExerciseCamera = () => {
       canvas.width,
       canvas.height
     );
-
 
     // ========================================
     // CHECK PERSON
@@ -381,7 +300,6 @@ const ExerciseCamera = () => {
       !result.landmarks ||
       result.landmarks.length === 0
     ) {
-
       setAngles({
         LEFT_ELBOW: null,
         RIGHT_ELBOW: null,
@@ -394,14 +312,12 @@ const ExerciseCamera = () => {
       return;
     }
 
-
     // ========================================
     // GET FIRST PERSON
     // ========================================
 
     const landmarks =
       result.landmarks[0];
-
 
     // ========================================
     // CALCULATE ANGLES
@@ -413,11 +329,7 @@ const ExerciseCamera = () => {
         ANGLES
       );
 
-
-    setAngles(
-      calculatedAngles
-    );
-
+    setAngles(calculatedAngles);
 
     // ========================================
     // BICEP CURL REP DETECTION
@@ -428,15 +340,12 @@ const ExerciseCamera = () => {
         exercise.joint
       ];
 
-
     if (
       elbowAngle !== null &&
       elbowAngle !== undefined
     ) {
-
       const updatedMovement =
         updateMovement({
-
           state:
             movementStateRef.current,
 
@@ -454,24 +363,19 @@ const ExerciseCamera = () => {
 
           angleTolerance:
             exercise.angleTolerance,
-
         });
-
 
       movementStateRef.current =
         updatedMovement;
-
 
       setReps(
         updatedMovement.reps
       );
 
-
       setMovementState(
         updatedMovement.currentState
       );
     }
-
 
     // ========================================
     // DRAW LANDMARK POINTS
@@ -479,7 +383,6 @@ const ExerciseCamera = () => {
 
     landmarks.forEach(
       (landmark) => {
-
         const x =
           landmark.x *
           canvas.width;
@@ -488,9 +391,7 @@ const ExerciseCamera = () => {
           landmark.y *
           canvas.height;
 
-
         ctx.beginPath();
-
 
         ctx.arc(
           x,
@@ -500,23 +401,17 @@ const ExerciseCamera = () => {
           2 * Math.PI
         );
 
-
-        ctx.fillStyle =
-          "black";
-
+        ctx.fillStyle = "black";
 
         ctx.fill();
-
       }
     );
-
 
     // ========================================
     // BODY CONNECTIONS
     // ========================================
 
     const connections = [
-
       // Face
       [0, 1],
       [1, 2],
@@ -555,31 +450,24 @@ const ExerciseCamera = () => {
       // Feet
       [27, 31],
       [28, 32],
-
     ];
-
 
     ctx.beginPath();
 
-
     connections.forEach(
       ([start, end]) => {
-
         const startPoint =
           landmarks[start];
 
         const endPoint =
           landmarks[end];
 
-
         if (
           !startPoint ||
           !endPoint
         ) {
-
           return;
         }
-
 
         ctx.moveTo(
           startPoint.x *
@@ -589,7 +477,6 @@ const ExerciseCamera = () => {
             canvas.height
         );
 
-
         ctx.lineTo(
           endPoint.x *
             canvas.width,
@@ -597,19 +484,13 @@ const ExerciseCamera = () => {
           endPoint.y *
             canvas.height
         );
-
       }
     );
 
-
-    ctx.strokeStyle =
-      "black";
-
-    ctx.lineWidth =
-      2;
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 2;
 
     ctx.stroke();
-
 
     // ========================================
     // DRAW ANGLE LABELS
@@ -622,14 +503,12 @@ const ExerciseCamera = () => {
       canvas
     );
 
-
     drawAngleLabel(
       ctx,
       landmarks[14],
       calculatedAngles.RIGHT_ELBOW,
       canvas
     );
-
 
     drawAngleLabel(
       ctx,
@@ -638,7 +517,6 @@ const ExerciseCamera = () => {
       canvas
     );
 
-
     drawAngleLabel(
       ctx,
       landmarks[26],
@@ -646,7 +524,6 @@ const ExerciseCamera = () => {
       canvas
     );
   };
-
 
   // ==========================================
   // DRAW ANGLE LABEL
@@ -658,16 +535,13 @@ const ExerciseCamera = () => {
     angle,
     canvas
   ) => {
-
     if (
       !landmark ||
       angle === null ||
       angle === undefined
     ) {
-
       return;
     }
-
 
     const x =
       landmark.x *
@@ -677,145 +551,106 @@ const ExerciseCamera = () => {
       landmark.y *
       canvas.height;
 
-
-    const text =
-      `${angle}°`;
-
+    const text = `${angle}°`;
 
     ctx.font =
-      "bold 20px Arial";
+      "bold 18px Arial";
 
-    ctx.textAlign =
-      "center";
-
-    ctx.textBaseline =
-      "middle";
-
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
 
     const textWidth =
       ctx.measureText(text).width;
 
-
     // Background
-
-    ctx.fillStyle =
-      "white";
-
+    ctx.fillStyle = "white";
 
     ctx.fillRect(
       x -
         textWidth / 2 -
-        8,
+        6,
 
-      y - 42,
+      y - 36,
 
-      textWidth + 16,
+      textWidth + 12,
 
-      30
+      26
     );
 
-
     // Text
-
-    ctx.fillStyle =
-      "black";
-
+    ctx.fillStyle = "black";
 
     ctx.fillText(
       text,
       x,
-      y - 27
+      y - 23
     );
   };
-
 
   // ==========================================
   // RESET WORKOUT
   // ==========================================
 
   const resetWorkout = () => {
-
     movementStateRef.current =
       createMovementState();
 
-
     setReps(0);
 
-
-    setMovementState(
-      "START"
-    );
+    setMovementState("START");
   };
-
 
   // ==========================================
   // UI
   // ==========================================
 
   return (
-
-    <div className="exercise-page">
+    <main className="exercise-page">
 
       <div className="exercise-container">
-
 
         {/* =====================================
             HEADER
         ====================================== */}
 
-        <div className="exercise-header">
+        <header className="exercise-header">
 
-          <h2 className="exercise-title">
+          <h1 className="exercise-title">
             {exercise.name}
-          </h2>
-
+          </h1>
 
           <div className="tracking-status">
-
-            <span className="tracking-dot"></span>
-
+            <span className="tracking-dot" />
             Tracking
-
           </div>
 
-        </div>
-
+        </header>
 
         {/* =====================================
             LOADING
         ====================================== */}
 
         {loading && (
-
           <div className="exercise-message loading">
-
             Loading pose detection...
-
           </div>
-
         )}
-
 
         {/* =====================================
             ERROR
         ====================================== */}
 
         {error && (
-
           <div className="exercise-message error">
-
             {error}
-
           </div>
-
         )}
-
 
         {/* =====================================
             CAMERA
         ====================================== */}
 
-        <div className="camera-wrapper">
+        <section className="camera-wrapper">
 
           <video
             ref={videoRef}
@@ -825,49 +660,38 @@ const ExerciseCamera = () => {
             className="camera-video"
           />
 
-
           <canvas
             ref={canvasRef}
             className="camera-canvas"
           />
 
-
-          {/* ==============================
-              REP COUNTER
-          =============================== */}
+          {/* REP COUNTER */}
 
           <div className="rep-overlay">
 
-            <div className="rep-label">
+            <span className="rep-label">
               Reps
-            </div>
+            </span>
 
-
-            <div className="rep-value">
+            <span className="rep-value">
               {reps}
-            </div>
+            </span>
 
           </div>
 
-
-          {/* ==============================
-              MOVEMENT STATE
-          =============================== */}
+          {/* MOVEMENT STATE */}
 
           <div className="movement-overlay">
-
             {movementState}
-
           </div>
 
-        </div>
-
+        </section>
 
         {/* =====================================
             ANGLE SUMMARY
         ====================================== */}
 
-        <div className="angle-summary">
+        <section className="angle-summary">
 
           <AngleItem
             title="L Elbow"
@@ -876,14 +700,12 @@ const ExerciseCamera = () => {
             }
           />
 
-
           <AngleItem
             title="R Elbow"
             value={
               angles.RIGHT_ELBOW
             }
           />
-
 
           <AngleItem
             title="L Knee"
@@ -892,14 +714,12 @@ const ExerciseCamera = () => {
             }
           />
 
-
           <AngleItem
             title="R Knee"
             value={
               angles.RIGHT_KNEE
             }
           />
-
 
           <AngleItem
             title="L Hip"
@@ -908,7 +728,6 @@ const ExerciseCamera = () => {
             }
           />
 
-
           <AngleItem
             title="R Hip"
             value={
@@ -916,8 +735,7 @@ const ExerciseCamera = () => {
             }
           />
 
-        </div>
-
+        </section>
 
         {/* =====================================
             RESET
@@ -926,6 +744,7 @@ const ExerciseCamera = () => {
         <div className="exercise-controls">
 
           <button
+            type="button"
             className="reset-button"
             onClick={resetWorkout}
           >
@@ -936,43 +755,34 @@ const ExerciseCamera = () => {
 
       </div>
 
-    </div>
+    </main>
   );
 };
 
-
 // ==========================================
-// ANGLE ITEM COMPONENT
+// ANGLE ITEM
 // ==========================================
 
 const AngleItem = ({
   title,
   value,
 }) => {
-
   return (
-
     <div className="angle-item">
 
       <span className="angle-name">
         {title}
       </span>
 
-
       <span className="angle-value">
-
         {value !== null &&
         value !== undefined
-
           ? `${value}°`
-
           : "--"}
-
       </span>
 
     </div>
   );
 };
-
 
 export default ExerciseCamera;
