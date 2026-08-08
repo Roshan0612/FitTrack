@@ -34,7 +34,7 @@ import AdminDietPage from './pages/Admin/AdminDietPage';
 import UserDietPage from './pages/User/UserDietPage';
 
 
-
+import ExerciseCamera from './components/exercise/ExerciseCamera'
 
 
 
@@ -59,6 +59,11 @@ function App() {
             <Route path="signup" element={<Signup />} />
             <Route path="forgot-password" element={<ForgotPassword />} />
           </Route>
+
+          <Route
+            path="/test-exercise-camera"
+            element={<ExerciseCamera />}
+          />
 
           {/* Reset password route (not inside layout) */}
           <Route path="/reset-password/:token" element={<ResetPassword />} />
