@@ -1,0 +1,638 @@
+/* =========================================================
+   ROOT
+========================================================= */
+
+.intro-animation {
+  position: fixed;
+
+  inset: 0;
+
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+
+  overflow: hidden;
+
+  background: #05070b;
+
+  z-index: 999999;
+
+  opacity: 1;
+
+  transform: scale(1);
+
+  pointer-events: auto;
+
+  transition:
+    opacity 0.85s
+      cubic-bezier(0.65, 0, 0.35, 1),
+
+    transform 1s
+      cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+
+/* =========================================================
+   EXIT
+========================================================= */
+
+.intro-animation--exit {
+  opacity: 0;
+
+  transform: scale(1.018);
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   3D SCENE
+========================================================= */
+
+.intro-animation__scene {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 1;
+}
+
+
+.intro-animation__scene canvas {
+  display: block;
+
+  width: 100% !important;
+  height: 100% !important;
+}
+
+
+/* =========================================================
+   CINEMATIC OVERLAY
+========================================================= */
+
+.intro-animation__overlay {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 2;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(3, 5, 8, 0.35) 0%,
+      rgba(3, 5, 8, 0.02) 35%,
+      rgba(3, 5, 8, 0.08) 65%,
+      rgba(3, 5, 8, 0.48) 100%
+    );
+
+  opacity: 0;
+
+  animation:
+    introOverlayIn
+    1.8s
+    ease
+    0.1s
+    forwards;
+}
+
+
+/* =========================================================
+   VIGNETTE
+========================================================= */
+
+.intro-animation__vignette {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 3;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(5, 7, 11, 0) 25%,
+      rgba(5, 7, 11, 0.10) 52%,
+      rgba(5, 7, 11, 0.68) 100%
+    );
+
+  opacity: 0.85;
+}
+
+
+/* =========================================================
+   BRAND CONTAINER
+========================================================= */
+
+.intro-animation__brand {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  z-index: 5;
+
+  width: min(88vw, 760px);
+
+  transform:
+    translate(-50%, -50%)
+    translateY(18px);
+
+  text-align: center;
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  animation:
+    introBrandIn
+    1.25s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    1.05s
+    forwards;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.intro-animation__eyebrow {
+  margin-bottom: 16px;
+
+  color:
+    rgba(255, 255, 255, 0.52);
+
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  font-size:
+    clamp(8px, 0.85vw, 11px);
+
+  font-weight: 600;
+
+  line-height: 1;
+
+  letter-spacing:
+    0.30em;
+
+  opacity: 0;
+
+  transform:
+    translateY(10px);
+
+  animation:
+    introEyebrow
+    0.9s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    1.25s
+    forwards;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.intro-animation__title {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  font-size:
+    clamp(56px, 9.5vw, 118px);
+
+  font-weight: 800;
+
+  line-height: 0.88;
+
+  letter-spacing:
+    -0.075em;
+
+  opacity: 0;
+
+  transform:
+    translateY(18px)
+    scale(0.97);
+
+  filter:
+    blur(7px);
+
+  text-shadow:
+    0 18px 55px
+      rgba(0, 0, 0, 0.58);
+
+  animation:
+    introTitle
+    1.15s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    1.12s
+    forwards;
+}
+
+
+/* =========================================================
+   GREEN BRAND ACCENT
+========================================================= */
+
+.intro-animation__title span {
+  color: #10b981;
+
+  text-shadow:
+    0 0 28px
+      rgba(16, 185, 129, 0.22);
+}
+
+
+/* =========================================================
+   LINE
+========================================================= */
+
+.intro-animation__line {
+  width: 0;
+
+  height: 1px;
+
+  margin:
+    22px auto
+    17px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(16, 185, 129, 0.75),
+      transparent
+    );
+
+  opacity: 0;
+
+  animation:
+    introLine
+    0.95s
+    cubic-bezier(0.16, 1, 0.3, 1)
+    1.65s
+    forwards;
+}
+
+
+/* =========================================================
+   SUBTITLE
+========================================================= */
+
+.intro-animation__subtitle {
+  margin: 0;
+
+  color:
+    rgba(255, 255, 255, 0.56);
+
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  font-size:
+    clamp(8px, 0.9vw, 12px);
+
+  font-weight: 500;
+
+  line-height: 1;
+
+  letter-spacing:
+    0.36em;
+
+  opacity: 0;
+
+  transform:
+    translateY(8px);
+
+  animation:
+    introSubtitle
+    0.9s
+    ease
+    1.78s
+    forwards;
+}
+
+
+/* =========================================================
+   EXIT FLASH
+========================================================= */
+
+.intro-animation__flash {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 10;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.55),
+      rgba(255, 255, 255, 0) 55%
+    );
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+
+.intro-animation--exit
+.intro-animation__flash {
+  animation:
+    introFlash
+    0.8s
+    ease
+    forwards;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes introOverlayIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+@keyframes introBrandIn {
+  0% {
+    opacity: 0;
+
+    transform:
+      translate(-50%, -50%)
+      translateY(24px);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translate(-50%, -50%)
+      translateY(0);
+  }
+}
+
+
+@keyframes introEyebrow {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+
+@keyframes introTitle {
+  0% {
+    opacity: 0;
+
+    transform:
+      translateY(18px)
+      scale(0.97);
+
+    filter:
+      blur(7px);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+
+    filter:
+      blur(0);
+  }
+}
+
+
+@keyframes introLine {
+  0% {
+    width: 0;
+
+    opacity: 0;
+  }
+
+  100% {
+    width:
+      min(240px, 45vw);
+
+    opacity: 1;
+  }
+}
+
+
+@keyframes introSubtitle {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+
+@keyframes introFlash {
+  0% {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 0.22;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .intro-animation__brand {
+    width: 92vw;
+
+    top: 48%;
+  }
+
+
+  .intro-animation__eyebrow {
+    margin-bottom: 12px;
+
+    font-size: 7px;
+
+    letter-spacing:
+      0.22em;
+  }
+
+
+  .intro-animation__title {
+    font-size:
+      clamp(48px, 16vw, 82px);
+
+    letter-spacing:
+      -0.075em;
+  }
+
+
+  .intro-animation__line {
+    margin:
+      18px auto
+      14px;
+  }
+
+
+  .intro-animation__subtitle {
+    font-size: 7px;
+
+    letter-spacing:
+      0.27em;
+  }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .intro-animation__eyebrow {
+    font-size: 6px;
+  }
+
+
+  .intro-animation__title {
+    font-size: 18vw;
+  }
+
+
+  .intro-animation__subtitle {
+    font-size: 6px;
+  }
+
+
+  .intro-animation__line {
+    margin-top: 16px;
+    margin-bottom: 13px;
+  }
+}
+
+
+/* =========================================================
+   LANDSCAPE MOBILE
+========================================================= */
+
+@media (
+  max-height: 500px
+) and (
+  orientation: landscape
+) {
+
+  .intro-animation__brand {
+    top: 50%;
+  }
+
+
+  .intro-animation__eyebrow {
+    margin-bottom: 8px;
+  }
+
+
+  .intro-animation__title {
+    font-size:
+      clamp(38px, 9vw, 64px);
+  }
+
+
+  .intro-animation__line {
+    margin:
+      12px auto;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (
+  prefers-reduced-motion: reduce
+) {
+
+  .intro-animation,
+  .intro-animation__overlay,
+  .intro-animation__brand,
+  .intro-animation__title,
+  .intro-animation__eyebrow,
+  .intro-animation__line,
+  .intro-animation__subtitle {
+    animation: none !important;
+
+    transition: none !important;
+
+    filter: none !important;
+
+    transform:
+      translate(-50%, -50%) !important;
+
+    opacity: 1 !important;
+  }
+
+  .intro-animation__overlay {
+    transform: none !important;
+  }
+}

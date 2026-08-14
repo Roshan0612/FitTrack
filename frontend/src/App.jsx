@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import AuthLayout from './layouts/AuthLayout';
@@ -30,15 +31,16 @@ import Transactions from './pages/Admin/subscription/Transactions';
 
 import CreateDietPage from './pages/Admin/CreateDietPage';
 import AdminDietPage from './pages/Admin/AdminDietPage';
-
 import UserDietPage from './pages/User/UserDietPage';
 
+import ExerciseCamera from './components/exercise/ExerciseCamera';
 
-import ExerciseCamera from './components/exercise/ExerciseCamera'
-
+import IntroAnimation from './components/IntroAnimation/IntroAnimation';
 
 
 function App() {
+  const [showIntro, setShowIntro] = useState(true);
+
   return (
     <>
       <Router>
@@ -49,8 +51,6 @@ function App() {
             <Route path="about" element={<About />} />
             <Route path="plans" element={<Plan />} />
             <Route path="dashboard" element={<Dashboard />} /> 
-            
-            
           </Route>
 
           {/* Auth routes */}
@@ -96,7 +96,15 @@ function App() {
             <Route path="dashboard/diets" element={<UserDietPage />} />
           </Route>
         </Routes>
+
+        {/* Intro animation overlay */}
+        {showIntro && (
+          <IntroAnimation
+            onComplete={() => setShowIntro(false)}
+          />
+        )}
       </Router>
+
       <ToastContainer />
     </>
   );
