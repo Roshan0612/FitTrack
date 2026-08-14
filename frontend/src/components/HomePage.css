@@ -1,24 +1,72 @@
+/* =========================================================
+   FITTRACK HOMEPAGE
+   
+   ========================================================= */
+
 .home-shell {
+  width: 100%;
+  min-width: 0;
+  overflow-x: clip;
+
   background:
-    radial-gradient(circle at 20% 20%, rgba(16, 185, 129, 0.12), transparent 26%),
-    radial-gradient(circle at 80% 0%, rgba(255, 255, 255, 0.06), transparent 18%),
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(16, 185, 129, 0.12),
+      transparent 26%
+    ),
+    radial-gradient(
+      circle at 80% 0%,
+      rgba(255, 255, 255, 0.06),
+      transparent 18%
+    ),
     #05070b;
 }
 
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
 .hero-section {
+  position: relative;
+  overflow: hidden;
+
   background:
-    radial-gradient(circle at top left, rgba(16, 185, 129, 0.18), transparent 30%),
-    linear-gradient(180deg, rgba(5, 7, 11, 0.92) 0%, rgba(5, 7, 11, 0.98) 100%);
+    radial-gradient(
+      circle at top left,
+      rgba(16, 185, 129, 0.18),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(5, 7, 11, 0.92) 0%,
+      rgba(5, 7, 11, 0.98) 100%
+    );
 }
 
 .hero-grid {
   position: absolute;
   inset: 0;
+
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px
+    );
+
   background-size: 72px 72px;
-  mask-image: radial-gradient(circle at center, black 40%, transparent 86%);
+
+  mask-image: radial-gradient(
+    circle at center,
+    black 40%,
+    transparent 86%
+  );
+
   opacity: 0.25;
   pointer-events: none;
 }
@@ -33,21 +81,612 @@
 .hero-glow-left {
   left: -6rem;
   top: 12rem;
+
   width: 20rem;
   height: 20rem;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.24), rgba(16, 185, 129, 0.02) 70%);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(16, 185, 129, 0.24),
+      rgba(16, 185, 129, 0.02) 70%
+    );
 }
 
 .hero-glow-right {
   right: -4rem;
   bottom: 5rem;
+
   width: 18rem;
   height: 18rem;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02) 70%);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.12),
+      rgba(255, 255, 255, 0.02) 70%
+    );
 }
+
+
+/* =========================================================
+   SECTIONS
+   ========================================================= */
 
 .section-shell {
   background:
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.04), transparent 36%),
+    radial-gradient(
+      circle at top,
+      rgba(255, 255, 255, 0.04),
+      transparent 36%
+    ),
     #070a0f;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1023px) {
+  .hero-glow-left {
+    left: -8rem;
+    top: 10rem;
+  }
+
+  .hero-glow-right {
+    right: -7rem;
+    bottom: 4rem;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+  .home-shell {
+    width: 100%;
+    overflow-x: clip;
+  }
+
+  /* -----------------------------
+     Hero background
+     ----------------------------- */
+
+  .hero-grid {
+    background-size: 48px 48px;
+
+    mask-image: radial-gradient(
+      circle at center,
+      black 30%,
+      transparent 82%
+    );
+
+    opacity: 0.18;
+  }
+
+  .hero-glow-left {
+    left: -12rem;
+    top: 8rem;
+
+    width: 24rem;
+    height: 24rem;
+
+    filter: blur(30px);
+  }
+
+  .hero-glow-right {
+    right: -12rem;
+    bottom: 8rem;
+
+    width: 22rem;
+    height: 22rem;
+
+    filter: blur(30px);
+  }
+
+
+  /* -----------------------------
+     Hero heading
+     ----------------------------- */
+
+  .hero-section h1 {
+    max-width: 100%;
+
+    font-size: clamp(
+      2.7rem,
+      11vw,
+      4rem
+    );
+
+    line-height: 0.98;
+    letter-spacing: -0.055em;
+
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+
+  /* -----------------------------
+     Hero description
+     ----------------------------- */
+
+  .hero-section p {
+    max-width: 100%;
+  }
+
+
+  /* -----------------------------
+     Hero image
+     ----------------------------- */
+
+  .hero-section img {
+    width: 100%;
+    height: min(76svh, 32rem);
+
+    min-height: 25rem;
+
+    object-fit: cover;
+    object-position: center;
+  }
+
+
+  /* -----------------------------
+     Calories floating card
+     ----------------------------- */
+
+  .hero-calories-card {
+    left: -0.35rem !important;
+    top: 1.5rem !important;
+
+    width: 9.5rem !important;
+
+    padding: 0.85rem !important;
+  }
+
+  .hero-calories-card .text-2xl {
+    font-size: 1.35rem;
+  }
+
+
+  /* -----------------------------
+     Coach floating card
+     ----------------------------- */
+
+  .hero-coach-card {
+    right: -0.35rem !important;
+    bottom: 2rem !important;
+
+    width: 12.5rem !important;
+
+    padding: 0.85rem !important;
+  }
+
+  .hero-coach-card .size-10 {
+    width: 2.25rem;
+    height: 2.25rem;
+
+    flex-shrink: 0;
+  }
+
+
+  /* -----------------------------
+     Scroll indicator
+     ----------------------------- */
+
+  .hero-scroll-indicator {
+    bottom: -1.5rem !important;
+
+    padding: 0.45rem 0.8rem !important;
+
+    font-size: 0.6rem !important;
+    letter-spacing: 0.18em !important;
+
+    white-space: nowrap;
+  }
+
+
+  /* -----------------------------
+     General headings
+     ----------------------------- */
+
+  section h2 {
+    font-size: clamp(
+      2rem,
+      8vw,
+      3rem
+    );
+
+    line-height: 1.05;
+    letter-spacing: -0.045em;
+  }
+
+
+  /* -----------------------------
+     About
+     ----------------------------- */
+
+  #about {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+
+  /* -----------------------------
+     Plans
+     ----------------------------- */
+
+  #plans {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  #plans .mt-14 {
+    margin-top: 2.5rem;
+  }
+
+  #plans .p-6 {
+    padding: 1.25rem;
+  }
+
+
+  /* -----------------------------
+     Testimonials
+     ----------------------------- */
+
+  .section-shell {
+    min-width: 0;
+  }
+
+
+  /* -----------------------------
+     Final CTA
+     ----------------------------- */
+
+  .home-cta {
+    width: 100%;
+    min-width: 0;
+  }
+
+
+  /* -----------------------------
+     Footer
+     ----------------------------- */
+
+  footer {
+    overflow: hidden;
+  }
+
+  footer .flex {
+    min-width: 0;
+  }
+
+  footer a {
+    max-width: 100%;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+  /* -----------------------------
+     Hero spacing
+     ----------------------------- */
+
+  .hero-section
+    > .mx-auto {
+    padding-top: 5.5rem;
+    padding-bottom: 5rem;
+  }
+
+
+  /* -----------------------------
+     Hero heading
+     ----------------------------- */
+
+  .hero-section h1 {
+    font-size: clamp(
+      2.5rem,
+      12vw,
+      3.25rem
+    );
+
+    line-height: 0.96;
+  }
+
+
+  /* -----------------------------
+     Hero buttons
+     ----------------------------- */
+
+  .hero-buttons {
+    gap: 0.75rem;
+  }
+
+  .hero-buttons a {
+    width: 100%;
+  }
+
+
+  /* -----------------------------
+     Hero stats
+     ----------------------------- */
+
+  .hero-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 0.65rem;
+  }
+
+  .hero-stats > div {
+    min-width: 0;
+
+    padding: 0.85rem;
+
+    border-radius: 1.15rem;
+  }
+
+  .hero-stats .text-xs {
+    font-size: 0.57rem;
+    line-height: 1.3;
+
+    letter-spacing: 0.13em;
+  }
+
+  .hero-stats .text-3xl {
+    margin-top: 0.5rem;
+
+    font-size: 1.65rem;
+  }
+
+
+  /* -----------------------------
+     Hero image
+     ----------------------------- */
+
+  .hero-section img {
+    height: 28rem;
+    min-height: 0;
+
+    border-radius: 1.25rem;
+  }
+
+  .hero-image-frame {
+    padding: 0.55rem !important;
+    border-radius: 1.5rem !important;
+  }
+
+
+  /* -----------------------------
+     Floating cards
+     ----------------------------- */
+
+  .hero-calories-card {
+    left: -0.45rem !important;
+    top: 1rem !important;
+
+    width: 8.7rem !important;
+  }
+
+  .hero-coach-card {
+    right: -0.45rem !important;
+    bottom: 1.25rem !important;
+
+    width: 11.5rem !important;
+  }
+
+  .hero-coach-card .text-xs {
+    font-size: 0.65rem;
+  }
+
+  .hero-coach-card .text-sm {
+    font-size: 0.75rem;
+  }
+
+
+  /* -----------------------------
+     About / plans
+     ----------------------------- */
+
+  #about,
+  #plans {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+
+  /* -----------------------------
+     Feature cards
+     ----------------------------- */
+
+  #about .rounded-\[1\.6rem\] {
+    padding: 1.25rem;
+  }
+
+  #about .mt-6 {
+    margin-top: 1rem;
+  }
+
+
+  /* -----------------------------
+     Pricing
+     ----------------------------- */
+
+  #plans .rounded-\[1\.8rem\] {
+    border-radius: 1.4rem;
+  }
+
+  #plans .p-6 {
+    padding: 1.15rem;
+  }
+
+  #plans .text-4xl {
+    font-size: 2rem;
+  }
+
+  #plans .min-h-14 {
+    min-height: auto;
+  }
+
+
+  /* -----------------------------
+     Testimonials
+     ----------------------------- */
+
+  .section-shell {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .section-shell .rounded-\[1\.75rem\] {
+    padding: 1.25rem;
+    border-radius: 1.4rem;
+  }
+
+
+  /* -----------------------------
+     Final CTA
+     ----------------------------- */
+
+  .home-cta {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .home-cta > div {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+
+    border-radius: 1.5rem;
+  }
+
+  .home-cta h2 {
+    font-size: 2rem;
+    line-height: 1.05;
+  }
+
+  .cta-buttons {
+    width: 100%;
+  }
+
+  .cta-buttons a {
+    width: 100%;
+  }
+
+
+  /* -----------------------------
+     Footer
+     ----------------------------- */
+
+  footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    padding-top: 4rem;
+    padding-bottom: 2.5rem;
+  }
+
+  footer .text-xl {
+    font-size: 1.05rem;
+  }
+
+  footer .mt-10 {
+    margin-top: 2rem;
+  }
+
+  footer .border-t {
+    padding-top: 1.25rem;
+  }
+}
+
+
+/* =========================================================
+   EXTRA SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 390px) {
+  .hero-section
+    > .mx-auto {
+    padding-left: 0.9rem;
+    padding-right: 0.9rem;
+  }
+
+  .hero-section h1 {
+    font-size: 2.4rem;
+  }
+
+  .hero-section img {
+    height: 25rem;
+  }
+
+  .hero-calories-card {
+    width: 8rem !important;
+
+    padding: 0.7rem !important;
+  }
+
+  .hero-coach-card {
+    width: 10.5rem !important;
+
+    padding: 0.7rem !important;
+  }
+
+  .hero-calories-card .text-2xl {
+    font-size: 1.2rem;
+  }
+
+  .hero-stats .text-3xl {
+    font-size: 1.45rem;
+  }
+}
+
+
+/* =========================================================
+   LANDSCAPE MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) and (orientation: landscape) {
+  .hero-section
+    > .mx-auto {
+    min-height: auto;
+    padding-top: 6rem;
+    padding-bottom: 5rem;
+  }
+
+  .hero-section img {
+    height: 30rem;
+  }
+}
+
+
+/* =========================================================
+   TOUCH DEVICES
+   ========================================================= */
+
+@media (hover: none) and (pointer: coarse) {
+  .home-shell a,
+  .home-shell button {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .home-shell *,
+  .home-shell *::before,
+  .home-shell *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
