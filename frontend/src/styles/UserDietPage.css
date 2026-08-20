@@ -12,6 +12,7 @@
   min-height: 100vh;
   display: flex;
   position: relative;
+  min-width: 0;
 }
 
 /* Mobile toggle button */
@@ -66,6 +67,7 @@
   padding: 2rem;
   margin-left: 250px;
   color: white;
+  min-width: 0;
 }
 
 @media (max-width: 767px) {
@@ -85,7 +87,7 @@
 /* Diet grid */
 .diet-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: 20px;
 }
 
@@ -125,4 +127,14 @@
 .diet-card p {
   font-size: 14px;
   color: #fcfbfd;
+}
+
+@media (max-width: 480px) {
+  .diet-title {
+    font-size: 1.5rem;
+  }
+
+  .diet-card {
+    padding: 1rem;
+  }
 }

@@ -73,6 +73,7 @@ body, html, #root {
   z-index: 5;
   position: relative;
   color: white;
+  min-width: 0;
 }
 .page-title {
   font-size: 1.875rem;
@@ -100,7 +101,7 @@ body, html, #root {
 .users-grid {
   display: grid;
   gap: 1.25rem;
-  grid-template-columns: repeat(auto-fit, minmax(230px,1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%),1fr));
 }
 .user-card {
   background: rgba(255,255,255,0.08);
@@ -214,4 +215,18 @@ body, html, #root {
 .assign-task-button{
   background-color: #3b82f6; /* Tailwind blue-500 */
   color: white;
+}
+
+@media (max-width: 767px) {
+  .main-content {
+    padding: 1rem;
+  }
+
+  .filter-buttons {
+    flex-wrap: wrap;
+  }
+
+  .user-card .assign-diet {
+    margin-left: 0;
+  }
 }
