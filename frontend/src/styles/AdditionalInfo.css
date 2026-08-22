@@ -16,6 +16,7 @@
   flex: 1;
   padding: 2rem;
   color: white;
+  min-width: 0;
 }
 
 .info-title {
@@ -67,7 +68,7 @@
 
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: 1rem;
 }
 
@@ -119,6 +120,25 @@
   transform: translateY(-1px);
   box-shadow: 0 24px 55px rgba(16, 185, 129, 0.3);
   filter: brightness(1.03);
+}
+
+@media (max-width: 480px) {
+  .info-content {
+    padding: 1rem;
+  }
+
+  .info-card {
+    padding: 1.25rem;
+    border-radius: 10px;
+  }
+
+  .info-title {
+    font-size: 1.5rem;
+  }
+
+  .submit-btn {
+    width: 100%;
+  }
 }
 
 .user-hamburger {

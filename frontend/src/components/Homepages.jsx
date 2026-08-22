@@ -591,22 +591,22 @@ const Homepages = () => {
               </div>
 
 
-              <div className="mt-14 grid gap-6 lg:grid-cols-3">
-                {premiumPlanCards.map((plan) => (
-                  <div
-                    key={plan._id}
-                    className={`relative overflow-hidden rounded-[1.8rem] border border-white/10 bg-white/5 text-white shadow-[0_20px_70px_rgba(0,0,0,0.28)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 ${
-                      plan.featured
-                        ? 'ring-1 ring-emerald-400/35'
-                        : ''
-                    }`}
-                  >
+          <div className="mt-14 grid gap-6 lg:grid-cols-3">
+            {premiumPlanCards.map((plan) => (
+              <div
+                key={plan._id}
+                className={`relative overflow-hidden rounded-[1.8rem] border border-white/10 bg-white/5 text-white shadow-[0_20px_70px_rgba(0,0,0,0.28)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 ${
+                  plan.featured
+                    ? 'ring-1 ring-emerald-400/35'
+                    : ''
+                }`}
+              >
 
                     {plan.featured && (
                       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-300 to-transparent" />
                     )}
 
-                    <div className="p-6">
+                <div className="p-6">
 
                       <div className="flex items-start justify-between gap-4">
 
@@ -653,7 +653,7 @@ const Homepages = () => {
                       </div>
 
 
-                      <div className="mt-6 space-y-3">
+                  <div className="mt-6 space-y-3">
 
                         {!isAuthenticated ? (
                           <Link

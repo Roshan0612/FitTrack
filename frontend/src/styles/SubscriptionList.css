@@ -1,11 +1,14 @@
 /* Table Wrapper */
 .subscription-table-wrapper {
   overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Table Styling */
 .subscription-table {
   width: 100%;
+  min-width: 620px;
   border-collapse: collapse;
   font-size: 15px;
   background-color: #ffffff;
