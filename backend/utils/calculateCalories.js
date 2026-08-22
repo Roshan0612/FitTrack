@@ -1,4 +1,3 @@
-// utils/calculateCalories.js
 function calculateCalories({ age, height, weight, gender, activityLevel, goal }) {
   if (!age || !height || !weight || !gender || !activityLevel || !goal) return null;
 

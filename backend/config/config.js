@@ -1,7 +1,6 @@
 const dotenv = require("dotenv");
 const Razorpay = require("razorpay");
 
-// Load environment variables
 dotenv.config();
 
 if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {

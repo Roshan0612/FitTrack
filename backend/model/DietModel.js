@@ -4,7 +4,7 @@ const dietSchema = new mongoose.Schema({
   name: { type: String, required: true },
   category: {
     type: String,
-    enum: ["veg", "non-veg"], // ✅ Removed "vegan"
+    enum: ["veg", "non-veg"],
     required: true
   },
   gifUrl: { type: String },

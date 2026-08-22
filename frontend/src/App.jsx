@@ -45,7 +45,6 @@ function App() {
     <>
       <Router>
         <Routes>
-          {/* Public routes */}
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Homepages />} />
             <Route path="about" element={<About />} />
@@ -53,7 +52,6 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} /> 
           </Route>
 
-          {/* Auth routes */}
           <Route path="/auth" element={<AuthLayout />}>
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
@@ -65,10 +63,8 @@ function App() {
             element={<ExerciseCamera />}
           />
 
-          {/* Reset password route (not inside layout) */}
           <Route path="/reset-password/:token" element={<ResetPassword />} />
 
-          {/* Admin routes inside AdminLayout */}
           <Route path="/admin" element={<AdminProtectedRoute />}>
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="dashboard/users" element={<AdminUsersPage />} />
@@ -86,7 +82,6 @@ function App() {
             <Route path="/admin/dashboard/assign-diet/:userId" element={<AdminDietPage />} />
           </Route>
 
-          {/* User protected routes */}
           <Route path="/user" element={<Userprotectedroute />}>
             <Route path="dashboard" element={<Userdashboard />} />
             <Route path="dashboard/add-info" element={<AdditionalInfo />} />
@@ -97,7 +92,6 @@ function App() {
           </Route>
         </Routes>
 
-        {/* Intro animation overlay */}
         {showIntro && (
           <IntroAnimation
             onComplete={() => setShowIntro(false)}

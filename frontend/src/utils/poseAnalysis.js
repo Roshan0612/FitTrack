@@ -2,10 +2,6 @@
 import { calculateAngle } from "./poseUtils";
 
 
-// ==========================================
-// CALCULATE MULTIPLE ANGLES
-// ==========================================
-
 export const calculatePoseAngles = (
   landmarks,
   angleDefinitions
