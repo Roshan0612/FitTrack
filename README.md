@@ -291,10 +291,7 @@ The repository does not include a license file or a confirmed license declaratio
 
 ## Manual Information Required
 
-- [ ] Add the verified live frontend URL.
-- [ ] Add the GitHub repository URL.
-- [ ] Add screenshots of the main workflows.
-- [ ] Add an optional demo video or GIF.
-- [ ] Add safe demo credentials if a public demo account exists.
-- [ ] Add author and profile links.
-- [ ] Decide on a project license.
+- [https://fittrack-frontend-90dm.onrender.com/]  live frontend URL.
+- [https://github.com/Roshan0612/FitTrack]  GitHub repository URL.
+- [Roshan Gawade ]  author.
+
