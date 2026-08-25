@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import AuthLayout from './layouts/AuthLayout';
-import Dashboard from './components/Dashboard'; 
 import Login from './pages/Auth/Login';
 import Signup from './pages/Auth/Signup';
 import About from './pages/About';
@@ -36,6 +35,22 @@ import UserDietPage from './pages/User/UserDietPage';
 import ExerciseCamera from './components/exercise/ExerciseCamera';
 
 import IntroAnimation from './components/IntroAnimation/IntroAnimation';
+import { useAuth } from './context/Auth';
+
+const DashboardRedirect = () => {
+  const [auth] = useAuth();
+
+  if (!auth?.user) {
+    return <Navigate to="/auth/login" replace />;
+  }
+
+  return (
+    <Navigate
+      to={auth.user.role === 'admin' ? '/admin/dashboard' : '/user/dashboard'}
+      replace
+    />
+  );
+};
 
 
 function App() {
@@ -49,7 +64,7 @@ function App() {
             <Route index element={<Homepages />} />
             <Route path="about" element={<About />} />
             <Route path="plans" element={<Plan />} />
-            <Route path="dashboard" element={<Dashboard />} /> 
+            <Route path="dashboard" element={<DashboardRedirect />} />
           </Route>
 
           <Route path="/auth" element={<AuthLayout />}>

@@ -16,6 +16,8 @@ const solidButtonClass =
 const softButtonClass =
   'inline-flex h-10 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-white/10 hover:shadow-[0_14px_32px_rgba(0,0,0,0.22)]';
 
+const MotionDiv = motion.div;
+
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -72,7 +74,7 @@ const Header = () => {
         <div className="hidden items-center gap-3 lg:flex">
           {auth?.user?.role ? (
             <Link
-              to={auth.user.role === 'admin' ? '/admin/dashboard' : '/user/dashboard'}
+              to="/dashboard"
               className={softButtonClass}
             >
               <UserCircle2 className="mr-2 size-4" />
@@ -109,7 +111,7 @@ const Header = () => {
 
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
@@ -130,7 +132,7 @@ const Header = () => {
 
               {auth?.user?.role ? (
                 <Link
-                  to={auth.user.role === 'admin' ? '/admin/dashboard' : '/user/dashboard'}
+                  to="/dashboard"
                   onClick={() => setMenuOpen(false)}
                   className={`${solidButtonClass} mt-2 h-11 w-full`}
                 >
@@ -155,7 +157,7 @@ const Header = () => {
                 </div>
               )}
             </div>
-          </motion.div>
+          </MotionDiv>
         )}
       </AnimatePresence>
     </header>
