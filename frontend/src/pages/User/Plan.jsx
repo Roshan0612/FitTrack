@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../context/Auth';
 import handleSubscribe from './HandleSubscribe';
+import {
+  cacheSubscriptionPlans,
+  getCachedSubscriptionPlans,
+} from '../../lib/subscriptionPlans';
 const API_URL = import.meta.env.VITE_API_URL;
 
 const Plan = () => {
-  const [plans, setPlans] = useState([]);
+  const [plans, setPlans] = useState(getCachedSubscriptionPlans);
   const [auth] = useAuth();
   const [couponCodes, setCouponCodes] = useState({});
   const [discountedPrices, setDiscountedPrices] = useState({});
@@ -17,6 +21,7 @@ const Plan = () => {
         const res = await axios.get(`${API_URL}/api/v1/subscription/subscriptions`, {
           headers: { Authorization: auth?.token },
         });
+        cacheSubscriptionPlans(res.data);
         setPlans(res.data);
       } catch (err) {
         console.error("Failed to load plans:", err);

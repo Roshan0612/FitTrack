@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/Auth';
 import handleSubscribe from '../pages/User/HandleSubscribe';
+import {
+  cacheSubscriptionPlans,
+  getCachedSubscriptionPlans,
+} from '../lib/subscriptionPlans';
 
 import {
   ArrowRight,
@@ -16,8 +20,6 @@ import {
   Star,
   Zap,
 } from 'lucide-react';
-
-import IntroAnimation from '../components/IntroAnimation/IntroAnimation';
 
 import './HomePage.css';
 
@@ -69,10 +71,8 @@ const testimonials = [
   },
 ];
 
-const Homepages = () => {
-  const [introComplete, setIntroComplete] = useState(false);
-
-  const [plans, setPlans] = useState([]);
+const Homepages = ({ introComplete }) => {
+  const [plans, setPlans] = useState(getCachedSubscriptionPlans);
   const [auth] = useAuth();
   const [couponCodes, setCouponCodes] = useState({});
   const [discountedPrices, setDiscountedPrices] = useState({});
@@ -103,6 +103,7 @@ const Homepages = () => {
           `${API_URL}/api/v1/subscription/subscriptions`
         );
 
+        cacheSubscriptionPlans(res.data);
         setPlans(res.data);
       } catch (err) {
         console.error('Failed to fetch plans', err);
@@ -145,16 +146,6 @@ const Homepages = () => {
 
   return (
     <>
-      {/* =====================================================
-          CINEMATIC INTRO
-          ===================================================== */}
-
-      {!introComplete && (
-        <IntroAnimation
-          onComplete={() => setIntroComplete(true)}
-        />
-      )}
-
       {/* =====================================================
           MAIN WEBSITE
           ===================================================== */}

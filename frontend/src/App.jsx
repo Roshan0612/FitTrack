@@ -61,7 +61,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<MainLayout />}>
-            <Route index element={<Homepages />} />
+            <Route index element={<Homepages introComplete={!showIntro} />} />
             <Route path="about" element={<About />} />
             <Route path="plans" element={<Plan />} />
             <Route path="dashboard" element={<DashboardRedirect />} />

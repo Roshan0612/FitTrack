@@ -1,19 +1,8 @@
-"use client";
-
 import React, {
-  Component,
   useEffect,
   useRef,
   useState,
 } from "react";
-
-import { Canvas } from "@react-three/fiber";
-import {
-  AdaptiveDpr,
-  Preload,
-} from "@react-three/drei";
-
-import FitnessSquatScene from "./FitnessSquatScene.jsx";
 
 import "./IntroAnimation.css";
 
@@ -22,45 +11,25 @@ import "./IntroAnimation.css";
    TIMING
 ========================================================= */
 
-const INTRO_DURATION = 4600;
+const INTRO_DURATION = 10450;
 
-const EXIT_START = 3950;
+const EXIT_START = 10000;
 
+const INTRO_STILLS = [
+  "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=2000&q=85",
+  "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=2000&q=85",
+  "https://images.unsplash.com/photo-1534258936925-c58bed479fcb?auto=format&fit=crop&w=2000&q=85",
+  "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=2000&q=85",
+];
 
-/* =========================================================
-   ERROR BOUNDARY
-========================================================= */
+const INTRO_WORDS = [
+  { key: "transform", text: "TRANSFORM" },
+  { key: "elevate", text: "ELEVATE" },
+  { key: "endure", text: "ENDURE" },
+  { key: "empower", text: "EMPOWER" },
+];
 
-class SceneErrorBoundary extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      hasError: false,
-    };
-  }
-
-  static getDerivedStateFromError() {
-    return {
-      hasError: true,
-    };
-  }
-
-  componentDidCatch(error) {
-    console.error(
-      "FitTrack intro scene error:",
-      error
-    );
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return null;
-    }
-
-    return this.props.children;
-  }
-}
+const LABEL_MERGE_OFFSETS = ["-37.5vw", "-12.5vw", "12.5vw", "37.5vw"];
 
 
 /* =========================================================
@@ -70,14 +39,24 @@ class SceneErrorBoundary extends Component {
 function IntroAnimation({
   onComplete,
 }) {
+  const onCompleteRef =
+    useRef(onComplete);
+
+  onCompleteRef.current = onComplete;
+
   const completedRef =
     useRef(false);
 
   const [isExiting, setIsExiting] =
     useState(false);
 
-  const [sceneFailed, setSceneFailed] =
-    useState(false);
+  const [beatIndex, setBeatIndex] =
+    useState(0);
+
+  const visibleStillCount = Math.min(
+    INTRO_STILLS.length,
+    beatIndex + 1
+  );
 
 
   /* =======================================================
@@ -85,6 +64,10 @@ function IntroAnimation({
   ======================================================= */
 
   useEffect(() => {
+    const beatTimer = window.setInterval(() => {
+      setBeatIndex((current) => Math.min(current + 1, 4));
+    }, 2000);
+
     const exitTimer =
       window.setTimeout(() => {
         setIsExiting(true);
@@ -99,16 +82,14 @@ function IntroAnimation({
 
         completedRef.current = true;
 
-        if (
-          typeof onComplete ===
-          "function"
-        ) {
-          onComplete();
+        if (typeof onCompleteRef.current === "function") {
+          onCompleteRef.current();
         }
       }, INTRO_DURATION);
 
 
     return () => {
+      window.clearInterval(beatTimer);
       window.clearTimeout(
         exitTimer
       );
@@ -117,108 +98,62 @@ function IntroAnimation({
         completeTimer
       );
     };
-  }, [onComplete]);
-
-
-  /* =======================================================
-     THREE FAILURE FALLBACK
-  ======================================================= */
-
-  useEffect(() => {
-    if (!sceneFailed) {
-      return;
-    }
-
-    setIsExiting(true);
-
-    const fallbackTimer =
-      window.setTimeout(() => {
-        if (completedRef.current) {
-          return;
-        }
-
-        completedRef.current = true;
-
-        if (
-          typeof onComplete ===
-          "function"
-        ) {
-          onComplete();
-        }
-      }, 500);
-
-
-    return () => {
-      window.clearTimeout(
-        fallbackTimer
-      );
-    };
-  }, [
-    sceneFailed,
-    onComplete,
-  ]);
+  }, []);
 
 
   return (
     <div
       className={
-        isExiting
-          ? "intro-animation intro-animation--exit"
-          : "intro-animation"
+        `intro-animation intro-animation--beat-${beatIndex} intro-animation--stage-${visibleStillCount}${
+          isExiting ? " intro-animation--exit" : ""
+        }`
       }
     >
 
-      {/* =================================================
-          3D SCENE
-      ================================================= */}
+      <div className="intro-animation__stills">
+        {INTRO_STILLS.map((src, index) => {
+          const isVisible = index < visibleStillCount;
+          const isCurrent = beatIndex < INTRO_WORDS.length && index === beatIndex;
+          const isSettled = index < beatIndex;
+          const word = INTRO_WORDS[index];
 
-      <div className="intro-animation__scene">
-
-        {!sceneFailed && (
-          <SceneErrorBoundary>
-            <Canvas
-              shadows
-              dpr={[1, 1.5]}
-              camera={{
-                position: [
-                  0,
-                  2.6,
-                  9.5,
-                ],
-                fov: 38,
-                near: 0.1,
-                far: 100,
-              }}
-              gl={{
-                antialias: true,
-                alpha: false,
-                powerPreference:
-                  "high-performance",
-              }}
-              onCreated={({ gl }) => {
-                gl.setClearColor(
-                  "#05070b",
-                  1
-                );
-              }}
-              onError={(error) => {
-                console.error(
-                  "FitTrack Canvas error:",
-                  error
-                );
-
-                setSceneFailed(true);
+          return (
+            <div
+              key={src}
+              className={`intro-animation__panel${
+                isVisible ? " is-visible" : ""
+              }${isCurrent ? " is-current" : ""}${
+                isSettled ? " is-settled" : ""
+              }`}
+              style={{
+                "--still-index": index,
+                "--panel-center": `${((index + 0.5) / visibleStillCount) * 100}%`,
+                "--merge-x": LABEL_MERGE_OFFSETS[index],
               }}
             >
-              <FitnessSquatScene />
-
-              <AdaptiveDpr />
-
-              <Preload all />
-            </Canvas>
-          </SceneErrorBoundary>
-        )}
-
+              <img
+                src={src}
+                alt=""
+                aria-hidden="true"
+                loading="eager"
+                decoding="async"
+                fetchPriority={index === 0 ? "high" : "auto"}
+                draggable="false"
+              />
+              <span
+                className={`intro-animation__word intro-animation__word--${word.key}`}
+                aria-hidden="true"
+              >
+                {index === 0 ? (
+                  <>
+                    <span className="intro-animation__word-rough">{word.text}</span>
+                    <span className="intro-animation__word-clean">{word.text}</span>
+                  </>
+                ) : word.text}
+              </span>
+            </div>
+          );
+        })}
       </div>
 
 
@@ -231,29 +166,46 @@ function IntroAnimation({
 
       <div className="intro-animation__vignette" />
 
+      <div className="intro-animation__slash" />
+
+      <div className="intro-animation__shot-counter" aria-hidden="true">
+        <span>{String(beatIndex + 1).padStart(2, "0")}</span> / 05
+      </div>
+
+      <div className="intro-animation__shot-progress" aria-hidden="true">
+        {Array.from({ length: 5 }, (_, index) => (
+          <span
+            key={index}
+            className={index === beatIndex ? "is-active" : ""}
+          />
+        ))}
+      </div>
+
 
       {/* =================================================
           BRAND
       ================================================= */}
 
       <div className="intro-animation__brand">
+        <div className="intro-animation__finale">
+          <div className="intro-animation__ecg" aria-hidden="true" />
+          <h1 className="intro-animation__title" aria-label="FitTrack">
+            {Array.from("FitTrack", (letter, index) => (
+            <span
+              key={`${letter}-${index}`}
+              className="intro-animation__glyph"
+              aria-hidden="true"
+              style={{ animationDelay: `${0.12 + index * 0.055}s` }}
+            >
+              {letter}
+            </span>
+          ))}
+          </h1>
 
-        <div className="intro-animation__eyebrow">
-          YOUR TRAINING. YOUR PROGRESS.
+          <p className="intro-animation__subtitle">
+            TRAIN WITH PURPOSE. BUILD A BETTER YOU.
+          </p>
         </div>
-
-
-        <h1 className="intro-animation__title">
-          FIT<span>TRACK</span>
-        </h1>
-
-
-        <div className="intro-animation__line" />
-
-
-        <p className="intro-animation__subtitle">
-          TRAIN WITH PURPOSE.
-        </p>
 
       </div>
 
