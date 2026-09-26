@@ -10,8 +10,8 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 
-const GREEN = "#10b981";
-const GREEN_BRIGHT = "#34d399";
+const GREEN = "#b96d31";
+const GREEN_BRIGHT = "#f2b56f";
 
 const SKIN = "#8b5a42";
 const SKIN_DARK = "#5d382b";
@@ -732,7 +732,7 @@ function Athlete({ progressRef }) {
         />
 
         <Material
-          color={BODY_COLOR}
+          color={SHORTS}
           roughness={0.82}
         />
       </mesh>
@@ -775,7 +775,7 @@ function Athlete({ progressRef }) {
         />
 
         <Material
-          color={BODY_COLOR}
+          color={SHORTS}
           roughness={0.82}
         />
       </mesh>
